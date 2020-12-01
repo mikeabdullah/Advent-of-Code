@@ -219,5 +219,12 @@ extension Set where Element == Int {
   }
 }
 
-let (a, b) = Set(input).pair(summingTo: 2020)!
-a*b
+for a in input {
+  
+  let remainder = 2020 - a
+  
+  let candidates = Set(input.filter { $0 < remainder })
+  if let (b, c) = candidates.pair(summingTo: remainder) {
+    print(a * b * c)
+  }
+}
