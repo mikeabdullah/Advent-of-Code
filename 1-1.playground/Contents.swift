@@ -203,12 +203,23 @@ let input = [
 1975,
 ]
 
-let entries = Set(input)
-
-for a in input {
+extension Sequence where Element == Int {
   
-  let b = 2020 - a
-  if entries.contains(b) {
-    print(a * b)
+  /// - Complexity: O(n)
+  func pair(summingTo sum: Element) -> (Element, Element)? {
+    
+    let entries = Set(self)
+    
+    for a in self {
+      let b = sum - a
+      if entries.contains(b) {
+        return (a, b)
+      }
+    }
+    
+    return nil
   }
 }
+
+let (a, b) = input.pair(summingTo: 2020)!
+a*b
