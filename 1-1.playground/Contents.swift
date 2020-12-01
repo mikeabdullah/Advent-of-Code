@@ -203,16 +203,14 @@ let input = [
 1975,
 ]
 
-extension Sequence where Element == Int {
+extension Set where Element == Int {
   
   /// - Complexity: O(n)
   func pair(summingTo sum: Element) -> (Element, Element)? {
-    
-    let entries = Set(self)
-    
+        
     for a in self {
       let b = sum - a
-      if entries.contains(b) {
+      if self.contains(b) {
         return (a, b)
       }
     }
@@ -221,5 +219,5 @@ extension Sequence where Element == Int {
   }
 }
 
-let (a, b) = input.pair(summingTo: 2020)!
+let (a, b) = Set(input).pair(summingTo: 2020)!
 a*b
