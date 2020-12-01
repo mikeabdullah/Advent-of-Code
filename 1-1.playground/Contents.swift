@@ -205,9 +205,10 @@ let input = [
 
 let entries = Set(input)
 
-for entry in input {
-  let requiredPair = 2020 - entry
-  if entries.contains(requiredPair) {
-    print(entry * requiredPair)
+for a in input {
+  
+  let b = 2020 - a
+  if entries.contains(b) {
+    print(a * b)
   }
 }
