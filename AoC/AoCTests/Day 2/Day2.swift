@@ -9,22 +9,27 @@
 import XCTest
 
 class Day2: XCTestCase {
-
-    func testPart1() throws {
+    
+    lazy var passwordsAndPolicies: [(password: Substring, policy: Policy)] = {
+        
         let location = Bundle(for: Day2.self).url(forResource: "input-2", withExtension: "txt")!
-        let input = try String(contentsOf: location)
+        let input = try! String(contentsOf: location)
         let lines = input.split(separator: "\n")
         
-        let passwordsAndPolicies: [(passwod: Substring, policy: Policy)] = lines.reduce(into: [], { result, line in
+        return lines.reduce(into: [], { result, line in
             let separation = line.range(of: ": ")!
             let password = line.suffix(from: separation.upperBound)
             let policy = Policy(line.prefix(upTo: separation.lowerBound))
             result.append((password, policy))
         })
+    }()
+
+    func testPart1() throws {
+        
+        let input = passwordsAndPolicies
         
         measure {
-            
-            let validPasswords = passwordsAndPolicies.count { password, policy in
+            let validPasswords = input.count { password, policy in
                 policy.validate1(password)
             }
 
