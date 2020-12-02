@@ -25,18 +25,18 @@ class Day2: XCTestCase {
         measure {
             
             let validPasswords = passwordsAndPolicies.count { password, policy in
-                policy.validate(password)
+                policy.validate1(password)
             }
 
-            print(validPasswords)
+            XCTAssertEqual(validPasswords, 550)
         }
     }
     
     struct Policy : Hashable {
         /// The letter the policy controls
         let character: Character
-        /// The max and min times the letter can appear
-        let range: ClosedRange<Int>
+        let position1: Int
+        let position2: Int
         
         init(_ string: Substring) {
             let space = string.range(of: " ")!
@@ -44,14 +44,13 @@ class Day2: XCTestCase {
             
             let rangeString = string.prefix(upTo: space.lowerBound)
             let separator = rangeString.range(of: "-")!
-            let lowerBound = Int(rangeString.prefix(upTo: separator.lowerBound))!
-            let upperBound = Int(rangeString.suffix(from: separator.upperBound))!
-            self.range = lowerBound...upperBound
+            self.position1 = Int(rangeString.prefix(upTo: separator.lowerBound))!
+            self.position2 = Int(rangeString.suffix(from: separator.upperBound))!
         }
         
-        func validate(_ password: Substring) -> Bool {
+        func validate1(_ password: Substring) -> Bool {
             let occurrences = password.count(of: character)
-            return range.contains(occurrences)
+            return occurrences >= position1 && occurrences <= position2
         }
     }
 }
