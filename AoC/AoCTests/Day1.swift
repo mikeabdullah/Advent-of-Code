@@ -8,7 +8,7 @@
 
 import XCTest
 
-class AoCTests: XCTestCase {
+class Day1: XCTestCase {
     
     func testPart1() {
         measure {
