@@ -223,3 +223,19 @@ class AoCTests: XCTestCase {
         1791,
         1975]
 }
+
+extension Set where Element == Int {
+  
+  /// - Complexity: O(n)
+  func pair(summingTo sum: Element) -> (Element, Element)? {
+        
+    for a in self {
+      let b = sum - a
+      if self.contains(b) {
+        return (a, b)
+      }
+    }
+    
+    return nil
+  }
+}
