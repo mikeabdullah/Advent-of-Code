@@ -15,16 +15,16 @@ class Day2: XCTestCase {
         let input = try String(contentsOf: location)
         let lines = input.split(separator: "\n")
         
-        let passwordsByPolicy: [Policy: Substring] = lines.reduce(into: [:], { dict, line in
+        let passwordsAndPolicies: [(passwod: Substring, policy: Policy)] = lines.reduce(into: [], { result, line in
             let separation = line.range(of: ": ")!
             let password = line.suffix(from: separation.upperBound)
             let policy = Policy(line.prefix(upTo: separation.lowerBound))
-            dict[policy] = password
+            result.append((password, policy))
         })
         
         measure {
             
-            let validPasswords = passwordsByPolicy.lazy.filter { policy, password in
+            let validPasswords = passwordsAndPolicies.filter { password, policy in
                 policy.validate(password)
             }
 
