@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27B7EA632577802E00A49017 /* AoCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA622577802E00A49017 /* AoCTests.swift */; };
+		27B7EA632577802E00A49017 /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA622577802E00A49017 /* Day1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		27B7EA532577800100A49017 /* AoC.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B7EA562577800100A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B7EA602577802E00A49017 /* AoCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		27B7EA622577802E00A49017 /* AoCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AoCTests.swift; sourceTree = "<group>"; };
+		27B7EA622577802E00A49017 /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
 		27B7EA642577802E00A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,7 +67,7 @@
 		27B7EA612577802E00A49017 /* AoCTests */ = {
 			isa = PBXGroup;
 			children = (
-				27B7EA622577802E00A49017 /* AoCTests.swift */,
+				27B7EA622577802E00A49017 /* Day1.swift */,
 				27B7EA642577802E00A49017 /* Info.plist */,
 			);
 			path = AoCTests;
@@ -176,7 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27B7EA632577802E00A49017 /* AoCTests.swift in Sources */,
+				27B7EA632577802E00A49017 /* Day1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
