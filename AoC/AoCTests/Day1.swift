@@ -13,7 +13,7 @@ class AoCTests: XCTestCase {
     func testPart1() {
         measure {
             let entries = Set(input)
-            let (a, b) = entries.combination(summingTo: 2020)!
+            let (a, b) = entries.firstCombination(summingTo: 2020)!
             print(a*b)
         }
     }
@@ -25,7 +25,7 @@ class AoCTests: XCTestCase {
               let remainder = 2020 - a
               
               let candidates = Set(input.filter { $0 < remainder })
-              if let (b, c) = candidates.combination(summingTo: remainder) {
+              if let (b, c) = candidates.firstCombination(summingTo: remainder) {
                 print(a * b * c)
               }
             }
@@ -239,7 +239,7 @@ extension Set where Element == Int {
   
     /// Finds the first combination of two values that sum together to give `total`.
     /// - Complexity: O(n)
-    func combination(summingTo total: Element) -> (Element, Element)? {
+    func firstCombination(summingTo total: Element) -> (Element, Element)? {
         
         for a in self {
             let b = total - a
