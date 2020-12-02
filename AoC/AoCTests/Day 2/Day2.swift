@@ -24,11 +24,11 @@ class Day2: XCTestCase {
         
         measure {
             
-            let validPasswords = passwordsAndPolicies.filter { password, policy in
+            let validPasswords = passwordsAndPolicies.count { password, policy in
                 policy.validate(password)
             }
 
-            print(validPasswords.count)
+            print(validPasswords)
         }
     }
     
