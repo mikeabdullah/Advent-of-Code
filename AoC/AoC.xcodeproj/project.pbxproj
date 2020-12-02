@@ -6,13 +6,27 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		27B7EA632577802E00A49017 /* AoCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA622577802E00A49017 /* AoCTests.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		27B7EA532577800100A49017 /* AoC.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B7EA562577800100A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27B7EA602577802E00A49017 /* AoCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		27B7EA622577802E00A49017 /* AoCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AoCTests.swift; sourceTree = "<group>"; };
+		27B7EA642577802E00A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		27B7EA502577800100A49017 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27B7EA5D2577802E00A49017 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -26,6 +40,7 @@
 			isa = PBXGroup;
 			children = (
 				27B7EA552577800100A49017 /* AoC */,
+				27B7EA612577802E00A49017 /* AoCTests */,
 				27B7EA542577800100A49017 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -34,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				27B7EA532577800100A49017 /* AoC.bundle */,
+				27B7EA602577802E00A49017 /* AoCTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -44,6 +60,15 @@
 				27B7EA562577800100A49017 /* Info.plist */,
 			);
 			path = AoC;
+			sourceTree = "<group>";
+		};
+		27B7EA612577802E00A49017 /* AoCTests */ = {
+			isa = PBXGroup;
+			children = (
+				27B7EA622577802E00A49017 /* AoCTests.swift */,
+				27B7EA642577802E00A49017 /* Info.plist */,
+			);
+			path = AoCTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -66,16 +91,37 @@
 			productReference = 27B7EA532577800100A49017 /* AoC.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		27B7EA5F2577802E00A49017 /* AoCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27B7EA652577802E00A49017 /* Build configuration list for PBXNativeTarget "AoCTests" */;
+			buildPhases = (
+				27B7EA5C2577802E00A49017 /* Sources */,
+				27B7EA5D2577802E00A49017 /* Frameworks */,
+				27B7EA5E2577802E00A49017 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AoCTests;
+			productName = AoCTests;
+			productReference = 27B7EA602577802E00A49017 /* AoCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		27B7EA4B2577800100A49017 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Mike Abdullah";
 				TargetAttributes = {
 					27B7EA522577800100A49017 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					27B7EA5F2577802E00A49017 = {
 						CreatedOnToolsVersion = 11.5;
 					};
 				};
@@ -94,12 +140,20 @@
 			projectRoot = "";
 			targets = (
 				27B7EA522577800100A49017 /* AoC */,
+				27B7EA5F2577802E00A49017 /* AoCTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		27B7EA512577800100A49017 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27B7EA5E2577802E00A49017 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -113,6 +167,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27B7EA5C2577802E00A49017 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27B7EA632577802E00A49017 /* AoCTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +320,46 @@
 			};
 			name = Release;
 		};
+		27B7EA662577802E00A49017 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S4N7Q8WH9C;
+				INFOPLIST_FILE = AoCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.mikeabdullah.AoCTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		27B7EA672577802E00A49017 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S4N7Q8WH9C;
+				INFOPLIST_FILE = AoCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.mikeabdullah.AoCTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -275,6 +377,15 @@
 			buildConfigurations = (
 				27B7EA5A2577800100A49017 /* Debug */,
 				27B7EA5B2577800100A49017 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27B7EA652577802E00A49017 /* Build configuration list for PBXNativeTarget "AoCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27B7EA662577802E00A49017 /* Debug */,
+				27B7EA672577802E00A49017 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
