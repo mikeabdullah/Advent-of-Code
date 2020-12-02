@@ -36,6 +36,19 @@ class Day2: XCTestCase {
             XCTAssertEqual(validPasswords, 550)
         }
     }
+
+    func testPart2() throws {
+        
+        let input = passwordsAndPolicies
+        
+        measure {
+            let validPasswords = input.count { password, policy in
+                policy.validate2(password)
+            }
+
+            XCTAssertEqual(validPasswords, 634)
+        }
+    }
     
     struct Policy : Hashable {
         /// The letter the policy controls
@@ -60,8 +73,11 @@ class Day2: XCTestCase {
         
         func validate2(_ password: Substring) -> Bool {
             let start = password.startIndex
-            let match1 = password[password.index(start, offsetBy: position1)] == character
-            let match2 = password[password.index(start, offsetBy: position2)] == character
+            
+            let letter1 = password[password.index(start, offsetBy: position1 - 1)]  // 1-based indexes
+            let letter2 = password[password.index(start, offsetBy: position2 - 1)]
+            
+            let match1 = letter1 == character, match2 = letter2 == character
             return match1 != match2 // logical XOR
         }
     }
