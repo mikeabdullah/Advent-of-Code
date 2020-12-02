@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		27B7EA632577802E00A49017 /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA622577802E00A49017 /* Day1.swift */; };
+		27B7EA692577840C00A49017 /* Day2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA682577840C00A49017 /* Day2.swift */; };
+		27B7EA6B257784A000A49017 /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27B7EA6A257784A000A49017 /* input.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +18,8 @@
 		27B7EA602577802E00A49017 /* AoCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B7EA622577802E00A49017 /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
 		27B7EA642577802E00A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27B7EA682577840C00A49017 /* Day2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2.swift; sourceTree = "<group>"; };
+		27B7EA6A257784A000A49017 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +72,19 @@
 			isa = PBXGroup;
 			children = (
 				27B7EA622577802E00A49017 /* Day1.swift */,
+				27B7EA6C257784AB00A49017 /* Day 2 */,
 				27B7EA642577802E00A49017 /* Info.plist */,
 			);
 			path = AoCTests;
+			sourceTree = "<group>";
+		};
+		27B7EA6C257784AB00A49017 /* Day 2 */ = {
+			isa = PBXGroup;
+			children = (
+				27B7EA682577840C00A49017 /* Day2.swift */,
+				27B7EA6A257784A000A49017 /* input.txt */,
+			);
+			path = "Day 2";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27B7EA6B257784A000A49017 /* input.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B7EA632577802E00A49017 /* Day1.swift in Sources */,
+				27B7EA692577840C00A49017 /* Day2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
