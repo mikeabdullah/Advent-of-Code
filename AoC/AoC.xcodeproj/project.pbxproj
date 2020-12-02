@@ -43,7 +43,9 @@
 				27B7EA612577802E00A49017 /* AoCTests */,
 				27B7EA542577800100A49017 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		27B7EA542577800100A49017 /* Products */ = {
 			isa = PBXGroup;
