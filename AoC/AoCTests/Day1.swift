@@ -13,7 +13,7 @@ class AoCTests: XCTestCase {
     func testPart1() {
         measure {
             let entries = Set(input)
-            let (a, b) = entries.pair(summingTo: 2020)!
+            let (a, b) = entries.combination(summingTo: 2020)!
             print(a*b)
         }
     }
@@ -25,7 +25,7 @@ class AoCTests: XCTestCase {
               let remainder = 2020 - a
               
               let candidates = Set(input.filter { $0 < remainder })
-              if let (b, c) = candidates.pair(summingTo: remainder) {
+              if let (b, c) = candidates.combination(summingTo: remainder) {
                 print(a * b * c)
               }
             }
@@ -238,10 +238,10 @@ class AoCTests: XCTestCase {
 extension Set where Element == Int {
   
   /// - Complexity: O(n)
-  func pair(summingTo sum: Element) -> (Element, Element)? {
+  func combination(summingTo total: Element) -> (Element, Element)? {
         
     for a in self {
-      let b = sum - a
+      let b = total - a
       if self.contains(b) {
         return (a, b)
       }
