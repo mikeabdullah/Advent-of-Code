@@ -237,16 +237,17 @@ class AoCTests: XCTestCase {
 
 extension Set where Element == Int {
   
-  /// - Complexity: O(n)
-  func combination(summingTo total: Element) -> (Element, Element)? {
+    /// Finds the first combination of two values that sum together to give `total`.
+    /// - Complexity: O(n)
+    func combination(summingTo total: Element) -> (Element, Element)? {
         
-    for a in self {
-      let b = total - a
-      if self.contains(b) {
-        return (a, b)
-      }
+        for a in self {
+            let b = total - a
+            if self.contains(b) {
+                return (a, b)
+            }
+        }
+        
+        return nil
     }
-    
-    return nil
-  }
 }
