@@ -52,6 +52,13 @@ class Day2: XCTestCase {
             let occurrences = password.count(of: character)
             return occurrences >= position1 && occurrences <= position2
         }
+        
+        func validate2(_ password: Substring) -> Bool {
+            let start = password.startIndex
+            let match1 = password[password.index(start, offsetBy: position1)] == character
+            let match2 = password[password.index(start, offsetBy: position2)] == character
+            return match1 != match2 // logical XOR
+        }
     }
 }
 
