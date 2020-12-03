@@ -84,7 +84,7 @@
 		27B7EA612577802E00A49017 /* AoCTests */ = {
 			isa = PBXGroup;
 			children = (
-				27B7EA622577802E00A49017 /* Day1.swift */,
+				27D626C82579650500132DB2 /* Day 1 */,
 				27B7EA6C257784AB00A49017 /* Day 2 */,
 				277B5FCB2578C37D009112A9 /* Day 3 */,
 				27B7EA642577802E00A49017 /* Info.plist */,
@@ -99,6 +99,14 @@
 				27B7EA6A257784A000A49017 /* input-2.txt */,
 			);
 			path = "Day 2";
+			sourceTree = "<group>";
+		};
+		27D626C82579650500132DB2 /* Day 1 */ = {
+			isa = PBXGroup;
+			children = (
+				27B7EA622577802E00A49017 /* Day1.swift */,
+			);
+			path = "Day 1";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
