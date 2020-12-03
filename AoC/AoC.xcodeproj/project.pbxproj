@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		277B5FCD2578C395009112A9 /* input-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277B5FCC2578C395009112A9 /* input-3.txt */; };
+		277B5FCF2578C482009112A9 /* Day3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B5FCE2578C482009112A9 /* Day3.swift */; };
 		27B7EA632577802E00A49017 /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA622577802E00A49017 /* Day1.swift */; };
 		27B7EA692577840C00A49017 /* Day2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7EA682577840C00A49017 /* Day2.swift */; };
 		27B7EA6B257784A000A49017 /* input-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27B7EA6A257784A000A49017 /* input-2.txt */; };
@@ -15,6 +16,7 @@
 
 /* Begin PBXFileReference section */
 		277B5FCC2578C395009112A9 /* input-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "input-3.txt"; path = "../input-3.txt"; sourceTree = "<group>"; };
+		277B5FCE2578C482009112A9 /* Day3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day3.swift; sourceTree = "<group>"; };
 		27B7EA532577800100A49017 /* AoC.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B7EA562577800100A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B7EA602577802E00A49017 /* AoCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +47,7 @@
 		277B5FCB2578C37D009112A9 /* Day 3 */ = {
 			isa = PBXGroup;
 			children = (
+				277B5FCE2578C482009112A9 /* Day3.swift */,
 				277B5FCC2578C395009112A9 /* input-3.txt */,
 			);
 			path = "Day 3";
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B7EA632577802E00A49017 /* Day1.swift in Sources */,
+				277B5FCF2578C482009112A9 /* Day3.swift in Sources */,
 				27B7EA692577840C00A49017 /* Day2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
