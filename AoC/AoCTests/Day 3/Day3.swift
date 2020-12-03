@@ -23,6 +23,22 @@ class Day3: XCTestCase {
             XCTAssertEqual(count, 181)
         }
     }
+        
+    func testPart2() {
+        let slopes: [SIMD2<Int>] = [
+            [1, 1],
+            [3, 1],
+            [5, 1],
+            [7, 1],
+            [1, 2]
+        ]
+        
+        measure {
+            let counts = slopes.lazy.map { self.forest.numberOfTrees(following: $0) }
+            let product = counts.reduce(1, *)
+            XCTAssertEqual(product, 1260601650)
+        }
+    }
 }
 
 
