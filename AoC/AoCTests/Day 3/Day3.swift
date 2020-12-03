@@ -17,17 +17,9 @@ class Day3: XCTestCase {
         self.forest = try Forest(contentsOf: location)
     }
 
-    func testPart1() throws {
+    func testPart1() {
         measure {
-            let vector: SIMD2<Int> = [3,1]
-            
-            let strideX = stride(from: 0, to: .max, by: vector.x)
-            let strideY = stride(from: forest.rows.startIndex, to: forest.rows.endIndex, by: vector.y)
-            
-            let count = zip(strideX, strideY).count(where: { x, y in
-                forest.isTreeAt(x: x, y: y)
-            })
-            
+            let count = forest.numberOfTrees(following: [3,1])
             XCTAssertEqual(count, 181)
         }
     }
@@ -62,5 +54,15 @@ struct Forest {
     
     func isTreeAt(x: Int, y: Int) -> Bool {
         return self[x, y] == "#"
+    }
+    
+    /// The number of trees encountered if taking `slope`, starting from top left.
+    func numberOfTrees(following slope: SIMD2<Int>) -> Int {
+        let strideX = stride(from: 0, to: .max, by: slope.x)
+        let strideY = stride(from: self.rows.startIndex, to: self.rows.endIndex, by: slope.y)
+        
+        return zip(strideX, strideY).count(where: { x, y in
+            isTreeAt(x: x, y: y)
+        })
     }
 }
