@@ -14,9 +14,8 @@ class Day2: XCTestCase {
         
         let location = Bundle(for: Day2.self).url(forResource: "input-2", withExtension: "txt")!
         let input = try! String(contentsOf: location)
-        let lines = input.split(separator: "\n")
         
-        return lines.reduce(into: [], { result, line in
+        return input.lines.reduce(into: [], { result, line in
             let separation = line.range(of: ": ")!
             let password = line.suffix(from: separation.upperBound)
             let policy = Policy(line.prefix(upTo: separation.lowerBound))
@@ -83,6 +82,14 @@ class Day2: XCTestCase {
     }
 }
 
+
+extension StringProtocol {
+    
+    /// Convenience to split a string into its lines.
+    var lines: [SubSequence] {
+        self.split(separator: "\n")
+    }
+}
 
 extension Sequence {
     
