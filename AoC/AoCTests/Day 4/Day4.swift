@@ -40,10 +40,9 @@ class Day4: XCTestCase {
             // Tear into fields
             var fields: [Substring: Substring] = [:]
             for field in string.split(separator: " ") {
-                let string = String(field)
-                let match = regex.firstMatch(in: string)!
-                let key = string[Range(match.range(at: 1), in: string)!]
-                let value = string[Range(match.range(at: 2), in: string)!]
+                let match = regex.firstMatch(in: field)!
+                let key = string[Range(match.range(at: 1), in: string.base)!]
+                let value = string[Range(match.range(at: 2), in: string.base)!]
                 fields[key] = value
             }
             
@@ -75,12 +74,9 @@ class Day4: XCTestCase {
             guard let value = fields["byr"]
                 else { return false }
             
-            let string = String(value)
-            guard let _ = Self.yearRegex.firstMatch(in: string,
-                                                    options: .anchored,
-                                                    range: NSRange(string.startIndex..<string.endIndex, in: string))
+            guard let _ = Self.yearRegex.firstMatch(in: value, options: .anchored)
                 else { return false }
-            guard let year = Int(string) else { return false }
+            guard let year = Int(value) else { return false }
             return (1920...2002).contains(year)
         }
         
@@ -88,12 +84,9 @@ class Day4: XCTestCase {
             guard let value = fields["iyr"]
                 else { return false }
             
-            let string = String(value)
-            guard let _ = Self.yearRegex.firstMatch(in: string,
-                                                    options: .anchored,
-                                                    range: NSRange(string.startIndex..<string.endIndex, in: string))
+            guard let _ = Self.yearRegex.firstMatch(in: value, options: .anchored)
                 else { return false }
-            guard let year = Int(string) else { return false }
+            guard let year = Int(value) else { return false }
             return (2010...2020).contains(year)
         }
         
@@ -101,12 +94,9 @@ class Day4: XCTestCase {
             guard let value = fields["eyr"]
                 else { return false }
             
-            let string = String(value)
-            guard let _ = Self.yearRegex.firstMatch(in: string,
-                                                    options: .anchored,
-                                                    range: NSRange(string.startIndex..<string.endIndex, in: string))
+            guard let _ = Self.yearRegex.firstMatch(in: value, options: .anchored)
                 else { return false }
-            guard let year = Int(string) else { return false }
+            guard let year = Int(value) else { return false }
             return (2020...2030).contains(year)
         }
         
@@ -116,14 +106,13 @@ class Day4: XCTestCase {
             guard let value = fields["hgt"]
                 else { return false }
             
-            let string = String(value)
-            if let match = Self.cmRegex.firstMatch(in: string) {
-                let substring = string[Range(match.range(at: 1), in: string)!]
+            if let match = Self.cmRegex.firstMatch(in: value) {
+                let substring = value[Range(match.range(at: 1), in: value.base)!]
                 guard let value = Int(substring) else { return false }
                 return (150...193).contains(value)
             }
-            else if let match = Self.inchRegex.firstMatch(in: string) {
-                let substring = string[Range(match.range(at: 1), in: string)!]
+            else if let match = Self.inchRegex.firstMatch(in: value) {
+                let substring = value[Range(match.range(at: 1), in: value.base)!]
                 guard let value = Int(substring) else { return false }
                 return (59...76).contains(value)
             }
@@ -151,8 +140,7 @@ class Day4: XCTestCase {
             guard let value = fields["ecl"]
                 else { return false }
             
-            let string = String(value)
-            return Set(["amb","blu", "brn", "gry", "grn", "hzl", "oth"]).contains(string)
+            return Set(["amb","blu", "brn", "gry", "grn", "hzl", "oth"]).contains(String(value))
         }
         
         // MARK: Passport
@@ -161,8 +149,7 @@ class Day4: XCTestCase {
             guard let value = fields["pid"]
                 else { return false }
             
-            let string = String(value)
-            let match = Self.idRegex.firstMatch(in: string)
+            let match = Self.idRegex.firstMatch(in: value)
             return match != nil
         }
         
