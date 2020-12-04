@@ -68,7 +68,7 @@ class Day4: XCTestCase {
         
         // MARK: Years
         
-        static let yearRegex = try! NSRegularExpression(pattern: "[0-9][0-9][0-9][0-9]")
+        static let yearRegex = try! NSRegularExpression(pattern: "[0-9]{4}")
         
         func validateBirthYear() -> Bool {
             guard let value = fields["byr"]
