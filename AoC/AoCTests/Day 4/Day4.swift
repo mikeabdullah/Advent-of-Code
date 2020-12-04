@@ -35,13 +35,13 @@ class Day4: XCTestCase {
     struct PassportData {
         init(_ string: Substring) {
             
-            let regex = try! NSRegularExpression(pattern: #"(.+):(.+)"#, options: [])
+            let regex = try! NSRegularExpression(pattern: #"(.+):(.+)"#)
             
             // Tear into fields
             var fields: [Substring: Substring] = [:]
             for field in string.split(separator: " ") {
                 let string = String(field)
-                let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.utf16.count))!
+                let match = regex.firstMatch(in: string, range: NSMakeRange(0, string.utf16.count))!
                 let key = string[Range(match.range(at: 1), in: string)!]
                 let value = string[Range(match.range(at: 2), in: string)!]
                 fields[key] = value
@@ -69,7 +69,7 @@ class Day4: XCTestCase {
         
         // MARK: Years
         
-        static let yearRegex = try! NSRegularExpression(pattern: "[0-9][0-9][0-9][0-9]", options: [])
+        static let yearRegex = try! NSRegularExpression(pattern: "[0-9][0-9][0-9][0-9]")
         
         func validateBirthYear() -> Bool {
             guard let value = fields["byr"]
@@ -117,12 +117,12 @@ class Day4: XCTestCase {
                 else { return false }
             
             let string = String(value)
-            if let match = Self.cmRegex.firstMatch(in: string, options: []) {
+            if let match = Self.cmRegex.firstMatch(in: string) {
                 let substring = string[Range(match.range(at: 1), in: string)!]
                 guard let value = Int(substring) else { return false }
                 return (150...193).contains(value)
             }
-            else if let match = Self.inchRegex.firstMatch(in: string, options: []) {
+            else if let match = Self.inchRegex.firstMatch(in: string) {
                 let substring = string[Range(match.range(at: 1), in: string)!]
                 guard let value = Int(substring) else { return false }
                 return (59...76).contains(value)
@@ -132,8 +132,8 @@ class Day4: XCTestCase {
             }
         }
         
-        static let cmRegex = try! NSRegularExpression(pattern: #"^([0-9]{3})cm$"#, options: [])
-        static let inchRegex = try! NSRegularExpression(pattern: #"^([0-9]{2,3})in$"#, options: [])
+        static let cmRegex = try! NSRegularExpression(pattern: #"^([0-9]{3})cm$"#)
+        static let inchRegex = try! NSRegularExpression(pattern: #"^([0-9]{2,3})in$"#)
         
         // MARK: Colors
         
@@ -142,11 +142,11 @@ class Day4: XCTestCase {
                 else { return false }
             
             let string = String(value)
-            let match = Self.hairColorRegex.firstMatch(in: string, options: [])
+            let match = Self.hairColorRegex.firstMatch(in: string)
             return match != nil
         }
         
-        static let hairColorRegex = try! NSRegularExpression(pattern: "^#[0-9a-f]{6}$", options: [])
+        static let hairColorRegex = try! NSRegularExpression(pattern: "^#[0-9a-f]{6}$")
         
         func validateEyeColor() -> Bool {
             guard let value = fields["ecl"]
@@ -163,11 +163,11 @@ class Day4: XCTestCase {
                 else { return false }
             
             let string = String(value)
-            let match = Self.idRegex.firstMatch(in: string, options: [])
+            let match = Self.idRegex.firstMatch(in: string)
             return match != nil
         }
         
-        static let idRegex = try! NSRegularExpression(pattern: "^[0-9]{9}$", options: [])
+        static let idRegex = try! NSRegularExpression(pattern: "^[0-9]{9}$")
     }
 }
 
