@@ -117,12 +117,12 @@ class Day4: XCTestCase {
                 else { return false }
             
             let string = String(value)
-            if let match = Self.cmRegex.firstMatch(in: string, options: [], range: NSRange(string.startIndex..<string.endIndex, in: string)) {
+            if let match = Self.cmRegex.firstMatch(in: string, options: []) {
                 let substring = string[Range(match.range(at: 1), in: string)!]
                 guard let value = Int(substring) else { return false }
                 return (150...193).contains(value)
             }
-            else if let match = Self.inchRegex.firstMatch(in: string, options: [], range: NSRange(string.startIndex..<string.endIndex, in: string)) {
+            else if let match = Self.inchRegex.firstMatch(in: string, options: []) {
                 let substring = string[Range(match.range(at: 1), in: string)!]
                 guard let value = Int(substring) else { return false }
                 return (59...76).contains(value)
@@ -142,7 +142,7 @@ class Day4: XCTestCase {
                 else { return false }
             
             let string = String(value)
-            let match = Self.hairColorRegex.firstMatch(in: string, options: [], range: NSRange(string.startIndex..<string.endIndex, in: string))
+            let match = Self.hairColorRegex.firstMatch(in: string, options: [])
             return match != nil
         }
         
@@ -163,10 +163,21 @@ class Day4: XCTestCase {
                 else { return false }
             
             let string = String(value)
-            let match = Self.idRegex.firstMatch(in: string, options: [], range: NSRange(string.startIndex..<string.endIndex, in: string))
+            let match = Self.idRegex.firstMatch(in: string, options: [])
             return match != nil
         }
         
         static let idRegex = try! NSRegularExpression(pattern: "^[0-9]{9}$", options: [])
+    }
+}
+
+
+extension NSRegularExpression {
+    
+    /// Convenience to search the whole of a string.
+    func firstMatch(in string: String, options: MatchingOptions = []) -> NSTextCheckingResult? {
+        return firstMatch(in: string,
+                          options: options,
+                          range: NSRange(string.startIndex..<string.endIndex, in: string))
     }
 }
