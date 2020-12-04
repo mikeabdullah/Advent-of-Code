@@ -41,7 +41,7 @@ class Day4: XCTestCase {
             var fields: [Substring: Substring] = [:]
             for field in string.split(separator: " ") {
                 let string = String(field)
-                let match = regex.firstMatch(in: string, range: NSMakeRange(0, string.utf16.count))!
+                let match = regex.firstMatch(in: string)!
                 let key = string[Range(match.range(at: 1), in: string)!]
                 let value = string[Range(match.range(at: 2), in: string)!]
                 fields[key] = value
@@ -141,8 +141,7 @@ class Day4: XCTestCase {
             guard let value = fields["hcl"]
                 else { return false }
             
-            let string = String(value)
-            let match = Self.hairColorRegex.firstMatch(in: string)
+            let match = Self.hairColorRegex.firstMatch(in: value)
             return match != nil
         }
         
@@ -179,5 +178,12 @@ extension NSRegularExpression {
         return firstMatch(in: string,
                           options: options,
                           range: NSRange(string.startIndex..<string.endIndex, in: string))
+    }
+    
+    /// Convenience to search the whole of a sub-string.
+    func firstMatch(in substring: Substring, options: MatchingOptions = []) -> NSTextCheckingResult? {
+        return firstMatch(in: substring.base,
+                          options: options,
+                          range: NSRange(substring.startIndex..<substring.endIndex, in: substring.base))
     }
 }
