@@ -23,7 +23,12 @@ class Day4: XCTestCase {
     }
 
     func testPart1() throws {
-        let numberValid = data.count(where: { $0.validate() })
+        let numberValid = data.count(where: { $0.validate(fieldValues: false) })
+        XCTAssertEqual(numberValid, 219)
+    }
+
+    func testPart2() throws {
+        let numberValid = data.count(where: { $0.validate(fieldValues: true) })
         XCTAssertEqual(numberValid, 219)
     }
 
@@ -47,11 +52,24 @@ class Day4: XCTestCase {
         
         let fields: [Substring: Substring]
         
-        func validate() -> Bool {
-            var keys = Set(fields.keys)
-            keys.remove("cid")
-            
-            return keys == ["byr", "iyr", "eyr", "iyr", "hgt", "hcl", "ecl", "pid"]
+        func validate(fieldValues: Bool) -> Bool {
+            if fieldValues {
+                return validateBirthYear()
+            }
+            else {
+                var keys = Set(fields.keys)
+                keys.remove("cid")
+                
+                return keys == ["byr", "iyr", "eyr", "iyr", "hgt", "hcl", "ecl", "pid"]
+            }
+        }
+        
+        func validateBirthYear() -> Bool {
+            guard
+                let value = fields["byr"],
+                let year = Int(value)
+                else { return false }
+            return (1920...2002).contains(year)
         }
     }
 }
