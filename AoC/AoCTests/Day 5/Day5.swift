@@ -29,25 +29,28 @@ class Day5: XCTestCase {
     }
 
     func testPart1() throws {
-        
-        let seats = input.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
-        let seatIDs = seats.map(\.seatID)
-        let max = seatIDs.max()!
-        XCTAssertEqual(max, 842)
+        measure {
+            let seats = input.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
+            let seatIDs = seats.map(\.seatID)
+            let max = seatIDs.max()!
+            XCTAssertEqual(max, 842)
+        }
     }
 
     func testPart2() throws {
-        
-        let seats = input.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
-        let seatIDs = Set(seats.map(\.seatID))
-        
-        let possibleIDs = 0..<1024
-        
-        let missing = possibleIDs.first(where: {
-            !seatIDs.contains($0) && seatIDs.contains($0 - 1) && seatIDs.contains($0 + 1)
-        })
-        
-        XCTAssertEqual(missing, 617)
+        measure {
+            
+            let seats = input.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
+            let seatIDs = Set(seats.map(\.seatID))
+            
+            let possibleIDs = 0..<1024
+            
+            let missing = possibleIDs.first(where: {
+                !seatIDs.contains($0) && seatIDs.contains($0 - 1) && seatIDs.contains($0 + 1)
+            })
+            
+            XCTAssertEqual(missing, 617)
+        }
     }
 }
 
