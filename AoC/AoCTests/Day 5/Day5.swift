@@ -22,6 +22,11 @@ class Day5: XCTestCase {
         let seat = SeatCoordinate(row: 44, column: 5)
         XCTAssertEqual(seat.seatID, 357)
     }
+    
+    func testBoardingPassCode() {
+        let seat = SeatCoordinate(boardingPassCode: "FBFBBFFRLR")
+        XCTAssertEqual(seat, SeatCoordinate(row: 44, column: 5))
+    }
 
     func testExample() throws {
         // This is an example of a functional test case.
@@ -31,7 +36,7 @@ class Day5: XCTestCase {
 
 
 
-struct SeatCoordinate {
+struct SeatCoordinate : Equatable {
     let row: Int
     let column: Int
     
@@ -41,6 +46,12 @@ struct SeatCoordinate {
         
         self.row = row
         self.column = column
+    }
+    
+    init?(boardingPassCode: String) {
+        
+        
+        return nil
     }
     
     var seatID: Int {
