@@ -9,13 +9,13 @@
 import XCTest
 
 class Day5: XCTestCase {
+    
+    var input: [Substring]!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        let location = Bundle(for: Self.self).url(forResource: "input-5", withExtension: "txt")!
+        let input = try String(contentsOf: location)
+        self.input = input.lines
     }
     
     func testSeatID() {
@@ -29,13 +29,25 @@ class Day5: XCTestCase {
     }
 
     func testPart1() throws {
-        let location = Bundle(for: Self.self).url(forResource: "input-5", withExtension: "txt")!
-        let input = try String(contentsOf: location)
         
-        let seats = input.lines.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
+        let seats = input.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
         let seatIDs = seats.map(\.seatID)
         let max = seatIDs.max()!
         XCTAssertEqual(max, 842)
+    }
+
+    func testPart2() throws {
+        
+        let seats = input.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
+        let seatIDs = Set(seats.map(\.seatID))
+        
+        let possibleIDs = 0..<1024
+        
+        let missing = possibleIDs.first(where: {
+            !seatIDs.contains($0) && seatIDs.contains($0 - 1) && seatIDs.contains($0 + 1)
+        })
+        
+        XCTAssertEqual(missing, 617)
     }
 }
 
