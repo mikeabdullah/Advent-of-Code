@@ -35,6 +35,14 @@ struct SeatCoordinate {
     let row: Int
     let column: Int
     
+    init(row: Int, column: Int) {
+        assert((0...127).contains(row))
+        assert((0...7).contains(column))
+        
+        self.row = row
+        self.column = column
+    }
+    
     var seatID: Int {
         row * 8 + column
     }
