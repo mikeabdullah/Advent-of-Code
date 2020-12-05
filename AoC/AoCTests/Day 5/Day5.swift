@@ -28,9 +28,14 @@ class Day5: XCTestCase {
         XCTAssertEqual(seat, SeatCoordinate(row: 44, column: 5))
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testPart1() throws {
+        let location = Bundle(for: Self.self).url(forResource: "input-5", withExtension: "txt")!
+        let input = try String(contentsOf: location)
+        
+        let seats = input.lines.lazy.map { SeatCoordinate(boardingPassCode: $0)! }
+        let seatIDs = seats.map(\.seatID)
+        let max = seatIDs.max()!
+        XCTAssertEqual(max, 842)
     }
 }
 
@@ -48,7 +53,7 @@ struct SeatCoordinate : Equatable {
         self.column = column
     }
     
-    init?(boardingPassCode: String) {
+    init?<S>(boardingPassCode: S) where S : StringProtocol {
         
         var rowRange = 0..<128
         for char in boardingPassCode.prefix(7) {
