@@ -32,6 +32,25 @@ class Day6: XCTestCase {
         
         XCTAssertEqual(sum, 6437)
     }
+
+    func testPart2() {
+        
+        let groups = input.split(separator: "\n\n")
+        
+        let answers = groups.map { group -> Int in
+            
+            let people = group.split(separator: "\n")
+            
+            let yesByAll = people.first!.filter { character in
+                people.allSatisfy { $0.contains(character) }
+            }
+            
+            return yesByAll.count
+        }
+        
+        let sum = answers.reduce(0, +)
+        XCTAssertEqual(sum, 3229)
+    }
 }
 
 
