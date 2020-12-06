@@ -17,11 +17,20 @@ class Day6: XCTestCase {
         self.input = try String(contentsOf: location)
     }
 
-    
     func testPart1() {
+        
         let groups = input.split(separator: "\n\n")
         
-        print(groups)
+        let answers: [Set<Character>] = groups.map { group in
+            let letters = group.lazy.filter { "a"..."z" ~= $0 }
+            return Set(letters)
+        }
+        
+        let sum: Int = answers.reduce(0) { (total, group) in
+            total + group.count
+        }
+        
+        XCTAssertEqual(sum, 6437)
     }
 }
 
