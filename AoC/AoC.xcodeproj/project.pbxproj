@@ -23,6 +23,7 @@
 		277B5FCE2578C482009112A9 /* Day3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day3.swift; sourceTree = "<group>"; };
 		277E28C1257B7ED700D14AE0 /* input-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-5.txt"; sourceTree = "<group>"; };
 		277E28C3257B7EFA00D14AE0 /* Day5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day5.swift; sourceTree = "<group>"; };
+		277E28C6257CD03200D14AE0 /* input-6.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-6.txt"; sourceTree = "<group>"; };
 		27B7EA532577800100A49017 /* AoC.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B7EA562577800100A49017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B7EA602577802E00A49017 /* AoCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +71,14 @@
 			path = "Day 5";
 			sourceTree = "<group>";
 		};
+		277E28C5257CD02700D14AE0 /* Day 6 */ = {
+			isa = PBXGroup;
+			children = (
+				277E28C6257CD03200D14AE0 /* input-6.txt */,
+			);
+			path = "Day 6";
+			sourceTree = "<group>";
+		};
 		27B7EA4A2577800100A49017 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +115,7 @@
 				277B5FCB2578C37D009112A9 /* Day 3 */,
 				27D626CB257A107100132DB2 /* Day 4 */,
 				277E28C0257B7EC500D14AE0 /* Day 5 */,
+				277E28C5257CD02700D14AE0 /* Day 6 */,
 				27B7EA642577802E00A49017 /* Info.plist */,
 			);
 			path = AoCTests;
