@@ -45,11 +45,18 @@ class Day7: XCTestCase {
         }
     }
 
+    func testPart2() throws {
+        let list = RuleList(lines: input)
+        
+        let rule = list.rule(for: "shiny gold")!
+        let total = list.totalBagsRequired(inside: rule)
+        XCTAssertEqual(total, 41559)
+    }
     
     struct Rule : Hashable {
         
         let containerColor: Substring
-        let contentRules: [ContainedBagRule]
+        let contains: [ContainedBagRule]
         
         init(string: Substring) {
             
@@ -58,12 +65,12 @@ class Day7: XCTestCase {
             
             let contents = string.suffix(from: split.upperBound).dropLast()
             if contents == "no other bags" {
-                self.contentRules = []
+                self.contains = []
                 return
             }
             
             let components = contents.components(separatedBy: ", ")
-            self.contentRules = components.map { ContainedBagRule(string: $0) }
+            self.contains = components.map { ContainedBagRule(string: $0) }
         }
     }
     
@@ -94,9 +101,21 @@ class Day7: XCTestCase {
         
         let rules: [Rule]
         
+        func rule<S>(for color: S) -> Rule? where S : StringProtocol {
+            return rules.first(where: { $0.containerColor == color })
+        }
+        
         func rules<S>(containing color: S) -> [Rule] where S : StringProtocol {
             return rules.filter { rule in
-                rule.contentRules.contains(where: { $0.color == color })
+                rule.contains.contains(where: { $0.color == color })
+            }
+        }
+        
+        func totalBagsRequired(inside rule: Rule) -> Int {
+            
+            return rule.contains.reduce(0) { sum, contained in
+                let subrule = self.rule(for: contained.color)!
+                return sum + contained.count * (1 + self.totalBagsRequired(inside: subrule))
             }
         }
     }
