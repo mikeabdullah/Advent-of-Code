@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2729566D257E9A0D00044EC9 /* Day7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729566C257E9A0D00044EC9 /* Day7.swift */; };
+		27295670257E9CA500044EC9 /* input-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2729566F257E9A2000044EC9 /* input-7.txt */; };
 		277B5FCD2578C395009112A9 /* input-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277B5FCC2578C395009112A9 /* input-3.txt */; };
 		277B5FCF2578C482009112A9 /* Day3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B5FCE2578C482009112A9 /* Day3.swift */; };
 		277E28C2257B7ED700D14AE0 /* input-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277E28C1257B7ED700D14AE0 /* input-5.txt */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2729566C257E9A0D00044EC9 /* Day7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Day7.swift; path = "../Day 6/Day7.swift"; sourceTree = "<group>"; };
+		2729566F257E9A2000044EC9 /* input-7.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "input-7.txt"; sourceTree = "<group>"; };
 		277B5FCC2578C395009112A9 /* input-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "input-3.txt"; path = "../input-3.txt"; sourceTree = "<group>"; };
 		277B5FCE2578C482009112A9 /* Day3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day3.swift; sourceTree = "<group>"; };
 		277E28C1257B7ED700D14AE0 /* input-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-5.txt"; sourceTree = "<group>"; };
@@ -56,6 +60,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2729566E257E9A1800044EC9 /* Day 7 */ = {
+			isa = PBXGroup;
+			children = (
+				2729566C257E9A0D00044EC9 /* Day7.swift */,
+				2729566F257E9A2000044EC9 /* input-7.txt */,
+			);
+			path = "Day 7";
+			sourceTree = "<group>";
+		};
 		277B5FCB2578C37D009112A9 /* Day 3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +133,7 @@
 				27D626CB257A107100132DB2 /* Day 4 */,
 				277E28C0257B7EC500D14AE0 /* Day 5 */,
 				277E28C5257CD02700D14AE0 /* Day 6 */,
+				2729566E257E9A1800044EC9 /* Day 7 */,
 				27B7EA642577802E00A49017 /* Info.plist */,
 			);
 			path = AoCTests;
@@ -238,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B7EA6B257784A000A49017 /* input-2.txt in Resources */,
+				27295670257E9CA500044EC9 /* input-7.txt in Resources */,
 				27D626CA257A106900132DB2 /* input-4.txt in Resources */,
 				277E28C9257CD49100D14AE0 /* input-6.txt in Resources */,
 				277B5FCD2578C395009112A9 /* input-3.txt in Resources */,
@@ -261,6 +276,7 @@
 			files = (
 				27B7EA632577802E00A49017 /* Day1.swift in Sources */,
 				277E28C8257CD05200D14AE0 /* Day6.swift in Sources */,
+				2729566D257E9A0D00044EC9 /* Day7.swift in Sources */,
 				277E28C4257B7EFA00D14AE0 /* Day5.swift in Sources */,
 				277B5FCF2578C482009112A9 /* Day3.swift in Sources */,
 				27B7EA692577840C00A49017 /* Day2.swift in Sources */,
