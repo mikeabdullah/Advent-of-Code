@@ -46,11 +46,13 @@ class Day7: XCTestCase {
     }
 
     func testPart2() throws {
-        let list = RuleList(lines: input)
-        
-        let rule = list.rule(for: "shiny gold")!
-        let total = list.totalBagsRequired(inside: rule)
-        XCTAssertEqual(total, 41559)
+        measure {
+            let list = RuleList(lines: input)
+            
+            let rule = list.rule(for: "shiny gold")!
+            let total = list.totalBagsRequired(inside: rule)
+            XCTAssertEqual(total, 41559)
+        }
     }
     
     struct Rule : Hashable {
