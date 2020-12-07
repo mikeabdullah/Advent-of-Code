@@ -49,13 +49,36 @@ class Day7: XCTestCase {
     struct Rule : Hashable {
         
         let containerColor: Substring
-        let contents: Substring
+        let contentRules: [ContainedBagRule]
         
         init(string: Substring) {
             
             let split = string.range(of: " bags contain ")!
             self.containerColor = string.prefix(upTo: split.lowerBound)
-            self.contents = string.suffix(from: split.upperBound)
+            
+            let contents = string.suffix(from: split.upperBound).dropLast()
+            if contents == "no other bags" {
+                self.contentRules = []
+                return
+            }
+            
+            let components = contents.components(separatedBy: ", ")
+            self.contentRules = components.map { ContainedBagRule(string: $0) }
+        }
+    }
+    
+    struct ContainedBagRule : Hashable {
+        /// A color of bag.
+        let color: String
+        /// How many of this color of bag there must be.
+        let count: Int
+        
+        init(string: String) {
+            
+            let scanner = Scanner(string: string)
+            self.count = scanner.scanInt()!
+            _ = scanner.scanString(" ")
+            self.color = scanner.scanUpToString(" bag")!
         }
     }
     
@@ -73,7 +96,7 @@ class Day7: XCTestCase {
         
         func rules<S>(containing color: S) -> [Rule] where S : StringProtocol {
             return rules.filter { rule in
-                rule.contents.range(of: color + " bag") != nil
+                rule.contentRules.contains(where: { $0.color == color })
             }
         }
     }
