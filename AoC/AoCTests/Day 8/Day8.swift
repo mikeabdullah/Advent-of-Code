@@ -24,7 +24,36 @@ class Day8: XCTestCase {
         loader.runUntilRepeat(input)
         XCTAssertEqual(loader.accumulator, 1521)
     }
+    
 
+    func testPart2() throws {
+        
+        let program = input.map { String($0) }
+        
+        for i in program.indices.reversed() {
+            
+            var line = program[i]
+            var modifiedProgram = program
+            
+            if let range = line.range(of: "nop", options: .anchored) {
+                line.replaceSubrange(range, with: "jmp")
+                modifiedProgram[i] = line
+            }
+            else if let range = line.range(of: "jmp", options: .anchored) {
+                line.replaceSubrange(range, with: "nop")
+                modifiedProgram[i] = line
+            }
+            else {
+                continue
+            }
+            
+            // Try running this version of the program
+            var loader = BootLoad()
+            if loader.runUntilRepeat(modifiedProgram) {
+                XCTAssertEqual(loader.accumulator, 1016)
+            }
+        }
+    }
     
     struct BootLoad {
         
