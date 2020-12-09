@@ -20,12 +20,27 @@ class Day9: XCTestCase {
 
     func testPart1() throws {
         measure {
-            let firstInvalid = input.enumerated().dropFirst(25).first(where: { i, value in
-                let preceding = input[i-25 ..< i]
-                return !preceding.containsCombination(summingTo: value)
-            })
             
-            XCTAssertEqual(firstInvalid?.element, 27911108)
+            // Use a sliding window of the preamble before an element, and a set of the elements
+            // within that window
+            var window = input[...25]
+            var windowValues = Set(window)
+            
+            repeat {
+                let target = input[window.endIndex]
+                
+                // Stop once we find the value that isn't in the window
+                if windowValues.firstCombination(summingTo: target) == nil {
+                    XCTAssertEqual(target, 27911108)
+                    break
+                }
+                
+                // Slide the window along
+                windowValues.remove(window.first!)
+                window = input[window.startIndex + 1 ... window.endIndex]
+                windowValues.insert(window.last!)
+                
+            } while true
         }
     }
 
@@ -34,6 +49,9 @@ class Day9: XCTestCase {
             let index = 509
             let target = 27911108
             // Find a prior range that adds up to this.
+            
+            var window = input.prefix(upTo: 2)
+            
             
             let preceding = input[..<index]
             
