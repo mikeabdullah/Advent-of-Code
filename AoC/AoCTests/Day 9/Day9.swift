@@ -46,24 +46,34 @@ class Day9: XCTestCase {
 
     func testPart2() {
         measure {
-            let index = 509
+//            let index = 509
             let target = 27911108
             // Find a prior range that adds up to this.
             
             var window = input.prefix(upTo: 2)
+            var sum = window.sum
             
+            repeat {
+                
+                // If the sum is too low, extend the window
+                // If it's too high, contract the window
+                if sum == target {
+                    break
+                }
+                else if sum < target {
+                    window = input[window.startIndex ..< window.endIndex + 1]
+                    sum = window.sum
+                }
+                else if sum > target {
+                    window = input[window.startIndex + 1 ..< window.endIndex]
+                    sum = window.sum
+                }
+                
+            } while true
             
-            let preceding = input[..<index]
-            
-            let suffix = preceding.suffixes().first(where: {
-                $0.prefixWithSum(greaterThanOrEqualTo: target).sum == target
-            })!
-            
-            let slice = suffix.prefixWithSum(greaterThanOrEqualTo: target)
-            XCTAssertEqual(slice.sum, target)
-            
-            let min = slice.min()!
-            let max = slice.max()!
+                        
+            let min = window.min()!
+            let max = window.max()!
             XCTAssertEqual(min + max, 4023754)
         }
     }
