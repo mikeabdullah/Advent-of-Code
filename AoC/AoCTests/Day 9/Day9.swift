@@ -18,29 +18,10 @@ class Day9: XCTestCase {
         self.input = input.lines.map { Int($0)! }
     }
 
-    func testPart1() throws {
+    func testPart1() {
         measure {
-            
-            // Use a sliding window of the preamble before an element, and a set of the elements
-            // within that window
-            var window = input[...25]
-            var windowValues = Set(window)
-            
-            repeat {
-                let target = input[window.endIndex]
-                
-                // Stop once we find the value that isn't in the window
-                if windowValues.firstCombination(summingTo: target) == nil {
-                    XCTAssertEqual(target, 27911108)
-                    break
-                }
-                
-                // Slide the window along
-                windowValues.remove(window.first!)
-                window = input[window.startIndex + 1 ... window.endIndex]
-                windowValues.insert(window.last!)
-                
-            } while true
+            let value = input.firstWhereNotSumOfPairInPrecedingElements(25)
+            XCTAssertEqual(value, 27911108)
         }
     }
 
@@ -85,5 +66,37 @@ extension Collection where Element == Int {
     /// Convenience to total up values.
     var sum: Int {
         return self.reduce(0, +)
+    }
+}
+
+extension Array where Element == Int {
+    
+    /// Looks for the first value in the array where, in the `prefixCount` number of elements _before_ it, two of those value
+    /// add together to give the value itself.
+    /// - Complexity: O(n + k) where `n` is the number of elements in the array, `k` the number of preceding elements to search
+    func firstWhereNotSumOfPairInPrecedingElements(_ prefixCount: Int) -> Element? {
+        
+        // Use a sliding window of the preamble before an element, and a set of the elements
+        // within that window
+        var window = self[...prefixCount]
+        var windowValues = Set(window)
+        
+        repeat {
+            // Stop if we find the value that isn't in the window
+            let value = self[window.endIndex]
+            if windowValues.firstCombination(summingTo: value) == nil {
+                return value
+            }
+            
+            // Slide the window along if we still can
+            guard window.endIndex < self.endIndex else {
+                return nil
+            }
+            
+            windowValues.remove(window.first!)
+            window = self[window.startIndex + 1 ... window.endIndex]
+            windowValues.insert(window.last!)
+            
+        } while true
     }
 }
