@@ -62,11 +62,11 @@ class Day9: XCTestCase {
                 }
                 else if sum < target {
                     window = input[window.startIndex ..< window.endIndex + 1]
-                    sum = window.sum
+                    sum += window.last!
                 }
                 else if sum > target {
+                    sum -= window.first!
                     window = input[window.startIndex + 1 ..< window.endIndex]
-                    sum = window.sum
                 }
                 
             } while true
