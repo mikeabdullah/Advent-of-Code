@@ -86,20 +86,4 @@ extension Collection where Element == Int {
     var sum: Int {
         return self.reduce(0, +)
     }
-    
-    func prefixWithSum(greaterThanOrEqualTo total: Int) -> SubSequence {
-        
-        var runningTotal = 0
-        return self.prefix(while: { value in
-            defer { runningTotal += value }
-            return runningTotal < total
-        })
-    }
-    
-    /// All possible suffixes within the collection
-    func suffixes() -> [SubSequence] {
-        return indices.map { i in
-            return self[i...]
-        }
-    }
 }
