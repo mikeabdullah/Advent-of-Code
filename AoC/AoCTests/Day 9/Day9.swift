@@ -30,23 +30,24 @@ class Day9: XCTestCase {
     }
 
     func testPart2() {
-        
-        let index = 509
-        let target = 27911108
-        // Find a prior range that adds up to this.
-        
-        let preceding = input[..<index]
-        
-        let suffix = preceding.suffixes().first(where: {
-            $0.prefixWithSum(greaterThanOrEqualTo: target).sum == target
-        })!
-        
-        let slice = suffix.prefixWithSum(greaterThanOrEqualTo: target)
-        XCTAssertEqual(slice.sum, target)
-        
-        let min = slice.min()!
-        let max = slice.max()!
-        XCTAssertEqual(min + max, 4023754)
+        measure {
+            let index = 509
+            let target = 27911108
+            // Find a prior range that adds up to this.
+            
+            let preceding = input[..<index]
+            
+            let suffix = preceding.suffixes().first(where: {
+                $0.prefixWithSum(greaterThanOrEqualTo: target).sum == target
+            })!
+            
+            let slice = suffix.prefixWithSum(greaterThanOrEqualTo: target)
+            XCTAssertEqual(slice.sum, target)
+            
+            let min = slice.min()!
+            let max = slice.max()!
+            XCTAssertEqual(min + max, 4023754)
+        }
     }
 }
 
