@@ -235,6 +235,15 @@ class Day1: XCTestCase {
         1975]
 }
 
+extension Collection where Element == Int {
+  
+    /// Finds the first combination of two values that sum together to give `total`.
+    /// - Complexity: O(n)
+    func firstCombination(summingTo total: Element) -> (Element, Element)? {
+        return Set(self).firstCombination(summingTo: total)
+    }
+}
+
 extension Set where Element == Int {
   
     /// Finds the first combination of two values that sum together to give `total`.
