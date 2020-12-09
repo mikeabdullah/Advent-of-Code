@@ -30,29 +30,7 @@ class Day9: XCTestCase {
         
         measure {
             // Find a prior range that adds up to this.
-            
-            var window = input.prefix(upTo: 2)
-            var sum = window.sum
-            
-            repeat {
-                
-                // If the sum is too low, extend the window
-                // If it's too high, contract the window
-                if sum == target {
-                    break
-                }
-                else if sum < target {
-                    window = input[window.startIndex ..< window.endIndex + 1]
-                    sum += window.last!
-                }
-                else if sum > target {
-                    sum -= window.first!
-                    window = input[window.startIndex + 1 ..< window.endIndex]
-                }
-                
-            } while true
-            
-                        
+            let window = input.firstSubsequenceWithSum(target)!
             let min = window.min()!
             let max = window.max()!
             XCTAssertEqual(min + max, 4023754)
@@ -96,6 +74,35 @@ extension Array where Element == Int {
             windowValues.remove(window.first!)
             window = self[window.startIndex + 1 ... window.endIndex]
             windowValues.insert(window.last!)
+            
+        } while true
+    }
+    
+    /// Finds the first subsequence whose elements sum to `total`
+    /// - Complexity: O(n). I think 😄
+    func firstSubsequenceWithSum(_ total: Int) -> SubSequence? {
+        
+        var window = self.prefix(upTo: 2)
+        var windowSum = window.sum
+        
+        repeat {
+            
+            // If the sum is too low, extend the window
+            // If it's too high, contract the window
+            if windowSum == total {
+                return window
+            }
+            else if windowSum < total {
+                guard window.endIndex < self.endIndex   // stop at the end
+                    else { return nil }
+                
+                window = self[window.startIndex ..< window.endIndex + 1]
+                windowSum += window.last!
+            }
+            else if windowSum > total {
+                windowSum -= window.first!
+                window = self[window.startIndex + 1 ..< window.endIndex]
+            }
             
         } while true
     }
