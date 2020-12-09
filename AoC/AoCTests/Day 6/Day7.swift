@@ -58,7 +58,8 @@ class Day7: XCTestCase {
     struct Rule : Hashable {
         
         let containerColor: Substring
-        let contains: [ContainedBagRule]
+        /// A color of bag, and how many of it should be contained.
+        let contains: [WeightedEdge<String>]
         
         init(string: Substring) {
             
@@ -72,22 +73,13 @@ class Day7: XCTestCase {
             }
             
             let components = contents.components(separatedBy: ", ")
-            self.contains = components.map { ContainedBagRule(string: $0) }
-        }
-    }
-    
-    struct ContainedBagRule : Hashable {
-        /// A color of bag.
-        let color: String
-        /// How many of this color of bag there must be.
-        let count: Int
-        
-        init(string: String) {
-            
-            let scanner = Scanner(string: string)
-            self.count = scanner.scanInt()!
-            _ = scanner.scanString(" ")
-            self.color = scanner.scanUpToString(" bag")!
+            self.contains = components.map { string in
+                let scanner = Scanner(string: string)
+                let count = scanner.scanInt()!
+                _ = scanner.scanString(" ")
+                let color = scanner.scanUpToString(" bag")!
+                return WeightedEdge(vertex: color, weight: count)
+            }
         }
     }
     
@@ -109,16 +101,23 @@ class Day7: XCTestCase {
         
         func rules<S>(containing color: S) -> [Rule] where S : StringProtocol {
             return rules.filter { rule in
-                rule.contains.contains(where: { $0.color == color })
+                rule.contains.contains(where: { $0.vertex == color })
             }
         }
         
         func totalBagsRequired(inside rule: Rule) -> Int {
             
             return rule.contains.reduce(0) { sum, contained in
-                let subrule = self.rule(for: contained.color)!
-                return sum + contained.count * (1 + self.totalBagsRequired(inside: subrule))
+                let subrule = self.rule(for: contained.vertex)!
+                return sum + contained.weight * (1 + self.totalBagsRequired(inside: subrule))
             }
         }
     }
+}
+
+
+/// A weighted edge in a Directed Acyclic Graph.
+struct WeightedEdge<Vertex> : Hashable where Vertex : Hashable {
+    let vertex: Vertex
+    let weight: Int
 }
