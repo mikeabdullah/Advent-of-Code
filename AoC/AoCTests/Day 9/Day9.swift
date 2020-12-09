@@ -20,12 +20,12 @@ class Day9: XCTestCase {
 
     func testPart1() throws {
         
-        let (_, firstInvalid) = input.enumerated().dropFirst(25).first(where: { i, value in
+        let firstInvalid = input.enumerated().dropFirst(25).first(where: { i, value in
             let preceding = input[i-25 ..< i]
-            return preceding.firstCombination(summingTo: value) == nil
-        })!
+            return !preceding.containsCombination(summingTo: value)
+        })
         
-        XCTAssertEqual(firstInvalid, 27911108)
+        XCTAssertEqual(firstInvalid?.element, 27911108)
     }
 
 }
