@@ -26,9 +26,9 @@ class Day9: XCTestCase {
     }
 
     func testPart2() {
+        let target = input.firstWhereNotSumOfPairInPrecedingElements(25)!
+        
         measure {
-//            let index = 509
-            let target = 27911108
             // Find a prior range that adds up to this.
             
             var window = input.prefix(upTo: 2)
