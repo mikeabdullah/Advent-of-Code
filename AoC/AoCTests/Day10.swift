@@ -126,11 +126,11 @@ extension BidirectionalCollection where Element == Int {
             let (left, right) = split(at: i)
             
             // See if the split is valid, and then number of other valid splits within that chain!
-            guard right.isValidAdaptorChain(from: left.last ?? previous, to: next)
+            guard left.isValidAdaptorChain(from: previous, to: right.first ?? next)
                 else { continue }
                         
-            // Find every further valid split of the left chain
-            validCombos += left.numberOfPossibleValidAdaptorChains(from: previous, to: right.first ?? next)
+            // Find every further valid split of the right chain
+            validCombos += right.numberOfPossibleValidAdaptorChains(from: left.last ?? previous, to: next)
         }
         
         return validCombos
