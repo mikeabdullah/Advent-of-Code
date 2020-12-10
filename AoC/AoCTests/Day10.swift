@@ -59,3 +59,18 @@ extension Array where Element == Int {
         return (stepsOf1, stepsOf3)
     }
 }
+
+
+extension Collection where Element == Int {
+    
+    /// Checks that no step in the chain is greater than 3
+    func isValidAdaptorChain() -> Bool {
+        
+        let pairs = zip(self, self.dropFirst())
+        let steps = pairs.lazy.map { pair in
+            return pair.1 - pair.0
+        }
+        
+        return steps.allSatisfy { $0 <= 3 }
+    }
+}
