@@ -70,15 +70,7 @@ class Day10: XCTestCase {
             sorted.insert(0, at: 0)     // outlet
             sorted.append(sorted.last! + 3) // device
             
-            // Break into chunks whose ends we know can't be removed
-            let chunks = sorted.chunked(by: { $1 - $0 < 3 })
-            
-            let combos = chunks.map { chunk in
-                chunk.numberOfPossibleValidAdaptorChains()
-            }
-            
-            let product = combos.reduce(1, *)
-            XCTAssertEqual(product, 19208)
+            XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 19208)
         }
     }
 
@@ -138,8 +130,16 @@ extension Sequence where Element == Int {
 }
  
 extension BidirectionalCollection where Element == Int {
-
+    
     func numberOfPossibleValidAdaptorChains() -> Int {
+        
+        // Break into chunks whose ends we know can't be removed
+        let chunks = self.chunked(by: { $1 - $0 < 3 })
+        let combos = chunks.lazy.map { $0._numberOfPossibleValidAdaptorChains() }
+        return combos.reduce(1, *)
+    }
+    
+    func _numberOfPossibleValidAdaptorChains() -> Int {
         return dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: first!, to: last!)
     }
     
