@@ -49,11 +49,13 @@ class Day10: XCTestCase {
         let input = try String(contentsOf: location)
         let jolts = input.lines.map { Int($0)! }
         
-        let sorted = jolts.sorted()
-        let device = sorted.last! + 3
-        
-        let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
-        XCTAssertEqual(count, 8)
+        measure {
+            let sorted = jolts.sorted()
+            let device = sorted.last! + 3
+            
+            let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
+            XCTAssertEqual(count, 8)
+        }
     }
 
     func testSample2Big() throws {
@@ -62,11 +64,13 @@ class Day10: XCTestCase {
         let input = try String(contentsOf: location)
         let jolts = input.lines.map { Int($0)! }
         
-        let sorted = jolts.sorted()
-        let device = sorted.last! + 3
-        
-        let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
-        XCTAssertEqual(count, 19208)
+        measure {
+            let sorted = jolts.sorted()
+            let device = sorted.last! + 3
+            
+            let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
+            XCTAssertEqual(count, 19208)
+        }
     }
 
     func testPart2() {
