@@ -52,7 +52,7 @@ class Day10: XCTestCase {
         
         measure {
             let sorted = jolts.sorted()
-            XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 8)
+            XCTAssertEqual(numberOfPossibleValidChains(in: sorted), 8)
         }
     }
 
@@ -64,46 +64,27 @@ class Day10: XCTestCase {
         
         measure {
             let sorted = jolts.sorted()
-            XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 19208)
+            XCTAssertEqual(numberOfPossibleValidChains(in: sorted), 19208)
         }
     }
 
     func testPart2() {
         measure {
             let sorted = input.sorted()
-            XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 31581162962944)
+            XCTAssertEqual(numberOfPossibleValidChains(in: sorted), 31581162962944)
         }
     }
-}
 
-
-extension Array where Element == Int {
-    
-    func stepsOf1And3() -> (Int, Int) {
-        
-        let pairs = zip(self, self.dropFirst())
-        let steps = pairs.map { pair in
-            return pair.1 - pair.0
-        }
-        
-        let stepsOf1 = steps.count(of: 1)
-        let stepsOf3 = steps.count(of: 3)
-        return (stepsOf1, stepsOf3)
-    }
-}
- 
-extension Array where Element == Int {
-
-    func numberOfPossibleValidAdaptorChains() -> Int {
+    func numberOfPossibleValidChains(in adaptors: [Int]) -> Int {
         
         // Find the number of connections each element can legitimately make
         var lowerCursor = -1
         var lowerValue = 0
         
-        var validConnectionCounts = self.enumerated().map { i, value -> Int in
+        var validConnectionCounts = adaptors.enumerated().map { i, value -> Int in
             while lowerValue < value - 3 {
                 lowerCursor += 1
-                lowerValue = self[lowerCursor]
+                lowerValue = adaptors[lowerCursor]
             }
             
             return i - lowerCursor
@@ -124,6 +105,22 @@ extension Array where Element == Int {
         }
         
         return validConnectionCounts.last!
+    }
+}
+
+
+extension Array where Element == Int {
+    
+    func stepsOf1And3() -> (Int, Int) {
+        
+        let pairs = zip(self, self.dropFirst())
+        let steps = pairs.map { pair in
+            return pair.1 - pair.0
+        }
+        
+        let stepsOf1 = steps.count(of: 1)
+        let stepsOf3 = steps.count(of: 3)
+        return (stepsOf1, stepsOf3)
     }
 }
 
