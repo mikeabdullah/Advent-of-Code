@@ -131,12 +131,20 @@ extension BidirectionalCollection where Element == Int {
         let chunks = self.chunked(by: { $1 - $0 < 3 })
         
         let normalized = chunks.lazy.map { chunk in
-            chunk.lazy.map { $0 - chunk.first! }
+            chunk.map { $0 - chunk.first! }
         }
         
-        let combos = normalized.map {
-            return $0.dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: 0, to: $0.last!)
+        var memos = [[Int]:Int]()
+        let combos = normalized.map { chunk -> Int in
+            if let result = memos[chunk] {
+                return result
+            }
+            
+            let result = chunk.dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: 0, to: chunk.last!)
+            memos[chunk] = result
+            return result
         }
+        
         return combos.reduce(1, *)
     }
     
