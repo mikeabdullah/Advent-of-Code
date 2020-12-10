@@ -16,6 +16,7 @@
 		27295670257E9CA500044EC9 /* input-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2729566F257E9A2000044EC9 /* input-7.txt */; };
 		27295673257F776300044EC9 /* Day8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27295672257F776300044EC9 /* Day8.swift */; };
 		27295675257F777100044EC9 /* input-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27295674257F777100044EC9 /* input-8.txt */; };
+		276E06E725823A1C00BA2881 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 276E06E625823A1C00BA2881 /* Algorithms */; };
 		277B5FCD2578C395009112A9 /* input-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277B5FCC2578C395009112A9 /* input-3.txt */; };
 		277B5FCF2578C482009112A9 /* Day3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B5FCE2578C482009112A9 /* Day3.swift */; };
 		277E28C2257B7ED700D14AE0 /* input-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277E28C1257B7ED700D14AE0 /* input-5.txt */; };
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				276E06E725823A1C00BA2881 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +109,13 @@
 			path = "Day 8";
 			sourceTree = "<group>";
 		};
+		276E06E525823A1C00BA2881 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		277B5FCB2578C37D009112A9 /* Day 3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +149,7 @@
 				27B7EA552577800100A49017 /* AoC */,
 				27B7EA612577802E00A49017 /* AoCTests */,
 				27B7EA542577800100A49017 /* Products */,
+				276E06E525823A1C00BA2881 /* Frameworks */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -249,8 +259,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				276E06E4258239C500BA2881 /* PBXTargetDependency */,
 			);
 			name = AoCTests;
+			packageProductDependencies = (
+				276E06E625823A1C00BA2881 /* Algorithms */,
+			);
 			productName = AoCTests;
 			productReference = 27B7EA602577802E00A49017 /* AoCTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -349,6 +363,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		276E06E4258239C500BA2881 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 276E06E3258239C500BA2881 /* Algorithms */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		27B7EA572577800100A49017 /* Debug */ = {
@@ -575,6 +596,16 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		270499C82582358000452F76 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 270499C72582358000452F76 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		276E06E3258239C500BA2881 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 270499C72582358000452F76 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		276E06E625823A1C00BA2881 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 270499C72582358000452F76 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;

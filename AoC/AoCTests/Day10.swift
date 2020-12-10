@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Algorithms
 
 class Day10: XCTestCase {
 
@@ -65,11 +66,19 @@ class Day10: XCTestCase {
         let jolts = input.lines.map { Int($0)! }
         
         measure {
-            let sorted = jolts.sorted()
-            let device = sorted.last! + 3
+            var sorted = jolts.sorted()
+            sorted.insert(0, at: 0)     // outlet
+            sorted.append(sorted.last! + 3) // device
             
-            let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
-            XCTAssertEqual(count, 19208)
+            // Break into chunks whose ends we know can't be removed
+            let chunks = sorted.chunked(by: { $1 - $0 < 3 })
+            
+            let combos = chunks.map { chunk in
+                chunk.numberOfPossibleValidAdaptorChains()
+            }
+            
+            let product = combos.reduce(1, *)
+            XCTAssertEqual(product, 19208)
         }
     }
 
@@ -130,6 +139,10 @@ extension Sequence where Element == Int {
  
 extension BidirectionalCollection where Element == Int {
 
+    func numberOfPossibleValidAdaptorChains() -> Int {
+        return dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: first!, to: last!)
+    }
+    
     func numberOfPossibleValidAdaptorChains(from previous: Int, to next: Int) -> Int {
         
         guard self.isValidAdaptorChain(from: previous, to: next) else {
