@@ -129,12 +129,17 @@ extension BidirectionalCollection where Element == Int {
         
         // Break into chunks whose ends we know can't be removed
         let chunks = self.chunked(by: { $1 - $0 < 3 })
-        let combos = chunks.lazy.map { $0._numberOfPossibleValidAdaptorChains() }
+        
+        let normalized = chunks.lazy.map { chunk in
+            chunk.lazy.map { $0 - chunk.first! }
+        }
+        
+        let combos = normalized.map { $0._numberOfPossibleValidAdaptorChains() }
         return combos.reduce(1, *)
     }
     
     func _numberOfPossibleValidAdaptorChains() -> Int {
-        return dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: first!, to: last!)
+        return dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: 0, to: last!)
     }
     
     func numberOfPossibleValidAdaptorChains(from previous: Int, to next: Int) -> Int {
