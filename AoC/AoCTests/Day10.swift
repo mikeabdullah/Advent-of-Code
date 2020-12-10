@@ -42,6 +42,35 @@ class Day10: XCTestCase {
         
         XCTAssertEqual(stepsOf1 * (stepsOf3 + 1), 2343)
     }
+
+    func testSample2() throws {
+        
+        let location = Bundle(for: Self.self).url(forResource: "sample-input-10-1", withExtension: "txt")!
+        let input = try String(contentsOf: location)
+        let jolts = input.lines.map { Int($0)! }
+        
+        let sorted = jolts.sorted()
+        let device = sorted.last! + 3
+        
+        let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
+        XCTAssertEqual(count, 8)
+    }
+
+    func testPart2() {
+        
+        var sorted = input.sorted()
+        let device = sorted.last! + 3
+        XCTAssertTrue(sorted.isValidAdaptorChain(from: 0, to: device))
+        
+        sorted.insert(0, at: 0)     // the charging port
+        sorted.append(device) // the device
+        
+        let adaptors = sorted.dropFirst().dropLast()
+        
+        let validCombos = adaptors.numberOfPossibleValidAdaptorChains(from: 0, to: device)
+        
+        XCTAssertEqual(validCombos, 0)
+    }
 }
 
 
@@ -61,16 +90,55 @@ extension Array where Element == Int {
 }
 
 
-extension Collection where Element == Int {
+extension Sequence where Element == Int {
     
     /// Checks that no step in the chain is greater than 3
-    func isValidAdaptorChain() -> Bool {
+    /// - Complexity: O(n)
+    func isValidAdaptorChain(from previous: Int, to next: Int) -> Bool {
         
-        let pairs = zip(self, self.dropFirst())
-        let steps = pairs.lazy.map { pair in
-            return pair.1 - pair.0
+        var previous = previous
+        for value in self {
+            let step = value - previous
+            guard step <= 3 else { return false }
+            
+            previous = value
         }
         
-        return steps.allSatisfy { $0 <= 3 }
+        let step = next - previous
+        guard step <= 3 else { return false }
+        
+        return true
+    }
+}
+ 
+extension BidirectionalCollection where Element == Int {
+
+    func numberOfPossibleValidAdaptorChains(from previous: Int, to next: Int) -> Int {
+        
+        guard self.isValidAdaptorChain(from: previous, to: next) else {
+            return 0
+        }
+        
+        // Try all possible locations to split the chain once and see if still valid
+        var validCombos = 1
+        for i in indices {
+            
+            let (left, right) = split(at: i)
+            
+            // See if the split is valid, and then number of other valid splits within that chain!
+            guard right.isValidAdaptorChain(from: left.last ?? previous, to: next)
+                else { continue }
+                        
+            // Find every further valid split of the left chain
+            validCombos += left.numberOfPossibleValidAdaptorChains(from: previous, to: right.first ?? next)
+        }
+        
+        return validCombos
+    }
+    
+    /// Performs a single split to give two subsequences, either side of the index, not including the index itself.
+    func split(at index: Index) -> (before: SubSequence, after: SubSequence) {
+        return (prefix(upTo: index),
+                suffix(from: self.index(after: index)))
     }
 }
