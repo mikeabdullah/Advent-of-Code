@@ -91,28 +91,6 @@ extension Array where Element == Int {
         return (stepsOf1, stepsOf3)
     }
 }
-
-
-extension Sequence where Element == Int {
-    
-    /// Checks that no step in the chain is greater than 3
-    /// - Complexity: O(n)
-    func isValidAdaptorChain(from previous: Int, to next: Int) -> Bool {
-        
-        var previous = previous
-        for value in self {
-            let step = value - previous
-            guard step <= 3 else { return false }
-            
-            previous = value
-        }
-        
-        let step = next - previous
-        guard step <= 3 else { return false }
-        
-        return true
-    }
-}
  
 extension Array where Element == Int {
 
@@ -150,29 +128,6 @@ extension Array where Element == Int {
 }
 
 extension BidirectionalCollection where Element == Int {
-    
-    func numberOfPossibleValidAdaptorChains(from previous: Int, to next: Int) -> Int {
-        
-        guard self.isValidAdaptorChain(from: previous, to: next) else {
-            return 0
-        }
-        
-        // Try all possible locations to split the chain once and see if still valid
-        var validCombos = 1
-        for i in indices {
-            
-            let (left, right) = split(at: i)
-            
-            // See if the split is valid, and then number of other valid splits within that chain!
-            guard left.isValidAdaptorChain(from: previous, to: right.first ?? next)
-                else { continue }
-                        
-            // Find every further valid split of the right chain
-            validCombos += right.numberOfPossibleValidAdaptorChains(from: left.last ?? previous, to: next)
-        }
-        
-        return validCombos
-    }
     
     /// Performs a single split to give two subsequences, either side of the index, not including the index itself.
     func split(at index: Index) -> (before: SubSequence, after: SubSequence) {
