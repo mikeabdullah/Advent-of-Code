@@ -32,6 +32,16 @@ class Day10: XCTestCase {
         XCTAssertEqual(stepsOf1, 22)
         XCTAssertEqual(stepsOf3 + 1, 10)    // extra one for device
     }
+
+    func testPart1() {
+        
+        var sorted = input.sorted()
+        sorted.insert(0, at: 0) // the charging port
+        
+        let (stepsOf1, stepsOf3) = sorted.stepsOf1And3()
+        
+        XCTAssertEqual(stepsOf1 * (stepsOf3 + 1), 2343)
+    }
 }
 
 
