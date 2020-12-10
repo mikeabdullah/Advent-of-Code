@@ -52,10 +52,7 @@ class Day10: XCTestCase {
         
         measure {
             let sorted = jolts.sorted()
-            let device = sorted.last! + 3
-            
-            let count = sorted.numberOfPossibleValidAdaptorChains(from: 0, to: device)
-            XCTAssertEqual(count, 8)
+            XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 8)
         }
     }
 
@@ -66,20 +63,14 @@ class Day10: XCTestCase {
         let jolts = input.lines.map { Int($0)! }
         
         measure {
-            var sorted = jolts.sorted()
-            sorted.insert(0, at: 0)     // outlet
-            sorted.append(sorted.last! + 3) // device
-            
+            let sorted = jolts.sorted()
             XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 19208)
         }
     }
 
     func testPart2() {
         measure {
-            var sorted = input.sorted()
-            sorted.insert(0, at: 0)     // outlet
-            sorted.append(sorted.last! + 3) // device
-            
+            let sorted = input.sorted()
             XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 31581162962944)
         }
     }
@@ -123,30 +114,42 @@ extension Sequence where Element == Int {
     }
 }
  
-extension BidirectionalCollection where Element == Int {
-    
+extension Array where Element == Int {
+
     func numberOfPossibleValidAdaptorChains() -> Int {
         
-        // Break into chunks whose ends we know can't be removed
-        let chunks = self.chunked(by: { $1 - $0 < 3 })
+        // Find the number of connections each element can legitimately make
+        var lowerCursor = -1
+        var lowerValue = 0
         
-        let normalized = chunks.lazy.map { chunk in
-            chunk.map { $0 - chunk.first! }
-        }
-        
-        var memos = [[Int]:Int]()
-        let combos = normalized.map { chunk -> Int in
-            if let result = memos[chunk] {
-                return result
+        var validConnectionCounts = self.enumerated().map { i, value -> Int in
+            while lowerValue < value - 3 {
+                lowerCursor += 1
+                lowerValue = self[lowerCursor]
             }
             
-            let result = chunk.dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: 0, to: chunk.last!)
-            memos[chunk] = result
-            return result
+            return i - lowerCursor
         }
         
-        return combos.reduce(1, *)
+        // Walk along totalling up the possible combos of connections
+        for i in validConnectionCounts.indices.dropFirst() {
+            
+            // The count currently in the slot tells us how many of the prior values to sum
+            let count = validConnectionCounts[i]
+            validConnectionCounts[i] = validConnectionCounts[i - 1]
+            if count >= 2 {
+                validConnectionCounts[i] += validConnectionCounts[lowerProtected: i - 2] ?? 1
+            }
+            if count >= 3 {
+                validConnectionCounts[i] += validConnectionCounts[lowerProtected: i - 3] ?? 1
+            }
+        }
+        
+        return validConnectionCounts.last!
     }
+}
+
+extension BidirectionalCollection where Element == Int {
     
     func numberOfPossibleValidAdaptorChains(from previous: Int, to next: Int) -> Int {
         
@@ -175,5 +178,14 @@ extension BidirectionalCollection where Element == Int {
     func split(at index: Index) -> (before: SubSequence, after: SubSequence) {
         return (prefix(upTo: index),
                 suffix(from: self.index(after: index)))
+    }
+}
+
+
+extension Array {
+    
+    subscript(lowerProtected index: Index) -> Element? {
+        guard index >= startIndex else { return nil }
+        return self[index]
     }
 }
