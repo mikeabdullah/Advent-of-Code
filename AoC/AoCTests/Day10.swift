@@ -75,19 +75,13 @@ class Day10: XCTestCase {
     }
 
     func testPart2() {
-        
-        var sorted = input.sorted()
-        let device = sorted.last! + 3
-        XCTAssertTrue(sorted.isValidAdaptorChain(from: 0, to: device))
-        
-        sorted.insert(0, at: 0)     // the charging port
-        sorted.append(device) // the device
-        
-        let adaptors = sorted.dropFirst().dropLast()
-        
-        let validCombos = adaptors.numberOfPossibleValidAdaptorChains(from: 0, to: device)
-        
-        XCTAssertEqual(validCombos, 0)
+        measure {
+            var sorted = input.sorted()
+            sorted.insert(0, at: 0)     // outlet
+            sorted.append(sorted.last! + 3) // device
+            
+            XCTAssertEqual(sorted.numberOfPossibleValidAdaptorChains(), 31581162962944)
+        }
     }
 }
 
