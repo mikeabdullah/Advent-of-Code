@@ -134,12 +134,10 @@ extension BidirectionalCollection where Element == Int {
             chunk.lazy.map { $0 - chunk.first! }
         }
         
-        let combos = normalized.map { $0._numberOfPossibleValidAdaptorChains() }
+        let combos = normalized.map {
+            return $0.dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: 0, to: $0.last!)
+        }
         return combos.reduce(1, *)
-    }
-    
-    func _numberOfPossibleValidAdaptorChains() -> Int {
-        return dropFirst().dropLast().numberOfPossibleValidAdaptorChains(from: 0, to: last!)
     }
     
     func numberOfPossibleValidAdaptorChains(from previous: Int, to next: Int) -> Int {
