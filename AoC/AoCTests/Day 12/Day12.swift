@@ -27,13 +27,13 @@ class Day12: XCTestCase {
             
             switch instruction.action {
             case "N":
-                state.location &+= [0, 1] &* instruction.value
+                state.location.y += instruction.value
             case "S":
-                state.location &+= [0, -1] &* instruction.value
+                state.location.y -= instruction.value
             case "E":
-                state.location &+= [1, 0] &* instruction.value
+                state.location.x += instruction.value
             case "W":
-                state.location &+= [-1, 0] &* instruction.value
+                state.location.x -= instruction.value
                 
             case "L":
                 let angle = instruction.value
@@ -63,13 +63,13 @@ class Day12: XCTestCase {
             
             switch instruction.action {
             case "N":
-                state.waypoint &+= [0, 1] &* instruction.value
+                state.waypoint.y += instruction.value
             case "S":
-                state.waypoint &+= [0, -1] &* instruction.value
+                state.waypoint.y -= instruction.value
             case "E":
-                state.waypoint &+= [1, 0] &* instruction.value
+                state.waypoint.x += instruction.value
             case "W":
-                state.waypoint &+= [-1, 0] &* instruction.value
+                state.waypoint.x -= instruction.value
                 
             case "L":
                 let angle = instruction.value
