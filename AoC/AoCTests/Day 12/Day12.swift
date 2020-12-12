@@ -54,6 +54,42 @@ class Day12: XCTestCase {
         XCTAssertEqual(distance, 420)
     }
 
+    func testPart2() throws {
+        let state: (location: SIMD2<Int>, waypoint: SIMD2<Int>) = (.zero, [10, 1])
+        
+        let instructions = input.lazy.map { Instruction($0) }
+        
+        let finalState = instructions.reduce(into: state) { (state, instruction) in
+            
+            switch instruction.action {
+            case "N":
+                state.waypoint &+= [0, 1] &* instruction.value
+            case "S":
+                state.waypoint &+= [0, -1] &* instruction.value
+            case "E":
+                state.waypoint &+= [1, 0] &* instruction.value
+            case "W":
+                state.waypoint &+= [-1, 0] &* instruction.value
+                
+            case "L":
+                let angle = instruction.value
+                state.waypoint.rotate(clockwise: false, times: angle/90)
+            case "R":
+                let angle = instruction.value
+                state.waypoint.rotate(clockwise: true, times: angle/90)
+                
+            case "F":
+                state.location &+= state.waypoint &* instruction.value
+                
+            default:
+                assertionFailure("Unknown action")
+            }
+        }
+        
+        let distance = abs(finalState.location.x) + abs(finalState.location.y)
+        XCTAssertEqual(distance, 42073)
+    }
+
     
     struct Instruction {
         let action: Character
