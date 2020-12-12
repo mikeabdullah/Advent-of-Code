@@ -37,14 +37,10 @@ class Day12: XCTestCase {
                 
             case "L":
                 let angle = instruction.value
-                for _ in 1...(angle/90) {
-                    direction = [-direction.y, direction.x]
-                }
+                direction.rotate(clockwise: false, times: angle/90)
             case "R":
                 let angle = instruction.value
-                for _ in 1...(angle/90) {
-                    direction = [direction.y, -direction.x]
-                }
+                direction.rotate(clockwise: true, times: angle/90)
                 
             case "F":
                 location &+= direction &* instruction.value
@@ -70,6 +66,22 @@ class Day12: XCTestCase {
             let scanner = Scanner(string: string)
             scanner.currentIndex = Range(NSMakeRange(1, 0), in: string)!.lowerBound
             self.value = scanner.scanInt()!
+        }
+    }
+}
+
+
+extension SIMD2 where Scalar == Int {
+    
+    mutating func rotate(clockwise: Bool, times: Int) {
+        
+        for _ in 1...times {
+            if clockwise {
+                self = [self.y, -self.x]
+            }
+            else {
+                self = [-self.y, self.x]
+            }
         }
     }
 }
