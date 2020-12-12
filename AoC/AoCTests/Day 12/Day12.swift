@@ -19,38 +19,38 @@ class Day12: XCTestCase {
     }
 
     func testPart1() throws {
-        var location: SIMD2<Int> = .zero
-        var direction: SIMD2<Int> = [1, 0]
+        let state: (location: SIMD2<Int>, direction: SIMD2<Int>) = (.zero, [1, 0])
         
         let instructions = input.lazy.map { Instruction($0) }
         
-        for instruction in instructions {
+        let finalState = instructions.reduce(into: state) { (state, instruction) in
+            
             switch instruction.action {
             case "N":
-                location &+= [0, 1] &* instruction.value
+                state.location &+= [0, 1] &* instruction.value
             case "S":
-                location &+= [0, -1] &* instruction.value
+                state.location &+= [0, -1] &* instruction.value
             case "E":
-                location &+= [1, 0] &* instruction.value
+                state.location &+= [1, 0] &* instruction.value
             case "W":
-                location &+= [-1, 0] &* instruction.value
+                state.location &+= [-1, 0] &* instruction.value
                 
             case "L":
                 let angle = instruction.value
-                direction.rotate(clockwise: false, times: angle/90)
+                state.direction.rotate(clockwise: false, times: angle/90)
             case "R":
                 let angle = instruction.value
-                direction.rotate(clockwise: true, times: angle/90)
+                state.direction.rotate(clockwise: true, times: angle/90)
                 
             case "F":
-                location &+= direction &* instruction.value
+                state.location &+= state.direction &* instruction.value
                 
             default:
                 assertionFailure("Unknown action")
             }
         }
         
-        let distance = abs(location.x) + abs(location.y)
+        let distance = abs(finalState.location.x) + abs(finalState.location.y)
         XCTAssertEqual(distance, 420)
     }
 
