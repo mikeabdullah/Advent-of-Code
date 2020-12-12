@@ -24,26 +24,25 @@ class Day12: XCTestCase {
         let instructions = input.lazy.map { Instruction($0) }
         
         let finalState = instructions.reduce(into: state) { (state, instruction) in
+            let value = instruction.value
             
             switch instruction.action {
             case "N":
-                state.location.y += instruction.value
+                state.location.y += value
             case "S":
-                state.location.y -= instruction.value
+                state.location.y -= value
             case "E":
-                state.location.x += instruction.value
+                state.location.x += value
             case "W":
-                state.location.x -= instruction.value
+                state.location.x -= value
                 
             case "L":
-                let angle = instruction.value
-                state.direction.rotate(clockwise: false, times: angle/90)
+                state.direction.rotate(clockwise: false, times: value/90)
             case "R":
-                let angle = instruction.value
-                state.direction.rotate(clockwise: true, times: angle/90)
+                state.direction.rotate(clockwise: true, times: value/90)
                 
             case "F":
-                state.location &+= state.direction &* instruction.value
+                state.location &+= state.direction &* value
                 
             default:
                 assertionFailure("Unknown action")
@@ -60,26 +59,25 @@ class Day12: XCTestCase {
         let instructions = input.lazy.map { Instruction($0) }
         
         let finalState = instructions.reduce(into: state) { (state, instruction) in
+            let value = instruction.value
             
             switch instruction.action {
             case "N":
-                state.waypoint.y += instruction.value
+                state.waypoint.y += value
             case "S":
-                state.waypoint.y -= instruction.value
+                state.waypoint.y -= value
             case "E":
-                state.waypoint.x += instruction.value
+                state.waypoint.x += value
             case "W":
-                state.waypoint.x -= instruction.value
+                state.waypoint.x -= value
                 
             case "L":
-                let angle = instruction.value
-                state.waypoint.rotate(clockwise: false, times: angle/90)
+                state.waypoint.rotate(clockwise: false, times: value/90)
             case "R":
-                let angle = instruction.value
-                state.waypoint.rotate(clockwise: true, times: angle/90)
+                state.waypoint.rotate(clockwise: true, times: value/90)
                 
             case "F":
-                state.location &+= state.waypoint &* instruction.value
+                state.location &+= state.waypoint &* value
                 
             default:
                 assertionFailure("Unknown action")
