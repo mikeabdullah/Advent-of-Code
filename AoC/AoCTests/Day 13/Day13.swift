@@ -38,7 +38,24 @@ class Day13: XCTestCase {
             return (number, offset)
         }
         
-        print(offsetsAndBusNumbers)
+        var iterator = offsetsAndBusNumbers.makeIterator()
+        var a = iterator.next()!
+        var b = iterator.next()!
+        
+        var time = firstTime(that: b.bus, arrives: b.offset, after: a.bus)
+        
+        while let next = iterator.next() {
+            let multiplied = a.bus * b.bus
+            
+            // Compute an equivalent bus schedule for the result so far, so can combine with the
+            // next requirement
+            a = (multiplied, multiplied - time)
+            
+            b = next
+            time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
+        }
+
+        XCTAssertEqual(time, 106845)
     }
     
     func testPairOfBuses() {
@@ -64,12 +81,12 @@ class Day13: XCTestCase {
         return next
     }
     
-    func firstTime(that busB: Int, arrives offset: Int, after busA: Int) -> Int {
+    func firstTime(that busB: Int, arrives offsetB: Int, after busA: Int, offset offsetA: Int = 0) -> Int {
         
-        let (u, v) = bezoutCoeffecients(of: busA, busB)
-        
-        let time = (-offset * u * busA) / (v * busB + u * busA)
-        let first = time % (busA * busB)
+        let (u, v) = minimalBezoutCoeffecients(of: busA, busB)
+                
+        let occurrence = -(offsetB * u * busA + offsetA * v * busB)
+        let first = occurrence.mod(busA * busB)
         return first
     }
 }
@@ -88,7 +105,24 @@ func bezoutCoeffecients(of a: Int, _ b: Int) -> (Int, Int) {
         (old_t, t) = (t, old_t - quotient * t)
     }
     
-//    assert(old_r == 1)
     return (old_s, old_t)
-//    output "quotients by the gcd:", (t, s)
+}
+
+func minimalBezoutCoeffecients(of a: Int, _ b: Int) -> (Int, Int) {
+    
+    let (x, y) = bezoutCoeffecients(of: a, b)
+    
+    let k = x / b
+    
+    let min = (x - k * b, y + k * a)
+    return min
+}
+
+
+extension Int {
+    
+    func mod(_ mod: Int) -> Int {
+        let result = self % mod
+        return result >= 0 ? result : result + mod
+    }
 }
