@@ -87,10 +87,12 @@ class Day13: XCTestCase {
     
     func firstTime(that busB: Int, arrives offsetB: Int, after busA: Int, offset offsetA: Int = 0) -> Int {
         
+        let multiplied = busA * busB
+        
         let coefficients = BezoutCoefficients(of: busA, busB).minimal()
-                
-        let occurrence = -(offsetB * coefficients.x * busA + offsetA * coefficients.y * busB)
-        let first = occurrence.mod(busA * busB)
+        
+        let occurrence = -( (offsetB * coefficients.x) * busA + offsetA * coefficients.y * busB)
+        let first = occurrence.mod(multiplied)
         return first
     }
 }
