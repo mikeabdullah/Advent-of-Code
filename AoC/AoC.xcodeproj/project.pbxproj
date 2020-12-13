@@ -34,6 +34,8 @@
 		27FD0D8A25856DB80004555C /* input-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27FD0D8925856DB80004555C /* input-12.txt */; };
 		27FD0D8D25861D420004555C /* Day13.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD0D8C25861D420004555C /* Day13.swift */; };
 		27FD0D8F25861D520004555C /* input-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27FD0D8E25861D520004555C /* input-13.txt */; };
+		27FD0D92258663C10004555C /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 27FD0D91258663C10004555C /* BigInt */; };
+		27FD0D94258663CC0004555C /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 27FD0D93258663CC0004555C /* BigInt */; };
 		27FF9DEC2580C47500D6ACA3 /* Day9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF9DEB2580C47500D6ACA3 /* Day9.swift */; };
 		27FF9DEF2580C4BB00D6ACA3 /* input-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27FF9DEE2580C4BB00D6ACA3 /* input-9.txt */; };
 /* End PBXBuildFile section */
@@ -78,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				270499C92582358000452F76 /* Algorithms in Frameworks */,
+				27FD0D92258663C10004555C /* BigInt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				276E06E725823A1C00BA2881 /* Algorithms in Frameworks */,
+				27FD0D94258663CC0004555C /* BigInt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +289,7 @@
 			name = AoC;
 			packageProductDependencies = (
 				270499C82582358000452F76 /* Algorithms */,
+				27FD0D91258663C10004555C /* BigInt */,
 			);
 			productName = AoC;
 			productReference = 27B7EA532577800100A49017 /* AoC.bundle */;
@@ -306,6 +311,7 @@
 			name = AoCTests;
 			packageProductDependencies = (
 				276E06E625823A1C00BA2881 /* Algorithms */,
+				27FD0D93258663CC0004555C /* BigInt */,
 			);
 			productName = AoCTests;
 			productReference = 27B7EA602577802E00A49017 /* AoCTests.xctest */;
@@ -340,6 +346,7 @@
 			mainGroup = 27B7EA4A2577800100A49017;
 			packageReferences = (
 				270499C72582358000452F76 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				27FD0D90258663C10004555C /* XCRemoteSwiftPackageReference "BigInt" */,
 			);
 			productRefGroup = 27B7EA542577800100A49017 /* Products */;
 			projectDirPath = "";
@@ -640,6 +647,14 @@
 				minimumVersion = 0.0.2;
 			};
 		};
+		27FD0D90258663C10004555C /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/attaswift/BigInt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -657,6 +672,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 270499C72582358000452F76 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
+		};
+		27FD0D91258663C10004555C /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27FD0D90258663C10004555C /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		27FD0D93258663CC0004555C /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27FD0D90258663C10004555C /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
