@@ -27,15 +27,17 @@ class Day11: XCTestCase {
             while !seats.isEmpty {
                 
                 // Mark all seats with few enough neighbors as occupied
-                var next = plane
-                for seat in seats where plane.statesAdjacent(to: seat).count(where: { $0 == .undecided || $0 == .occupied }) < 4 {
-                    next[seat] = .occupied
-                    seats.remove(seat)
+                let toEmpty = seats.filter { seat in
+                    plane.statesAdjacent(to: seat).count(where: { $0 == .undecided || $0 == .occupied }) < 4
                 }
-                plane = next
+                
+                for seat in toEmpty {
+                    plane[seat] = .occupied
+                }
+                seats.subtract(toEmpty)
                 
                 // Mark all remaining seats with an occupied neighbor as being permanently empty
-                next = plane
+                var next = plane
                 for seat in seats where plane.statesAdjacent(to: seat).contains(.occupied) {
                     next[seat] = .empty
                     seats.remove(seat)
