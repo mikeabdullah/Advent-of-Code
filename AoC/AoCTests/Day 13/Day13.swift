@@ -33,16 +33,19 @@ class Day13: XCTestCase {
     func testPart2() {
         
         let inputs = input[1].split(separator: ",")
-        let offsetsAndBusNumbers = inputs.enumerated().compactMap { offset, bus -> (bus: Int, offset: Int)? in
+        var offsetsAndBusNumbers = inputs.enumerated().compactMap { offset, bus -> (bus: Int, offset: Int)? in
             guard let number = Int(bus) else { return nil }
             return (number, offset)
         }
+        
+        // Sort to put the biggest first since those are hardest to calculate
+        offsetsAndBusNumbers.sort(by: { $0.bus > $1.bus })
         
         var iterator = offsetsAndBusNumbers.makeIterator()
         var a = iterator.next()!
         var b = iterator.next()!
         
-        var time = firstTime(that: b.bus, arrives: b.offset, after: a.bus)
+        var time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
         
         while let next = iterator.next() {
             let multiplied = a.bus * b.bus
@@ -64,9 +67,9 @@ class Day13: XCTestCase {
     }
     
     func testBezoutCoeffecients() {
-        let (u, v) = bezoutCoeffecients(of: 17, 37)
-        XCTAssertEqual(u, -13)
-        XCTAssertEqual(v, 6)
+        let coefficients = BezoutCoefficients(of: 17, 37)
+        XCTAssertEqual(coefficients.x, -13)
+        XCTAssertEqual(coefficients.y, 6)
     }
 
     // MARK: -
@@ -83,39 +86,52 @@ class Day13: XCTestCase {
     
     func firstTime(that busB: Int, arrives offsetB: Int, after busA: Int, offset offsetA: Int = 0) -> Int {
         
-        let (u, v) = minimalBezoutCoeffecients(of: busA, busB)
+        let coefficients = BezoutCoefficients(of: busA, busB).minimal()
                 
-        let occurrence = -(offsetB * u * busA + offsetA * v * busB)
+        let occurrence = -(offsetB * coefficients.x * busA + offsetA * coefficients.y * busB)
         let first = occurrence.mod(busA * busB)
         return first
     }
 }
 
 
-func bezoutCoeffecients(of a: Int, _ b: Int) -> (Int, Int) {
+struct BezoutCoefficients {
     
-    var (old_r, r) = (a, b)
-    var (old_s, s) = (1, 0)
-    var (old_t, t) = (0, 1)
+    let a: Int, b: Int
     
-    while r != 0 {
-        let quotient = old_r / r
-        (old_r, r) = (r, old_r - quotient * r)
-        (old_s, s) = (s, old_s - quotient * s)
-        (old_t, t) = (t, old_t - quotient * t)
+    init(of a: Int, _ b: Int) {
+        self.a = a
+        self.b = b
+        
+        var (old_r, r) = (a, b)
+        var (old_s, s) = (1, 0)
+        var (old_t, t) = (0, 1)
+        
+        while r != 0 {
+            let quotient = old_r / r
+            (old_r, r) = (r, old_r - quotient * r)
+            (old_s, s) = (s, old_s - quotient * s)
+            (old_t, t) = (t, old_t - quotient * t)
+        }
+        
+        self.x = old_s
+        self.y = old_t
     }
     
-    return (old_s, old_t)
-}
-
-func minimalBezoutCoeffecients(of a: Int, _ b: Int) -> (Int, Int) {
+    var x: Int
+    var y: Int
     
-    let (x, y) = bezoutCoeffecients(of: a, b)
+    func coeffecients(for k: Int) -> BezoutCoefficients {
+        var result = self
+        result.x = x - k * b
+        result.y = y + k * a
+        return result
+    }
     
-    let k = x / b
-    
-    let min = (x - k * b, y + k * a)
-    return min
+    func minimal() -> BezoutCoefficients {
+        let k = Int((Float(x) / Float(b)).rounded())
+        return coeffecients(for: k)
+    }
 }
 
 
