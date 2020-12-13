@@ -59,7 +59,7 @@ class Day13: XCTestCase {
             time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
         }
 
-        XCTAssertEqual(time, 106845)
+        XCTAssertEqual(time, 725169163285238)
     }
     
     func testPairOfBuses() {
@@ -87,12 +87,12 @@ class Day13: XCTestCase {
     
     func firstTime(that busB: Int, arrives offsetB: Int, after busA: Int, offset offsetA: Int = 0) -> Int {
         
-        let multiplied = busA * busB
+        let multiplied = BigInt(busA * busB)
         
         let coefficients = BezoutCoefficients(of: busA, busB).minimal()
         
-        let occurrence = -( (offsetB * coefficients.x) * busA + offsetA * coefficients.y * busB)
-        let first = occurrence.mod(multiplied)
+        let occurrence = -( BigInt(offsetB) * BigInt(coefficients.x) * BigInt(busA) + BigInt(offsetA) * BigInt(coefficients.y) * BigInt(busB))
+        let first = Int(occurrence.mod(multiplied))
         return first
     }
 }
@@ -141,6 +141,16 @@ struct BezoutCoefficients {
 extension Int {
     
     func mod(_ mod: Int) -> Int {
+        let result = self % mod
+        return result >= 0 ? result : result + mod
+    }
+}
+
+
+
+extension BigInt {
+    
+    func mod(_ mod: BigInt) -> BigInt {
         let result = self % mod
         return result >= 0 ? result : result + mod
     }
