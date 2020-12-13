@@ -32,34 +32,35 @@ class Day13: XCTestCase {
     }
     
     func testPart2() {
-        
-        let inputs = input[1].split(separator: ",")
-        var offsetsAndBusNumbers = inputs.enumerated().compactMap { offset, bus -> (bus: Int, offset: Int)? in
-            guard let number = Int(bus) else { return nil }
-            return (number, offset)
-        }
-        
-        // Sort to put the biggest first since those are hardest to calculate
-        offsetsAndBusNumbers.sort(by: { $0.bus > $1.bus })
-        
-        var iterator = offsetsAndBusNumbers.makeIterator()
-        var a = iterator.next()!
-        var b = iterator.next()!
-        
-        var time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
-        
-        while let next = iterator.next() {
-            let multiplied = a.bus * b.bus
+        measure {
+            let inputs = input[1].split(separator: ",")
+            var offsetsAndBusNumbers = inputs.enumerated().compactMap { offset, bus -> (bus: Int, offset: Int)? in
+                guard let number = Int(bus) else { return nil }
+                return (number, offset)
+            }
             
-            // Compute an equivalent bus schedule for the result so far, so can combine with the
-            // next requirement
-            a = (multiplied, multiplied - time)
+            // Sort to put the biggest first since those are hardest to calculate
+            offsetsAndBusNumbers.sort(by: { $0.bus > $1.bus })
             
-            b = next
-            time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
+            var iterator = offsetsAndBusNumbers.makeIterator()
+            var a = iterator.next()!
+            var b = iterator.next()!
+            
+            var time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
+            
+            while let next = iterator.next() {
+                let multiplied = a.bus * b.bus
+                
+                // Compute an equivalent bus schedule for the result so far, so can combine with the
+                // next requirement
+                a = (multiplied, multiplied - time)
+                
+                b = next
+                time = firstTime(that: b.bus, arrives: b.offset, after: a.bus, offset: a.offset)
+            }
+            
+            XCTAssertEqual(time, 725169163285238)
         }
-
-        XCTAssertEqual(time, 725169163285238)
     }
     
     func testPairOfBuses() {
