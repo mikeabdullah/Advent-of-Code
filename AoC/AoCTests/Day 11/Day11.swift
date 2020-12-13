@@ -20,52 +20,32 @@ class Day11: XCTestCase {
 
     func testPart1() {
         measure {
-            var state = Plane(input)
+            var plane = Plane(input)
             
-            let evolution = sequence(first: state) { prior in
-                return self.applyRules(to: prior)
-            }
+            var seats = plane.seats
             
-            for next in evolution.dropFirst() {
-                if next == state { break }
-                state = next
-            }
-            
-            let occupied = state.occupationCount
-            XCTAssertEqual(occupied, 2344)
-        }
-    }
-    
-    func applyRules(to plane: Plane) -> Plane {
-        
-        return plane.evolve { coordinate, occupied in
-            let x = coordinate.x, y = coordinate.y
-            
-            if occupied {
-                // If a seat is occupied (#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
-                let sum = [plane[x-1, y-1],
-                           plane[x, y-1],
-                           plane[x+1, y-1],
-                           plane[x-1, y],
-                           plane[x+1, y],
-                           plane[x-1, y+1],
-                           plane[x, y+1],
-                           plane[x+1, y+1]]
-                    .count(where: { $0 })
+            while !seats.isEmpty {
                 
-                return sum < 4
+                // Mark all seats with few enough neighbors as occupied
+                var next = plane
+                for seat in seats where plane.statesAdjacent(to: seat).count(where: { $0 == .undecided || $0 == .occupied }) < 4 {
+                    next[seat] = .occupied
+                    seats.remove(seat)
+                }
+                plane = next
+                
+                // Mark all remaining seats with an occupied neighbor as being permanently empty
+                next = plane
+                for seat in seats where plane.statesAdjacent(to: seat).contains(.occupied) {
+                    next[seat] = .empty
+                    seats.remove(seat)
+                }
+                
+                plane = next
             }
-            else {
-                // If a seat is empty (L) and there are no occupied seats adjacent to it, the seat becomes occupied.
-                return !plane[x-1, y-1] &&
-                    !plane[x, y-1] &&
-                    !plane[x+1, y-1] &&
-                    !plane[x-1, y] &&
-                    !plane[x+1, y] &&
-                    !plane[x-1, y+1] &&
-                    !plane[x, y+1] &&
-                    !plane[x+1, y+1]
-            }
+            
+            let occupied = plane.occupationCount
+            XCTAssertEqual(occupied, 2344)
         }
     }
     
@@ -73,7 +53,20 @@ class Day11: XCTestCase {
     
     struct Plane : Hashable {
         
-        private var storage: [Coordinate: Bool] = [:]
+        enum SeatState : Hashable {
+            case occupied
+            case empty
+            case undecided
+            
+            var isOccupied: Bool {
+                switch self {
+                case .occupied: return true
+                case .empty, .undecided: return false
+                }
+            }
+        }
+        
+        private var storage: [Coordinate: SeatState] = [:]
         
         init() { }
         
@@ -83,8 +76,8 @@ class Day11: XCTestCase {
                 for (x, value) in seats.enumerated() {
                     switch value {
                     case "L":
-                        // Empty, but we know all empty seats become full
-                        storage[[x, y]] = true
+                        // Start uknown
+                        storage[[x, y]] = .undecided
                     case ".":
                         break   // floor, ignore
                     default:
@@ -94,33 +87,52 @@ class Day11: XCTestCase {
             }
         }
         
-        subscript(x: Int, y: Int) -> Bool {
+        subscript(x: Int, y: Int) -> SeatState? {
             get {
-                return storage[[x, y]] ?? false
+                return storage[[x, y]] ?? nil
             }
             set {
                 storage[[x, y]] = newValue
             }
         }
         
-//        subscript(x: Int, y: Int) -> Int {
-//            return self[x, y] ? 1 : 0
-//        }
-        
-        var occupationCount: Int {
-            return storage.values.count(where: { $0 })
+        subscript(coordinate: Coordinate) -> SeatState? {
+            get {
+                return storage[coordinate]
+            }
+            set {
+                storage[coordinate] = newValue
+            }
         }
         
-        func evolve(_ transform: (Coordinate, Bool) -> Bool) -> Plane {
-            
-            var plane = Plane()
-            plane.storage.reserveCapacity(self.storage.capacity)
-            
-            for (coordinate, occupied) in storage {
-                plane.storage[coordinate] = transform(coordinate, occupied)
-            }
-            
-            return plane
+        /// Coordinates of all seats in the plane.
+        var seats: Set<Coordinate> {
+            return Set(storage.keys)
+        }
+        
+        var numberOfSeats: Int {
+            return storage.count
+        }
+        
+        func statesAdjacent(to seat: Coordinate) -> [SeatState?] {
+            let x = seat.x, y = seat.y
+            return [self[x-1, y-1],
+                    self[x, y-1],
+                    self[x+1, y-1],
+                    self[x-1, y],
+                    self[x+1, y],
+                    self[x-1, y+1],
+                    self[x, y+1],
+                    self[x+1, y+1]]
+        }
+        
+        func numberOfAdjacentUndecidedSeats(to seat: Coordinate) -> Int {
+            return statesAdjacent(to: seat)
+                .count(where: { $0 == .undecided })
+        }
+        
+        var occupationCount: Int {
+            return storage.values.count(where: { $0 == .occupied })
         }
     }
 }
