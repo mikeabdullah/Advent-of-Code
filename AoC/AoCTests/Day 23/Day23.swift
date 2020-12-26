@@ -23,11 +23,7 @@ class Day23: XCTestCase {
         // Make the cup circuit
         var (cups, currentCup) = makeCups(9, start: "389125467")
                 
-        for _ in 1...100 {
-            makeMove(currentCup: currentCup)
-            // Move onto next cup
-            currentCup = currentCup.next
-        }
+        doMoves(100, currentCup: &currentCup)
         
         // Turn into an answer
         let resultCups = cups[1]!.next.sequenceClockwise().prefix(8)
@@ -42,11 +38,7 @@ class Day23: XCTestCase {
         // Make the cup circuit
         var (cups, currentCup) = makeCups(9, start: "562893147")
                 
-        for _ in 1...100 {
-            makeMove(currentCup: currentCup)
-            // Move onto next cup
-            currentCup = currentCup.next
-        }
+        doMoves(100, currentCup: &currentCup)
         
         // Turn into an answer
         let resultCups = cups[1]!.next.sequenceClockwise().prefix(8)
@@ -60,8 +52,7 @@ class Day23: XCTestCase {
         
         // Make the cup circuit
         var (cups, currentCup) = makeCups(1000000, start: "562893147")
-                
-        
+        doMoves(10000000, currentCup: &currentCup)
     }
     
     /// Creates a ring of cups.
@@ -97,7 +88,7 @@ class Day23: XCTestCase {
         return (cups, first)
     }
     
-    private func makeMove(currentCup: Cup) {
+    private func doMove(currentCup: Cup) {
         
         // Pick out the cups after the current cup
         let held = currentCup.removeNext(3)
@@ -113,6 +104,14 @@ class Day23: XCTestCase {
         
         // Insert the removed cups
         destination.insert(held)
+    }
+    
+    private func doMoves(_ count: Int, currentCup: inout Cup) {
+        for _ in 1...count {
+            doMove(currentCup: currentCup)
+            // Move onto next cup
+            currentCup = currentCup.next
+        }
     }
 
     class Cup {
