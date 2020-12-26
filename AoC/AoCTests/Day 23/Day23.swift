@@ -51,6 +51,11 @@ class Day23: XCTestCase {
         // Make the cup circuit
         var game = GameState("562893147", count: 1000000)
         game.doMoves(10000000)
+        
+        let resultCups = game.cups[1]!.sequenceClockwise().dropFirst().prefix(2)
+        let values = resultCups.map { $0.value }
+        let result = values[0] * values[1]
+        XCTAssertEqual(result, 131152940564)
     }
     
     private struct GameState {
