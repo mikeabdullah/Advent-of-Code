@@ -21,7 +21,7 @@ class Day23: XCTestCase {
     func testSample1() throws {
         
         // Make the cup circuit
-        var (cups, currentCup) = makeCups("389125467", count: 9)
+        var (cups, currentCup) = makeCups(9, start: "389125467")
                 
         for _ in 1...100 {
             makeMove(currentCup: currentCup)
@@ -40,7 +40,7 @@ class Day23: XCTestCase {
     func testPart1() throws {
         
         // Make the cup circuit
-        var (cups, currentCup) = makeCups("562893147", count: 9)
+        var (cups, currentCup) = makeCups(9, start: "562893147")
                 
         for _ in 1...100 {
             makeMove(currentCup: currentCup)
@@ -56,12 +56,22 @@ class Day23: XCTestCase {
         XCTAssertEqual(result, "38925764")
     }
     
-    private func makeCups(_ string: String, count: Int) -> (cups: [Int:Cup], first: Cup) {
+    func testPart2() {
+        
+        // Make the cup circuit
+        var (cups, currentCup) = makeCups(1000000, start: "562893147")
+                
+        
+    }
+    
+    /// Creates a ring of cups.
+    private func makeCups(_ count: Int, start string: String) -> (cups: [Int:Cup], first: Cup) {
         
         var cups = [Int:Cup]()
         cups.reserveCapacity(count)
         
         let first = Cup(value: Int(String(string.first!))!)
+        cups[first.value] = first
         
         // Make the other cups, connecting the chain as we go along
         var previous = first
@@ -69,6 +79,14 @@ class Day23: XCTestCase {
             let value = Int(String(valueChar))!
             let cup = Cup(value: value)
             cups[value] = cup
+            previous.next = cup
+            previous = cup
+        }
+        
+        // Keep going until we've reached count
+        for i in cups.count+1 ..< count+1 {
+            let cup = Cup(value: i)
+            cups[i] = cup
             previous.next = cup
             previous = cup
         }
