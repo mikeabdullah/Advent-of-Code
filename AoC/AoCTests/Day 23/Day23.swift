@@ -103,7 +103,7 @@ class Day23: XCTestCase {
             var destinationValue = current.value
             repeat {
                 destinationValue -= 1
-                if destinationValue < 1 { destinationValue = 9 }
+                if destinationValue < 1 { destinationValue = cups.count }
             } while heldValues.contains(destinationValue)
             let destination = current.sequenceClockwise().first(where: { $0.value == destinationValue })!
             
