@@ -30,7 +30,7 @@ class Day23: XCTestCase {
         }
         
         // Turn into an answer
-        let resultCups = cups[1]!.next.makeSequence().prefix(8)
+        let resultCups = cups[1]!.next.sequenceClockwise().prefix(8)
         let values = resultCups.lazy.map { $0.value }
         let strings = values.lazy.map { String($0) }
         let result: String = strings.joined()
@@ -49,7 +49,7 @@ class Day23: XCTestCase {
         }
         
         // Turn into an answer
-        let resultCups = cups[1]!.next.makeSequence().prefix(8)
+        let resultCups = cups[1]!.next.sequenceClockwise().prefix(8)
         let values = resultCups.lazy.map { $0.value }
         let strings = values.lazy.map { String($0) }
         let result: String = strings.joined()
@@ -65,7 +65,7 @@ class Day23: XCTestCase {
             currentCup = Cup(value: value, next: currentCup)
             cups[value] = currentCup
         }
-        currentCup.makeSequence().last!.next = currentCup
+        currentCup.sequenceClockwise().last!.next = currentCup
         
         return (cups, currentCup)
     }
@@ -74,7 +74,7 @@ class Day23: XCTestCase {
         
         // Pick out the cups after the current cup
         let held = currentCup.removeNext(3)
-        let heldValues = held.makeSequence().lazy.map { $0.value }
+        let heldValues = held.sequenceClockwise().lazy.map { $0.value }
         
         // Find the destination
         var destinationValue = currentCup.value
@@ -82,7 +82,7 @@ class Day23: XCTestCase {
             destinationValue -= 1
             if destinationValue < 1 { destinationValue = 9 }
         } while heldValues.contains(destinationValue)
-        let destination = currentCup.makeSequence().first(where: { $0.value == destinationValue })!
+        let destination = currentCup.sequenceClockwise().first(where: { $0.value == destinationValue })!
         
         // Insert the removed cups
         destination.insert(held)
@@ -101,21 +101,21 @@ class Day23: XCTestCase {
         var next: Cup!
         
         /// Sequence that walks the cups until one is nil (so typically forever)
-        func makeSequence() -> UnfoldFirstSequence<Cup> {
+        func sequenceClockwise() -> UnfoldFirstSequence<Cup> {
             return sequence(first: self) { $0.next }
         }
         
         func insert(_ cup: Cup) {
             let next = self.next
             self.next = cup
-            cup.makeSequence().last!.next = next
+            cup.sequenceClockwise().last!.next = next
         }
         
         /// Removes the _k_ next cups in the chain, changing `next` to point to the cup after this amount.
         func removeNext(_ k: Int) -> Cup {
             
             let next = self.next!
-            var iterator = self.makeSequence().dropFirst(k).makeIterator()
+            var iterator = self.sequenceClockwise().dropFirst(k).makeIterator()
             
             let lastToRemove = iterator.next()!
             let replacement = iterator.next()!
