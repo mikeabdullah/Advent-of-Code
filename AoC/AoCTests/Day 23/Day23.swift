@@ -21,9 +21,9 @@ class Day23: XCTestCase {
     func testSample1() throws {
         
         // Make the cup circuit
-        var (cups, currentCup) = makeCups(9, start: "389125467")
-                
-        doMoves(100, currentCup: &currentCup)
+        let (cups, currentCup) = makeCups(9, start: "389125467")
+        var game = GameState(cups: cups, current: currentCup)
+        game.doMoves(100)
         
         // Turn into an answer
         let resultCups = cups[1]!.next.sequenceClockwise().prefix(8)
@@ -36,10 +36,10 @@ class Day23: XCTestCase {
     func testPart1() throws {
         
         // Make the cup circuit
-        var (cups, currentCup) = makeCups(9, start: "562893147")
+        let (cups, currentCup) = makeCups(9, start: "562893147")
+        var game = GameState(cups: cups, current: currentCup)
+        game.doMoves(100)
                 
-        doMoves(100, currentCup: &currentCup)
-        
         // Turn into an answer
         let resultCups = cups[1]!.next.sequenceClockwise().prefix(8)
         let values = resultCups.lazy.map { $0.value }
@@ -51,8 +51,9 @@ class Day23: XCTestCase {
     func testPart2() {
         
         // Make the cup circuit
-        var (cups, currentCup) = makeCups(1000000, start: "562893147")
-        doMoves(10000000, currentCup: &currentCup)
+        let (cups, currentCup) = makeCups(1000000, start: "562893147")
+        var game = GameState(cups: cups, current: currentCup)
+        game.doMoves(10000000)
     }
     
     /// Creates a ring of cups.
@@ -88,29 +89,38 @@ class Day23: XCTestCase {
         return (cups, first)
     }
     
-    private func doMove(currentCup: Cup) {
+    private struct GameState {
         
-        // Pick out the cups after the current cup
-        let held = currentCup.removeNext(3)
-        let heldValues = held.sequenceClockwise().lazy.map { $0.value }
+        /// All cups in the game.
+        let cups: [Int:Cup]
         
-        // Find the destination
-        var destinationValue = currentCup.value
-        repeat {
-            destinationValue -= 1
-            if destinationValue < 1 { destinationValue = 9 }
-        } while heldValues.contains(destinationValue)
-        let destination = currentCup.sequenceClockwise().first(where: { $0.value == destinationValue })!
+        /// The "current" cup.
+        var current: Cup
         
-        // Insert the removed cups
-        destination.insert(held)
-    }
-    
-    private func doMoves(_ count: Int, currentCup: inout Cup) {
-        for _ in 1...count {
-            doMove(currentCup: currentCup)
-            // Move onto next cup
-            currentCup = currentCup.next
+        func doMove() {
+            
+            // Pick out the cups after the current cup
+            let held = current.removeNext(3)
+            let heldValues = held.sequenceClockwise().lazy.map { $0.value }
+            
+            // Find the destination
+            var destinationValue = current.value
+            repeat {
+                destinationValue -= 1
+                if destinationValue < 1 { destinationValue = 9 }
+            } while heldValues.contains(destinationValue)
+            let destination = current.sequenceClockwise().first(where: { $0.value == destinationValue })!
+            
+            // Insert the removed cups
+            destination.insert(held)
+        }
+        
+        mutating func doMoves(_ count: Int) {
+            for _ in 1...count {
+                doMove()
+                // Move onto next cup
+                current = current.next
+            }
         }
     }
 
