@@ -25,7 +25,7 @@ class Day23: XCTestCase {
         game.doMoves(100)
         
         // Turn into an answer
-        let resultCups = game.cups[1]!.next.sequenceClockwise().prefix(8)
+        let resultCups = game.cups[1]!.sequenceClockwise().dropFirst().prefix(8)
         let values = resultCups.lazy.map { $0.value }
         let strings = values.lazy.map { String($0) }
         let result: String = strings.joined()
@@ -39,7 +39,7 @@ class Day23: XCTestCase {
         game.doMoves(100)
                 
         // Turn into an answer
-        let resultCups = game.cups[1]!.next.sequenceClockwise().prefix(8)
+        let resultCups = game.cups[1]!.sequenceClockwise().dropFirst().prefix(8)
         let values = resultCups.lazy.map { $0.value }
         let strings = values.lazy.map { String($0) }
         let result: String = strings.joined()
