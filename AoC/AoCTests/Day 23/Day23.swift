@@ -105,7 +105,7 @@ class Day23: XCTestCase {
                 destinationValue -= 1
                 if destinationValue < 1 { destinationValue = cups.count }
             } while heldValues.contains(destinationValue)
-            let destination = current.sequenceClockwise().first(where: { $0.value == destinationValue })!
+            let destination = cups[destinationValue]!
             
             // Insert the removed cups
             destination.insert(held)
