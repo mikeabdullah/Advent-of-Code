@@ -56,18 +56,27 @@ class Day23: XCTestCase {
         XCTAssertEqual(result, "38925764")
     }
     
-    private func makeCups(_ string: String, count: Int) -> (cups: [Int:Cup], current: Cup) {
+    private func makeCups(_ string: String, count: Int) -> (cups: [Int:Cup], first: Cup) {
         
-        var cups: [Int:Cup] = [:]
-        var currentCup: Cup!
-        for valueChar in string.reversed() {
+        var cups = [Int:Cup]()
+        cups.reserveCapacity(count)
+        
+        let first = Cup(value: Int(String(string.first!))!)
+        
+        // Make the other cups, connecting the chain as we go along
+        var previous = first
+        for valueChar in string.dropFirst() {
             let value = Int(String(valueChar))!
-            currentCup = Cup(value: value, next: currentCup)
-            cups[value] = currentCup
+            let cup = Cup(value: value)
+            cups[value] = cup
+            previous.next = cup
+            previous = cup
         }
-        currentCup.sequenceClockwise().last!.next = currentCup
         
-        return (cups, currentCup)
+        // Make the final connection back to start
+        previous.next = first
+        
+        return (cups, first)
     }
     
     private func makeMove(currentCup: Cup) {
