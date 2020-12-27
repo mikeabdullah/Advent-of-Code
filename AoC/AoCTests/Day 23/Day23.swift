@@ -26,7 +26,7 @@ class Day23: XCTestCase {
         
         // Turn into an answer
         let resultCups = game.cups(from: 1).dropFirst().prefix(8)
-        let strings = resultCups.lazy.map { String($0.rawValue) }
+        let strings = resultCups.lazy.map { String($0.value) }
         let result: String = strings.joined()
         XCTAssertEqual(result, "67384529")
     }
@@ -39,7 +39,7 @@ class Day23: XCTestCase {
                 
         // Turn into an answer
         let resultCups = game.cups(from: 1).dropFirst().prefix(8)
-        let strings = resultCups.lazy.map { String($0.rawValue) }
+        let strings = resultCups.lazy.map { String($0.value) }
         let result: String = strings.joined()
         XCTAssertEqual(result, "38925764")
     }
@@ -53,7 +53,7 @@ class Day23: XCTestCase {
             
             let result1 = game.cup(after: 1)
             let result2 = game.cup(after: result1)
-            let result = result1.rawValue * result2.rawValue
+            let result = result1.value * result2.value
             XCTAssertEqual(result, 131152940564)
         }
     }
@@ -131,9 +131,9 @@ class Day23: XCTestCase {
             // Figure out which cup will be the destination
             var destination = current
             repeat {
-                var destinationValue = destination.rawValue - 1
+                var destinationValue = destination.value - 1
                 if destinationValue < 1 { destinationValue = links.count }
-                destination = Cup(rawValue: destinationValue)
+                destination = Cup(value: destinationValue)
             } while destination == firstHeld || destination == middleHeld || destination == lastHeld
             
             // Insert the removed cups after the destination
@@ -150,30 +150,33 @@ class Day23: XCTestCase {
         }
     }
 
-    struct Cup : RawRepresentable, Equatable, ExpressibleByIntegerLiteral {
+    struct Cup : Equatable, ExpressibleByIntegerLiteral {
         
-        init(index: Int) {
-            self.rawValue = index + 1
+        init(value: Int) {
+            precondition(value >= 1)
+            self.index = value - 1
         }
         
-        init(rawValue: Int) {
-            precondition(rawValue >= 1)
-            self.rawValue = rawValue
+        init(index: Int) {
+            precondition(index >= 0)
+            self.index = index
         }
         
         init(integerLiteral value: Int) {
-            self.init(rawValue: value)
+            self.init(value: value)
         }
         
         init?(character: Character) {
             guard let value = Int(String(character)) else { return nil }
-            self.rawValue = value
+            self.init(value: value)
         }
         
-        let rawValue: Int
+        var value: Int {
+            index + 1
+        }
         
         /// The index of the cup in the linked list. i.e. value - 1
-        var index: Int { rawValue - 1 }
+        let index: Int
     }
 }
 
