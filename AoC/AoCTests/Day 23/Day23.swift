@@ -21,7 +21,7 @@ class Day23: XCTestCase {
     func testSample1() throws {
         
         // Make the cup circuit
-        var game = GameState(seed: "389125467", count: 9)
+        let game = GameState(seed: "389125467", count: 9)
         game.doMoves(100)
         
         // Turn into an answer
@@ -34,7 +34,7 @@ class Day23: XCTestCase {
     func testPart1() throws {
         
         // Make the cup circuit
-        var game = GameState(seed: "562893147", count: 9)
+        let game = GameState(seed: "562893147", count: 9)
         game.doMoves(100)
                 
         // Turn into an answer
@@ -47,7 +47,7 @@ class Day23: XCTestCase {
     func testPart2() {
         
         // Make the cup circuit
-        var game = GameState(seed: "562893147", count: 1000000)
+        let game = GameState(seed: "562893147", count: 1000000)
         game.doMoves(10000000)
         
         let result1 = game.cup(after: 1)
@@ -56,7 +56,7 @@ class Day23: XCTestCase {
         XCTAssertEqual(result, 131152940564)
     }
     
-    private struct GameState {
+    private class GameState {
         
         init(seed: String, count: Int) {
             
@@ -109,7 +109,7 @@ class Day23: XCTestCase {
             }
         }
         
-        mutating func link(from cup: Cup, to next: Cup) {
+        func link(from cup: Cup, to next: Cup) {
             links[cup.index] = next.index
         }
         
@@ -118,7 +118,7 @@ class Day23: XCTestCase {
         /// The "current" cup.
         var current: Cup
         
-        mutating func doMove() {
+        func doMove() {
             
             // Pick out the cups after the current cup
             
@@ -142,7 +142,7 @@ class Day23: XCTestCase {
             link(from: destination, to: firstHeld)
         }
         
-        mutating func doMoves(_ count: Int) {
+        func doMoves(_ count: Int) {
             for _ in 1...count {
                 doMove()
                 // Move onto next cup
