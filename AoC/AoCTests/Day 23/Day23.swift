@@ -96,12 +96,12 @@ class Day23: XCTestCase {
         /// For a cup whose `index = value - 1`, tells the index of the next cup clockwise from it.
         var links: [Int]
         
-        func indexOfCup(after cup: Cup) -> Int {
+        func index(after cup: Cup) -> Int {
             return links[cup.index]
         }
         
         func cup(after cup: Cup) -> Cup {
-            return Cup(index: indexOfCup(after: cup))
+            return Cup(index: index(after: cup))
         }
         
         /// Sequence that walks the cups, with `cup` as the first in the sequence.
@@ -123,13 +123,10 @@ class Day23: XCTestCase {
         func doMove() {
             
             // Pick out the cups after the current cup
-            
             let firstHeld = cup(after: current)
-            let sequenceThroughNext = cups(from: firstHeld).prefix(4)
-            link(from: current, to: sequenceThroughNext.last!)
-            
-            let sequenceToNext = sequenceThroughNext.dropLast()
-            let lastHeld = sequenceToNext.last!
+            let middleHeld = cup(after: firstHeld)
+            let lastHeld = cup(after: middleHeld)
+            link(from: current, to: cup(after: lastHeld))
             
             // Figure out which cup will be the destination
             var destination = current
@@ -137,7 +134,7 @@ class Day23: XCTestCase {
                 var destinationValue = destination.rawValue - 1
                 if destinationValue < 1 { destinationValue = links.count }
                 destination = Cup(rawValue: destinationValue)
-            } while sequenceToNext.contains(destination)
+            } while destination == firstHeld || destination == middleHeld || destination == lastHeld
             
             // Insert the removed cups after the destination
             link(from: lastHeld, to: cup(after: destination))
