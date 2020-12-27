@@ -86,6 +86,19 @@
 				</dict>
 			</dict>
 		</dict>
+		<key>Day23</key>
+		<dict>
+			<key>testPart2()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>6.5041</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Local Baseline</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>Day3</key>
 		<dict>
 			<key>testPart1()</key>

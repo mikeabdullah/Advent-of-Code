@@ -46,14 +46,16 @@ class Day23: XCTestCase {
     
     func testPart2() {
         
-        // Make the cup circuit
-        let game = GameState(seed: "562893147", count: 1000000)
-        game.doMoves(10000000)
-        
-        let result1 = game.cup(after: 1)
-        let result2 = game.cup(after: result1)
-        let result = result1.rawValue * result2.rawValue
-        XCTAssertEqual(result, 131152940564)
+        measure {
+            // Make the cup circuit
+            let game = GameState(seed: "562893147", count: 1000000)
+            game.doMoves(10000000)
+            
+            let result1 = game.cup(after: 1)
+            let result2 = game.cup(after: result1)
+            let result = result1.rawValue * result2.rawValue
+            XCTAssertEqual(result, 131152940564)
+        }
     }
     
     private class GameState {
