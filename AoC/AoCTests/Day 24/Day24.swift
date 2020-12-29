@@ -155,10 +155,10 @@ extension Day24 {
         /// The six neighbours of a given tile.
         func neighbors(ofTileAt coordinate: Coordinate) -> [Coordinate] {
             
-            let e = coordinate &+ [1, 0]
+            let e = coordinate &+ [2, 0]
             let se = coordinate &+ [1, -1]
             let sw = coordinate &+ [-1, -1]
-            let w = coordinate &+ [-1, 0]
+            let w = coordinate &+ [-2, 0]
             let nw = coordinate &+ [-1, 1]
             let ne = coordinate &+ [1, 1]
             return [e, se, sw, w, nw, ne]
