@@ -89,10 +89,8 @@ extension Day24 {
             
             // Any white tile with exactly 2 black tiles immediately adjacent to it is flipped to black
             let whiteToBlack = whiteTilesWithAdjacentBlack.filter { coordinate in
-                assert(isWhite(at: coordinate))
-                let adjacent = self.neighbors(ofTileAt: coordinate)
-                let adjacentBlacks = adjacent.count(where: { blackTiles.contains($0) })
-                return adjacentBlacks == 2
+                neighbors(ofTileAt: coordinate)
+                    .contains(2, where: { isBlack(at: $0) })
             }
             
             assert(blackToWhite.intersection(whiteToBlack).isEmpty)
@@ -157,6 +155,18 @@ extension Day24 {
 
 
 extension Sequence {
+    
+    func contains(_ target: Int, where predicate: (Element) -> Bool) -> Bool {
+        
+        var count = 0
+        for element in self where predicate(element) {
+            count += 1
+            guard count <= target
+                else { return false }
+        }
+        
+        return count == target
+    }
     
     func contains(_ exact: Int, orMoreThan atLeast: Int, where predicate: (Element) -> Bool) -> Bool {
         
