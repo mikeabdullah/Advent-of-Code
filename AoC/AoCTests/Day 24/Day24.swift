@@ -40,12 +40,13 @@ class Day24: XCTestCase {
     }
     
     func testPart2() {
-        
-        var floor = Floor(paths: input)
-        for _ in 1...100 {
-            floor.flipTiles()
+        measure {
+            var floor = Floor(paths: input)
+            for _ in 1...100 {
+                floor.flipTiles()
+            }
+            XCTAssertEqual(floor.blackTiles.count, 3697)
         }
-        XCTAssertEqual(floor.blackTiles.count, 3697)
     }
 }
 
