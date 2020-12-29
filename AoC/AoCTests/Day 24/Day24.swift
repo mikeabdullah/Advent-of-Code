@@ -45,7 +45,7 @@ class Day24: XCTestCase {
         for _ in 1...100 {
             floor.flipTiles()
         }
-        XCTAssertEqual(floor.blackTiles.count, 5548)
+        XCTAssertEqual(floor.blackTiles.count, 3697)
     }
 }
 
