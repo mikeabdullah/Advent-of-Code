@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		270499C92582358000452F76 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 270499C82582358000452F76 /* Algorithms */; };
+		2713A9DB259B453F00DAB3C9 /* sample-24.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2713A9DA259B453F00DAB3C9 /* sample-24.txt */; };
 		2723943B2581E5FF002D8FCB /* Day10.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723943A2581E5FF002D8FCB /* Day10.swift */; };
 		2723943E2581E61A002D8FCB /* input-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2723943D2581E619002D8FCB /* input-10.txt */; };
 		272394402581E8F1002D8FCB /* sample-input-10-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2723943F2581E7D8002D8FCB /* sample-input-10-1.txt */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2713A9DA259B453F00DAB3C9 /* sample-24.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-24.txt"; sourceTree = "<group>"; };
 		2723943A2581E5FF002D8FCB /* Day10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Day10.swift; path = ../Day10.swift; sourceTree = "<group>"; };
 		2723943D2581E619002D8FCB /* input-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-10.txt"; sourceTree = "<group>"; };
 		2723943F2581E7D8002D8FCB /* sample-input-10-1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sample-input-10-1.txt"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				273CE1F22599F452003566D0 /* Day24.swift */,
+				2713A9DA259B453F00DAB3C9 /* sample-24.txt */,
 				273CE1F42599F45E003566D0 /* input-24.txt */,
 			);
 			path = "Day 24";
@@ -422,6 +425,7 @@
 				277E28C2257B7ED700D14AE0 /* input-5.txt in Resources */,
 				27FD0D8525842BEE0004555C /* input-11.txt in Resources */,
 				27464CF72587689100C46914 /* input-14.txt in Resources */,
+				2713A9DB259B453F00DAB3C9 /* sample-24.txt in Resources */,
 				273CE1F52599F45E003566D0 /* input-24.txt in Resources */,
 				272394422581FEA8002D8FCB /* sample-input-10.txt in Resources */,
 				27FF9DEF2580C4BB00D6ACA3 /* input-9.txt in Resources */,

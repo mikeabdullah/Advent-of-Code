@@ -26,6 +26,19 @@ class Day24: XCTestCase {
         XCTAssertEqual(floor.blackTiles.count, 254)
     }
     
+    func testSample() throws {
+        let location = Bundle(for: Self.self).url(forResource: "sample-24", withExtension: "txt")!
+        let input = try String(contentsOf: location)
+        
+        var floor = Floor(paths: input.lines)
+        XCTAssertEqual(floor.blackTiles.count, 10)
+        
+        for _ in 1...100 {
+            floor.flipTiles()
+        }
+        XCTAssertEqual(floor.blackTiles.count, 2208)
+    }
+    
     func testPart2() {
         
         var floor = Floor(paths: input)
