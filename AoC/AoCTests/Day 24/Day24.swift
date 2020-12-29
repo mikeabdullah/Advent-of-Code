@@ -84,13 +84,13 @@ extension Day24 {
             // Any black tile with zero or more than 2 black tiles immediately adjacent to it is flipped to white
             let blackToWhite = blackTiles.filter { coordinate in
                 neighbors(ofTileAt: coordinate)
-                    .contains(0, orMoreThan: 2, where: { isBlack(at: $0) })
+                    .contains(0, orMoreThan: 2, where: isBlack)
             }
             
             // Any white tile with exactly 2 black tiles immediately adjacent to it is flipped to black
             let whiteToBlack = whiteTilesWithAdjacentBlack.filter { coordinate in
                 neighbors(ofTileAt: coordinate)
-                    .contains(2, where: { isBlack(at: $0) })
+                    .contains(2, where: isBlack)
             }
             
             assert(blackToWhite.intersection(whiteToBlack).isEmpty)
