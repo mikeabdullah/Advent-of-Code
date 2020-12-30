@@ -28,7 +28,7 @@ class Day11: XCTestCase {
                 
                 // Mark all seats with few enough neighbors as occupied
                 let toOccupy = undecided.filter { seat in
-                    plane.seatsAdjacent(to: seat).contains(lessThan: 4, where: undecided.contains)
+                    plane.coordinatesAdjacent(to: seat).contains(lessThan: 4, where: undecided.contains)
                 }
                 
                 plane.occupiedSeats.formUnion(toOccupy)
@@ -36,7 +36,7 @@ class Day11: XCTestCase {
                 
                 // Mark all remaining seats with an occupied neighbor as being permanently empty
                 let toEmpty = undecided.filter { seat in
-                    plane.seatsAdjacent(to: seat).contains(where: plane.occupiedSeats.contains)
+                    plane.coordinatesAdjacent(to: seat).contains(where: plane.occupiedSeats.contains)
                 }
                 undecided.subtract(toEmpty)
             }
