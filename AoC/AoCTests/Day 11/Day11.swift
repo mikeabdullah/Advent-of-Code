@@ -20,10 +20,11 @@ class Day11: XCTestCase {
 
     func testPart1() {
         measure {
-            var plane = Plane(input)
+            let plane = Plane(input)
             
             var undecided = plane.seats
-            
+            var occupiedSeats: Set<Coordinate> = []
+                    
             while !undecided.isEmpty {
                 
                 // Mark all seats with few enough neighbors as occupied
@@ -31,18 +32,17 @@ class Day11: XCTestCase {
                     plane.coordinatesAdjacent(to: seat).contains(lessThan: 4, where: undecided.contains)
                 }
                 
-                plane.occupiedSeats.formUnion(toOccupy)
+                occupiedSeats.formUnion(toOccupy)
                 undecided.subtract(toOccupy)
                 
                 // Mark all remaining seats with an occupied neighbor as being permanently empty
                 let toEmpty = undecided.filter { seat in
-                    plane.coordinatesAdjacent(to: seat).contains(where: plane.occupiedSeats.contains)
+                    plane.coordinatesAdjacent(to: seat).contains(where: occupiedSeats.contains)
                 }
                 undecided.subtract(toEmpty)
             }
             
-            let occupied = plane.occupiedSeats.count
-            XCTAssertEqual(occupied, 2344)
+            XCTAssertEqual(occupiedSeats.count, 2344)
         }
     }
     
@@ -57,8 +57,6 @@ class Day11: XCTestCase {
             return seats.contains(coordinate)
         }
         
-        var occupiedSeats: Set<Coordinate> = []
-                
         init(_ rows: [Substring]) {
             
             var seats: Set<Coordinate> = []
