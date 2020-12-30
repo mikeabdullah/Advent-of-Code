@@ -22,28 +22,28 @@ class Day11: XCTestCase {
         measure {
             var plane = Plane(input)
             
-            var seats = plane.seats
+            var undecided = plane.seats
             
-            while !seats.isEmpty {
+            while !undecided.isEmpty {
                 
                 // Mark all seats with few enough neighbors as occupied
-                let toOccupy = seats.filter { seat in
+                let toOccupy = undecided.filter { seat in
                     plane.statesAdjacent(to: seat).count(where: { $0 == .undecided }) < 4
                 }
                 
                 for seat in toOccupy {
                     plane[seat] = .occupied
                 }
-                seats.subtract(toOccupy)
+                undecided.subtract(toOccupy)
                 
                 // Mark all remaining seats with an occupied neighbor as being permanently empty
-                let toEmpty = seats.filter { seat in
+                let toEmpty = undecided.filter { seat in
                     plane.statesAdjacent(to: seat).contains(.occupied)
                 }
                 for seat in toEmpty {
                     plane[seat] = .empty
                 }
-                seats.subtract(toEmpty)
+                undecided.subtract(toEmpty)
             }
             
             let occupied = plane.occupationCount
