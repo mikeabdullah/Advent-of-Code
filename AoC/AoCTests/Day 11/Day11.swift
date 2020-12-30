@@ -71,6 +71,10 @@ class Day11: XCTestCase {
         /// Coordinates of all seats in the aircraft.
         let seats: Set<Coordinate>
         
+        func isSeat(at coordinate: Coordinate) -> Bool {
+            return seats.contains(coordinate)
+        }
+        
         private var storage: [Coordinate: SeatState] = [:]
                 
         init(_ rows: [Substring]) {
@@ -113,16 +117,27 @@ class Day11: XCTestCase {
             }
         }
         
+        /// Finds all possible _coordinates_ next to a location.
+        func coordinatesAdjacent(to seat: Coordinate) -> [Coordinate] {
+            return [seat &+ [-1, -1],
+                    seat &+ [0, -1],
+                    seat &+ [+1, -1],
+                    seat &+ [-1, 0],
+                    seat &+ [+1, 0],
+                    seat &+ [-1, +1],
+                    seat &+ [0, +1],
+                    seat &+ [+1, +1]]
+        }
+        
+        /// Filters possible adjacent coordinates down to just those which are seats.
+        func seatsAdjacent(to seat: Coordinate) -> [Coordinate] {
+            return coordinatesAdjacent(to: seat).filter(isSeat)
+        }
+        
         func statesAdjacent(to seat: Coordinate) -> [SeatState?] {
-            let x = seat.x, y = seat.y
-            return [self[x-1, y-1],
-                    self[x, y-1],
-                    self[x+1, y-1],
-                    self[x-1, y],
-                    self[x+1, y],
-                    self[x-1, y+1],
-                    self[x, y+1],
-                    self[x+1, y+1]]
+            return coordinatesAdjacent(to: seat).map {
+                self[$0]
+            }
         }
         
         func statesVisible(from seat: Coordinate) -> [SeatState?] {
