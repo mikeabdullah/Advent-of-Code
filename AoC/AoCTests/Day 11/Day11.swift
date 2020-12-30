@@ -47,30 +47,31 @@ class Day11: XCTestCase {
     }
     
     func testPart2() {
-        
-        let plane = Plane(input)
-        
-        var undecided = plane.seats
-        var occupiedSeats: Set<Coordinate> = []
+        measure {
+            let plane = Plane(input)
+            
+            var undecided = plane.seats
+            var occupiedSeats: Set<Coordinate> = []
+            
+            while !undecided.isEmpty {
                 
-        while !undecided.isEmpty {
-            
-            // Mark all seats with few enough visible seats as occupied
-            let toOccupy = undecided.filter { seat in
-                plane.seatsVisible(from: seat).contains(lessThan: 5, where: undecided.contains)
+                // Mark all seats with few enough visible seats as occupied
+                let toOccupy = undecided.filter { seat in
+                    plane.seatsVisible(from: seat).contains(lessThan: 5, where: undecided.contains)
+                }
+                
+                occupiedSeats.formUnion(toOccupy)
+                undecided.subtract(toOccupy)
+                
+                // Mark all remaining seats with an occupied neighbor as being permanently empty
+                let toEmpty = undecided.filter { seat in
+                    plane.seatsVisible(from: seat).contains(where: occupiedSeats.contains)
+                }
+                undecided.subtract(toEmpty)
             }
             
-            occupiedSeats.formUnion(toOccupy)
-            undecided.subtract(toOccupy)
-            
-            // Mark all remaining seats with an occupied neighbor as being permanently empty
-            let toEmpty = undecided.filter { seat in
-                plane.seatsVisible(from: seat).contains(where: occupiedSeats.contains)
-            }
-            undecided.subtract(toEmpty)
+            XCTAssertEqual(occupiedSeats.count, 2076)
         }
-        
-        XCTAssertEqual(occupiedSeats.count, 2076)
     }
     
     typealias Coordinate = SIMD2<Int>
