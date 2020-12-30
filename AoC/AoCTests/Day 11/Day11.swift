@@ -28,7 +28,7 @@ class Day11: XCTestCase {
                 
                 // Mark all seats with few enough neighbors as occupied
                 let toOccupy = undecided.filter { seat in
-                    plane.statesAdjacent(to: seat).contains(lessThan: 4, where: { $0 == .undecided })
+                    plane.seatsAdjacent(to: seat).contains(lessThan: 4, where: undecided.contains)
                 }
                 
                 for seat in toOccupy {
