@@ -28,7 +28,7 @@ class Day11: XCTestCase {
                 
                 // Mark all seats with few enough neighbors as occupied
                 let toOccupy = undecided.filter { seat in
-                    plane.statesAdjacent(to: seat).count(where: { $0 == .undecided }) < 4
+                    plane.statesAdjacent(to: seat).contains(lessThan: 4, where: { $0 == .undecided })
                 }
                 
                 for seat in toOccupy {
@@ -140,5 +140,19 @@ class Day11: XCTestCase {
         var occupationCount: Int {
             return storage.values.count(where: { $0 == .occupied })
         }
+    }
+}
+
+
+extension Sequence {
+    
+    func contains(lessThan max: Int, where predicate: (Element) -> Bool) -> Bool {
+        
+        var count = 0
+        for element in self where predicate(element) {
+            count += 1
+            guard count < max else { return false }
+        }
+        return true
     }
 }
