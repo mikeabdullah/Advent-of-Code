@@ -96,24 +96,6 @@ class Day11: XCTestCase {
         func seatsAdjacent(to seat: Coordinate) -> [Coordinate] {
             return coordinatesAdjacent(to: seat).filter(isSeat)
         }
-        
-//        func statesAdjacent(to seat: Coordinate) -> [SeatState] {
-//            return seatsAdjacent(to: seat).map {
-//                self[$0]!
-//            }
-//        }
-        
-//        func statesVisible(from seat: Coordinate) -> [SeatState?] {
-//            let x = seat.x, y = seat.y
-//            return [self[x-1, y-1],
-//                    self[x, y-1],
-//                    self[x+1, y-1],
-//                    self[x-1, y],
-//                    self[x+1, y],
-//                    self[x-1, y+1],
-//                    self[x, y+1],
-//                    self[x+1, y+1]]
-//        }
     }
 }
 
