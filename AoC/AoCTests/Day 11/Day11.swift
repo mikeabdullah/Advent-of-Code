@@ -31,22 +31,17 @@ class Day11: XCTestCase {
                     plane.seatsAdjacent(to: seat).contains(lessThan: 4, where: undecided.contains)
                 }
                 
-                for seat in toOccupy {
-                    plane[seat] = .occupied
-                }
+                plane.occupiedSeats.formUnion(toOccupy)
                 undecided.subtract(toOccupy)
                 
                 // Mark all remaining seats with an occupied neighbor as being permanently empty
                 let toEmpty = undecided.filter { seat in
-                    plane.statesAdjacent(to: seat).contains(.occupied)
-                }
-                for seat in toEmpty {
-                    plane[seat] = .empty
+                    plane.seatsAdjacent(to: seat).contains(where: plane.occupiedSeats.contains)
                 }
                 undecided.subtract(toEmpty)
             }
             
-            let occupied = plane.occupationCount
+            let occupied = plane.occupiedSeats.count
             XCTAssertEqual(occupied, 2344)
         }
     }
@@ -55,19 +50,6 @@ class Day11: XCTestCase {
     
     struct Plane : Hashable {
         
-        enum SeatState : Hashable {
-            case occupied
-            case empty
-            case undecided
-            
-            var isOccupied: Bool {
-                switch self {
-                case .occupied: return true
-                case .empty, .undecided: return false
-                }
-            }
-        }
-        
         /// Coordinates of all seats in the aircraft.
         let seats: Set<Coordinate>
         
@@ -75,7 +57,7 @@ class Day11: XCTestCase {
             return seats.contains(coordinate)
         }
         
-        private var storage: [Coordinate: SeatState] = [:]
+        var occupiedSeats: Set<Coordinate> = []
                 
         init(_ rows: [Substring]) {
             
@@ -86,7 +68,6 @@ class Day11: XCTestCase {
                     switch value {
                     case "L":
                         // Start uknown
-                        storage[[x, y]] = .undecided
                         seats.insert([x, y])
                     case ".":
                         break   // floor, ignore
@@ -97,24 +78,6 @@ class Day11: XCTestCase {
             }
             
             self.seats = seats
-        }
-        
-        subscript(x: Int, y: Int) -> SeatState? {
-            get {
-                return storage[[x, y]] ?? nil
-            }
-            set {
-                storage[[x, y]] = newValue
-            }
-        }
-        
-        subscript(coordinate: Coordinate) -> SeatState? {
-            get {
-                return storage[coordinate]
-            }
-            set {
-                storage[coordinate] = newValue
-            }
         }
         
         /// Finds all possible _coordinates_ next to a location.
@@ -134,27 +97,23 @@ class Day11: XCTestCase {
             return coordinatesAdjacent(to: seat).filter(isSeat)
         }
         
-        func statesAdjacent(to seat: Coordinate) -> [SeatState] {
-            return seatsAdjacent(to: seat).map {
-                self[$0]!
-            }
-        }
+//        func statesAdjacent(to seat: Coordinate) -> [SeatState] {
+//            return seatsAdjacent(to: seat).map {
+//                self[$0]!
+//            }
+//        }
         
-        func statesVisible(from seat: Coordinate) -> [SeatState?] {
-            let x = seat.x, y = seat.y
-            return [self[x-1, y-1],
-                    self[x, y-1],
-                    self[x+1, y-1],
-                    self[x-1, y],
-                    self[x+1, y],
-                    self[x-1, y+1],
-                    self[x, y+1],
-                    self[x+1, y+1]]
-        }
-        
-        var occupationCount: Int {
-            return storage.values.count(where: { $0 == .occupied })
-        }
+//        func statesVisible(from seat: Coordinate) -> [SeatState?] {
+//            let x = seat.x, y = seat.y
+//            return [self[x-1, y-1],
+//                    self[x, y-1],
+//                    self[x+1, y-1],
+//                    self[x-1, y],
+//                    self[x+1, y],
+//                    self[x-1, y+1],
+//                    self[x, y+1],
+//                    self[x+1, y+1]]
+//        }
     }
 }
 
