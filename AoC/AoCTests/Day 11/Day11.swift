@@ -46,6 +46,33 @@ class Day11: XCTestCase {
         }
     }
     
+    func testPart2() {
+        
+        let plane = Plane(input)
+        
+        var undecided = plane.seats
+        var occupiedSeats: Set<Coordinate> = []
+                
+        while !undecided.isEmpty {
+            
+            // Mark all seats with few enough visible seats as occupied
+            let toOccupy = undecided.filter { seat in
+                plane.seatsVisible(from: seat).contains(lessThan: 5, where: undecided.contains)
+            }
+            
+            occupiedSeats.formUnion(toOccupy)
+            undecided.subtract(toOccupy)
+            
+            // Mark all remaining seats with an occupied neighbor as being permanently empty
+            let toEmpty = undecided.filter { seat in
+                plane.seatsVisible(from: seat).contains(where: occupiedSeats.contains)
+            }
+            undecided.subtract(toEmpty)
+        }
+        
+        XCTAssertEqual(occupiedSeats.count, 2076)
+    }
+    
     typealias Coordinate = SIMD2<Int>
     
     struct Plane : Hashable {
@@ -56,6 +83,8 @@ class Day11: XCTestCase {
         func isSeat(at coordinate: Coordinate) -> Bool {
             return seats.contains(coordinate)
         }
+        
+        let rowCount: Int, columnCount: Int
         
         init(_ rows: [Substring]) {
             
@@ -76,6 +105,8 @@ class Day11: XCTestCase {
             }
             
             self.seats = seats
+            self.rowCount = rows.count
+            self.columnCount = rows.first!.count
         }
         
         /// Finds all possible _coordinates_ next to a location.
@@ -93,6 +124,29 @@ class Day11: XCTestCase {
         /// Filters possible adjacent coordinates down to just those which are seats.
         func seatsAdjacent(to seat: Coordinate) -> [Coordinate] {
             return coordinatesAdjacent(to: seat).filter(isSeat)
+        }
+        
+        func seatsVisible(from seat: Coordinate) -> [Coordinate] {
+            let all = [coordinates(inDirection: [-1, -1], from: seat).dropFirst(),
+                       coordinates(inDirection: [+0, -1], from: seat).dropFirst(),
+                       coordinates(inDirection: [+1, -1], from: seat).dropFirst(),
+                       coordinates(inDirection: [-1, +0], from: seat).dropFirst(),
+                       coordinates(inDirection: [+1, +0], from: seat).dropFirst(),
+                       coordinates(inDirection: [-1, +1], from: seat).dropFirst(),
+                       coordinates(inDirection: [+0, +1], from: seat).dropFirst(),
+                       coordinates(inDirection: [+1, +1], from: seat).dropFirst()
+            ]
+            return all.compactMap { $0.first(where: seats.contains) }
+        }
+        
+        /// Returns all coordinates in given direction from seat, including the seat itself, infinitely.
+        func coordinates(inDirection direction: SIMD2<Int>, from seat: Coordinate) -> UnfoldFirstSequence<Coordinate> {
+            sequence(first: seat) { seat in
+                let next = seat &+ direction
+                guard next.x >= 0, next.y >= 0, next.x < self.columnCount, next.y < self.rowCount
+                    else { return nil }
+                return next
+            }
         }
     }
 }
