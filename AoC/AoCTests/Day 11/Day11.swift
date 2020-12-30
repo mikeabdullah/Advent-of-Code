@@ -48,7 +48,7 @@ class Day11: XCTestCase {
     
     func testPart2() {
         measure {
-            let plane = Plane(input)
+            var plane = Plane(input)
             
             var undecided = plane.seats
             var occupiedSeats: Set<Coordinate> = []
@@ -127,7 +127,13 @@ class Day11: XCTestCase {
             return coordinatesAdjacent(to: seat).filter(isSeat)
         }
         
-        func seatsVisible(from seat: Coordinate) -> [Coordinate] {
+        mutating func seatsVisible(from seat: Coordinate) -> [Coordinate] {
+            
+            // Use the cache if possible
+            if let visible = seatsVisibleFromSeat[seat] {
+                return visible
+            }
+            
             let all = [coordinates(inDirection: [-1, -1], from: seat).dropFirst(),
                        coordinates(inDirection: [+0, -1], from: seat).dropFirst(),
                        coordinates(inDirection: [+1, -1], from: seat).dropFirst(),
@@ -137,8 +143,12 @@ class Day11: XCTestCase {
                        coordinates(inDirection: [+0, +1], from: seat).dropFirst(),
                        coordinates(inDirection: [+1, +1], from: seat).dropFirst()
             ]
-            return all.compactMap { $0.first(where: seats.contains) }
+            let visible = all.compactMap { $0.first(where: seats.contains) }
+            seatsVisibleFromSeat[seat] = visible
+            return visible
         }
+        
+        private var seatsVisibleFromSeat: [Coordinate: [Coordinate]] = [:]
         
         /// Returns all coordinates in given direction from seat, including the seat itself, infinitely.
         func coordinates(inDirection direction: SIMD2<Int>, from seat: Coordinate) -> UnfoldFirstSequence<Coordinate> {
