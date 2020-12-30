@@ -134,9 +134,9 @@ class Day11: XCTestCase {
             return coordinatesAdjacent(to: seat).filter(isSeat)
         }
         
-        func statesAdjacent(to seat: Coordinate) -> [SeatState?] {
-            return coordinatesAdjacent(to: seat).map {
-                self[$0]
+        func statesAdjacent(to seat: Coordinate) -> [SeatState] {
+            return seatsAdjacent(to: seat).map {
+                self[$0]!
             }
         }
         
