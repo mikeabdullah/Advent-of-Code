@@ -68,18 +68,22 @@ class Day11: XCTestCase {
             }
         }
         
+        /// Coordinates of all seats in the aircraft.
+        let seats: Set<Coordinate>
+        
         private var storage: [Coordinate: SeatState] = [:]
-        
-        init() { }
-        
+                
         init(_ rows: [Substring]) {
             
-            for (y, seats) in rows.enumerated() {
-                for (x, value) in seats.enumerated() {
+            var seats: Set<Coordinate> = []
+            
+            for (y, columns) in rows.enumerated() {
+                for (x, value) in columns.enumerated() {
                     switch value {
                     case "L":
                         // Start uknown
                         storage[[x, y]] = .undecided
+                        seats.insert([x, y])
                     case ".":
                         break   // floor, ignore
                     default:
@@ -87,6 +91,8 @@ class Day11: XCTestCase {
                     }
                 }
             }
+            
+            self.seats = seats
         }
         
         subscript(x: Int, y: Int) -> SeatState? {
@@ -107,15 +113,6 @@ class Day11: XCTestCase {
             }
         }
         
-        /// Coordinates of all seats in the plane.
-        var seats: Set<Coordinate> {
-            return Set(storage.keys)
-        }
-        
-        var numberOfSeats: Int {
-            return storage.count
-        }
-        
         func statesAdjacent(to seat: Coordinate) -> [SeatState?] {
             let x = seat.x, y = seat.y
             return [self[x-1, y-1],
@@ -128,9 +125,16 @@ class Day11: XCTestCase {
                     self[x+1, y+1]]
         }
         
-        func numberOfAdjacentUndecidedSeats(to seat: Coordinate) -> Int {
-            return statesAdjacent(to: seat)
-                .count(where: { $0 == .undecided })
+        func statesVisible(from seat: Coordinate) -> [SeatState?] {
+            let x = seat.x, y = seat.y
+            return [self[x-1, y-1],
+                    self[x, y-1],
+                    self[x+1, y-1],
+                    self[x-1, y],
+                    self[x+1, y],
+                    self[x-1, y+1],
+                    self[x, y+1],
+                    self[x+1, y+1]]
         }
         
         var occupationCount: Int {
