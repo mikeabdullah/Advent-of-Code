@@ -48,7 +48,7 @@ class Day11: XCTestCase {
     
     func testPart2() {
         measure {
-            var plane = Plane(input)
+            let plane = Plane(input)
             
             var undecided = plane.seats
             var occupiedSeats: Set<Coordinate> = []
@@ -76,7 +76,7 @@ class Day11: XCTestCase {
     
     typealias Coordinate = SIMD2<Int>
     
-    struct Plane : Hashable {
+    class Plane {
         
         /// Coordinates of all seats in the aircraft.
         let seats: Set<Coordinate>
@@ -127,7 +127,7 @@ class Day11: XCTestCase {
             return coordinatesAdjacent(to: seat).filter(isSeat)
         }
         
-        mutating func seatsVisible(from seat: Coordinate) -> [Coordinate] {
+        func seatsVisible(from seat: Coordinate) -> [Coordinate] {
             
             // Use the cache if possible
             if let visible = seatsVisibleFromSeat[seat] {
