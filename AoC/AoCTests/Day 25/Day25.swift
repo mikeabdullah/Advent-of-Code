@@ -29,11 +29,11 @@ class Day25: XCTestCase {
     }
     
     func testKey5764801() {
-        XCTAssertEqual(loopSize(key: 5764801, subjectNumber: 7), 8)
+        XCTAssertEqual(loopSize(key: 5764801), 8)
     }
     
     func testKey17807724() {
-        XCTAssertEqual(loopSize(key: 17807724, subjectNumber: 7), 11)
+        XCTAssertEqual(loopSize(key: 17807724), 11)
     }
     
     func testEncryptionKeyViaDoor() {
@@ -51,8 +51,8 @@ class Day25: XCTestCase {
         let cardPublicKey = 8252394
         let doorPublicKey = 6269621
         
-        let cardLoopSize = loopSize(key: cardPublicKey, subjectNumber: 7)
-        let doorLoopSize = loopSize(key: doorPublicKey, subjectNumber: 7)
+        let cardLoopSize = loopSize(key: cardPublicKey)
+        let doorLoopSize = loopSize(key: doorPublicKey)
         
         let encryptionKey = self.key(subjectNumber: cardPublicKey, loopSize: doorLoopSize)
         let encryptionKey2 = self.key(subjectNumber: doorPublicKey, loopSize: cardLoopSize)
@@ -78,7 +78,7 @@ class Day25: XCTestCase {
     }
     
     /// Finds the loop size that gives `key`, for given subject number.
-    func loopSize(key: Int, subjectNumber: Int) -> Int {
+    func loopSize(key: Int, subjectNumber: Int = 7) -> Int {
         let (offset, _) = keySequence(subjectNumber: subjectNumber).enumerated().first { pair -> Bool in
             return pair.element == key
         }!
