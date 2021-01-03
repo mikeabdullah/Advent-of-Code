@@ -18,6 +18,8 @@ class Day25: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    // MARK: Examples
+    
     func testLoopSize8() throws {
         XCTAssertEqual(key(subjectNumber: 7, loopSize: 8), 5764801)
     }
@@ -41,6 +43,24 @@ class Day25: XCTestCase {
     func testEncryptionKeyViaCard() {
         XCTAssertEqual(key(subjectNumber: 5764801, loopSize: 11), 14897079)
     }
+    
+    // MARK: Solving
+    
+    func testPart1() {
+        
+        let cardPublicKey = 8252394
+        let doorPublicKey = 6269621
+        
+        let cardLoopSize = loopSize(key: cardPublicKey, subjectNumber: 7)
+        let doorLoopSize = loopSize(key: doorPublicKey, subjectNumber: 7)
+        
+        let encryptionKey = self.key(subjectNumber: cardPublicKey, loopSize: doorLoopSize)
+        let encryptionKey2 = self.key(subjectNumber: doorPublicKey, loopSize: cardLoopSize)
+        
+        XCTAssertEqual(encryptionKey, encryptionKey2)
+    }
+    
+    // MARK: Key Handling
     
     /// Creates a sequence that transforms a subject number infinitely.
     func keySequence(subjectNumber: Int) -> UnfoldSequence<Int, Int> {
