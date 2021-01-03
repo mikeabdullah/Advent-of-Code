@@ -86,7 +86,7 @@ class Day15: XCTestCase {
         
         /// The turn we're currently on, and its number
         private var currentTurn: Int = 0
-        private var currentNumber: Int?
+        private var currentNumber: Int!
         
         private var numbersByLastTurn: [Int : Int] = [:]
         
@@ -109,7 +109,7 @@ class Day15: XCTestCase {
         @discardableResult
         func speakNext() -> Int {
             
-            let next = self.age(of: currentNumber!)
+            let next = self.age(of: currentNumber)
             appendTurn(next)
             return next
         }
@@ -131,7 +131,7 @@ class Day15: XCTestCase {
                 speakNext()
             }
             
-            return currentNumber!
+            return currentNumber
         }
     }
 }
