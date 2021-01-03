@@ -62,6 +62,12 @@ class Day15: XCTestCase {
         XCTAssertEqual(game.speak(turn: 2020), 1836)
     }
     
+    // MARK: Real
+    
+    func testPart1() {
+        var game = GameState(startingNumbers: [2,15,0,9,1,20])
+        XCTAssertEqual(game.speak(turn: 2020), 1280)
+    }
     
     struct GameState {
         
