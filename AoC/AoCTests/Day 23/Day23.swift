@@ -179,3 +179,20 @@ class Day23: XCTestCase {
         let index: Int
     }
 }
+
+extension Sequence {
+    
+    var first: Element? {
+        var iterator = makeIterator()
+        return iterator.next()
+    }
+    
+    /// - Complexity: O(n) where `n` is the length of the sequence.
+    var last: Element? {
+        var last: Element? = nil
+        for element in self {
+            last = element
+        }
+        return last
+    }
+}
