@@ -69,6 +69,11 @@ class Day15: XCTestCase {
         XCTAssertEqual(game.speak(turn: 2020), 1280)
     }
     
+    func testPart2() {
+        var game = GameState(startingNumbers: [2,15,0,9,1,20])
+        XCTAssertEqual(game.speak(turn: 30000000), 1280)
+    }
+    
     struct GameState {
         
         init(startingNumbers: [Int]) {
