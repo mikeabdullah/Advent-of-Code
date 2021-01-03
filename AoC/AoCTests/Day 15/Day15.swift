@@ -71,6 +71,7 @@ class Day15: XCTestCase {
     
     func testPart2() {
         var game = GameState(startingNumbers: [2,15,0,9,1,20])
+        game.reserveCapacity(30000000)
         XCTAssertEqual(game.speak(turn: 30000000), 1280)
     }
     
@@ -83,6 +84,10 @@ class Day15: XCTestCase {
         
         /// The numbers which have been spoken so far in the game.
         private(set) var spoken: [Int]
+        
+        mutating func reserveCapacity(_ minimumCapacity: Int) {
+            spoken.reserveCapacity(minimumCapacity)
+        }
         
         /// Figures out the next number to speak and appends it to the spoken list.
         @discardableResult
