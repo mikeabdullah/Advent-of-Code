@@ -32,6 +32,36 @@ class Day15: XCTestCase {
         XCTAssertEqual(game.speak(turn: 2020), 436)
     }
     
+    func testSample132() {
+        var game = GameState(startingNumbers: [1, 3, 2])
+        XCTAssertEqual(game.speak(turn: 2020), 1)
+    }
+    
+    func testSample213() {
+        var game = GameState(startingNumbers: [2, 1, 3])
+        XCTAssertEqual(game.speak(turn: 2020), 10)
+    }
+    
+    func testSample123() {
+        var game = GameState(startingNumbers: [1, 2, 3])
+        XCTAssertEqual(game.speak(turn: 2020), 27)
+    }
+    
+    func testSample231() {
+        var game = GameState(startingNumbers: [2, 3, 1])
+        XCTAssertEqual(game.speak(turn: 2020), 78)
+    }
+    
+    func testSample321() {
+        var game = GameState(startingNumbers: [3, 2, 1])
+        XCTAssertEqual(game.speak(turn: 2020), 438)
+    }
+    
+    func testSample312() {
+        var game = GameState(startingNumbers: [3, 1, 2])
+        XCTAssertEqual(game.speak(turn: 2020), 1836)
+    }
+    
     
     struct GameState {
         
