@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2740F1E1277C7B540073FD6C /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2740F1E0277C7B540073FD6C /* Day1.swift */; };
 		2740F1E6277C7C930073FD6C /* input1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2740F1E5277C7C930073FD6C /* input1.txt */; };
+		275BCF68277CC3A900AC2F9C /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 275BCF67277CC3A900AC2F9C /* Algorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				275BCF68277CC3A900AC2F9C /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +105,9 @@
 			dependencies = (
 			);
 			name = AoC2021Tests;
+			packageProductDependencies = (
+				275BCF67277CC3A900AC2F9C /* Algorithms */,
+			);
 			productName = AoC2021Tests;
 			productReference = 2740F1DE277C7B540073FD6C /* AoC2021Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -134,6 +139,9 @@
 				Base,
 			);
 			mainGroup = 2740F1CA277C7B120073FD6C;
+			packageReferences = (
+				275BCF66277CC3A900AC2F9C /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 2740F1D4277C7B120073FD6C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -409,6 +417,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		275BCF66277CC3A900AC2F9C /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		275BCF67277CC3A900AC2F9C /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 275BCF66277CC3A900AC2F9C /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2740F1CB277C7B120073FD6C /* Project object */;
 }
