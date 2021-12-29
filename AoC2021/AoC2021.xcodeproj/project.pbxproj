@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2740F1E1277C7B540073FD6C /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2740F1E0277C7B540073FD6C /* Day1.swift */; };
-		2740F1E6277C7C930073FD6C /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2740F1E5277C7C930073FD6C /* input.txt */; };
+		2740F1E6277C7C930073FD6C /* input1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2740F1E5277C7C930073FD6C /* input1.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2740F1D3277C7B120073FD6C /* AoC2021.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC2021.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2740F1DE277C7B540073FD6C /* AoC2021Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC2021Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2740F1E0277C7B540073FD6C /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
-		2740F1E5277C7C930073FD6C /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
+		2740F1E5277C7C930073FD6C /* input1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input1.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				2740F1E0277C7B540073FD6C /* Day1.swift */,
-				2740F1E5277C7C930073FD6C /* input.txt */,
+				2740F1E5277C7C930073FD6C /* input1.txt */,
 			);
 			path = "Day 1";
 			sourceTree = "<group>";
@@ -156,7 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2740F1E6277C7C930073FD6C /* input.txt in Resources */,
+				2740F1E6277C7C930073FD6C /* input1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
