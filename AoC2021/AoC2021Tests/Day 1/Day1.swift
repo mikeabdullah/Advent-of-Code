@@ -27,14 +27,12 @@ class Day1: XCTestCase {
   func testPart2() throws {
     let input = try PuzzleInput(named: "input1")
     
-    var window = input.integers.slidingWindow(length: 3)
-    var previousSum = window.sum()
-    var increases = 0
-    
-    while window.advance() {
-      let sum = window.sum()
-      if sum > previousSum { increases += 1 }
-      previousSum = sum
+    // For each pair of sliding windows, all that really matters is how the first and last elements
+    // differ, so can use a single sliding window with four elements, comparing the first and last
+    // https://alpha.danieltull.co.uk/aoc/2021-12-01/
+    let windows = input.integers.windows(ofCount: 4)
+    let increases = windows.count { window in
+      window.last! > window.first!
     }
     
     XCTAssertEqual(increases, 1611)
