@@ -107,6 +107,13 @@ extension Collection {
   }
 }
 
+extension Sequence {
+  
+  /// Convenience to find how many elements of the sequence match `predicate`.
+  func count(where predicate: (Element) throws -> Bool) rethrows -> Int {
+    try lazy.filter(predicate).count
+  }
+}
 
 extension Sequence where Element : AdditiveArithmetic {
   
