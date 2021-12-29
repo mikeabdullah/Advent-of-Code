@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Algorithms
 
 class Day1: XCTestCase {
   
@@ -19,16 +20,7 @@ class Day1: XCTestCase {
   
   func testPart1() throws {
     let input = try PuzzleInput(named: "input1")
-   
-    var increases = 0
-    var window = input.integers.slidingWindow(length: 2)
-    
-    repeat {
-      if window[0] < window[1] {
-        increases += 1
-      }
-    } while window.advance()
-    
+    let increases = input.integers.adjacentPairs().count(where: <)
     XCTAssertEqual(increases, 1564)
   }
   
