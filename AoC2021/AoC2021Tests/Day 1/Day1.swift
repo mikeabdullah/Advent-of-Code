@@ -31,6 +31,22 @@ class Day1: XCTestCase {
     
     XCTAssertEqual(increases, 1564)
   }
+  
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input1")
+    
+    var window = input.integers.slidingWindow(length: 3)
+    var previousSum = window.sum()
+    var increases = 0
+    
+    while window.advance() {
+      let sum = window.sum()
+      if sum > previousSum { increases += 1 }
+      previousSum = sum
+    }
+    
+    XCTAssertEqual(increases, 1611)
+  }
 }
 
 
@@ -88,5 +104,15 @@ extension Collection {
   func slidingWindow(length: Int) -> SlidingWindow<Self> {
     let slice = Slice(base: self, bounds: startIndex..<index(startIndex, offsetBy: length))
     return SlidingWindow(slice: slice)
+  }
+}
+
+
+extension Sequence where Element : AdditiveArithmetic {
+  
+  func sum() -> Element {
+    return reduce(.zero) { (result, element) in
+      result + element
+    }
   }
 }
