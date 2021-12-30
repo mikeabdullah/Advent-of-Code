@@ -27,6 +27,29 @@ class Day2: XCTestCase {
     XCTAssertEqual(position * depth, 1690020)
   }
   
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input-2")
+    let commands = try input.lines.map { try Command(string: $0) }
+    
+    var position = 0
+    var depth = 0
+    var aim = 0
+    
+    for command in commands {
+      switch command {
+      case let .down(down):
+        aim += down
+      case let .up(up):
+        aim -= up
+      case let .forward(x):
+        position += x
+        depth += aim * x
+      }
+    }
+    
+    XCTAssertEqual(position * depth, 1408487760)
+  }
+  
   enum Command {
     case forward(Int)
     case down(Int)
