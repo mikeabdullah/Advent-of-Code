@@ -60,19 +60,11 @@
 		2740F1DF277C7B540073FD6C /* AoC2021Tests */ = {
 			isa = PBXGroup;
 			children = (
-				2740F1E7277C7C9A0073FD6C /* Day 1 */,
+				2740F1E0277C7B540073FD6C /* Day1.swift */,
+				2740F1E5277C7C930073FD6C /* input-1.txt */,
 				275BCF69277E5FA500AC2F9C /* input-2.txt */,
 			);
 			path = AoC2021Tests;
-			sourceTree = "<group>";
-		};
-		2740F1E7277C7C9A0073FD6C /* Day 1 */ = {
-			isa = PBXGroup;
-			children = (
-				2740F1E0277C7B540073FD6C /* Day1.swift */,
-				2740F1E5277C7C930073FD6C /* input-1.txt */,
-			);
-			path = "Day 1";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
