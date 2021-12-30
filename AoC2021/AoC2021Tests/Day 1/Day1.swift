@@ -19,13 +19,13 @@ class Day1: XCTestCase {
   }
   
   func testPart1() throws {
-    let input = try PuzzleInput(named: "input1")
+    let input = try PuzzleInput(named: "input-1")
     let increases = input.integers.adjacentPairs().count(where: <)
     XCTAssertEqual(increases, 1564)
   }
   
   func testPart2() throws {
-    let input = try PuzzleInput(named: "input1")
+    let input = try PuzzleInput(named: "input-1")
     
     // For each pair of sliding windows, all that really matters is how the first and last elements
     // differ, so can use a single sliding window with four elements, comparing the first and last
