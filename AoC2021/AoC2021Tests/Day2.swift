@@ -20,7 +20,6 @@ class Day2: XCTestCase {
       switch command {
       case let .forward(forward): position += forward
       case let .down(down): depth += down
-      case let .up(up): depth -= up
       }
     }
     
@@ -39,8 +38,6 @@ class Day2: XCTestCase {
       switch command {
       case let .down(down):
         aim += down
-      case let .up(up):
-        aim -= up
       case let .forward(x):
         position += x
         depth += aim * x
@@ -53,7 +50,6 @@ class Day2: XCTestCase {
   enum Command {
     case forward(Int)
     case down(Int)
-    case up(Int)
     
     init<S>(string: S) throws where S : StringProtocol {
       let comps = string.split(separator: " ")
@@ -61,7 +57,7 @@ class Day2: XCTestCase {
       switch comps[0] {
       case "forward": self = .forward(quantity)
       case "down": self = .down(quantity)
-      case "up": self = .up(quantity)
+      case "up": self = .down(-quantity)
       default: throw CocoaError(.fileReadCorruptFile)
       }
     }
