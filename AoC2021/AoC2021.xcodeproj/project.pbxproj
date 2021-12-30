@@ -10,6 +10,7 @@
 		2740F1E1277C7B540073FD6C /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2740F1E0277C7B540073FD6C /* Day1.swift */; };
 		2740F1E6277C7C930073FD6C /* input1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2740F1E5277C7C930073FD6C /* input1.txt */; };
 		275BCF68277CC3A900AC2F9C /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 275BCF67277CC3A900AC2F9C /* Algorithms */; };
+		275BCF6A277E5FA500AC2F9C /* input-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 275BCF69277E5FA500AC2F9C /* input-2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +18,7 @@
 		2740F1DE277C7B540073FD6C /* AoC2021Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AoC2021Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2740F1E0277C7B540073FD6C /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
 		2740F1E5277C7C930073FD6C /* input1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input1.txt; sourceTree = "<group>"; };
+		275BCF69277E5FA500AC2F9C /* input-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-2.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				2740F1E7277C7C9A0073FD6C /* Day 1 */,
+				275BCF69277E5FA500AC2F9C /* input-2.txt */,
 			);
 			path = AoC2021Tests;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				275BCF6A277E5FA500AC2F9C /* input-2.txt in Resources */,
 				2740F1E6277C7C930073FD6C /* input1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
