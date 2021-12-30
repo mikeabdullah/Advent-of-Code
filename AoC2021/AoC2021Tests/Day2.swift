@@ -17,8 +17,11 @@ class Day2: XCTestCase {
     var depth = 0
     
     for command in commands {
-      position += command.positionChange
-      depth += command.depthChange
+      switch command {
+      case let .forward(forward): position += forward
+      case let .down(down): depth += down
+      case let .up(up): depth -= up
+      }
     }
     
     XCTAssertEqual(position * depth, 1690020)
@@ -37,21 +40,6 @@ class Day2: XCTestCase {
       case "down": self = .down(quantity)
       case "up": self = .up(quantity)
       default: throw CocoaError(.fileReadCorruptFile)
-      }
-    }
-    
-    var depthChange: Int {
-      switch self {
-      case .forward: return 0
-      case .down(let down): return down
-      case .up(let up): return -up
-      }
-    }
-    
-    var positionChange: Int {
-      switch self {
-      case .forward(let forwards): return forwards
-      case .up, .down: return 0
       }
     }
   }
