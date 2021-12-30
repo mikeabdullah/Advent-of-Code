@@ -10,14 +10,6 @@ import Algorithms
 
 class Day1: XCTestCase {
   
-  override func setUpWithError() throws {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-  }
-  
-  override func tearDownWithError() throws {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-  }
-  
   func testPart1() throws {
     let input = try PuzzleInput(named: "input-1")
     let increases = input.integers.adjacentPairs().count(where: <)
