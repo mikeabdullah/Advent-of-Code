@@ -13,8 +13,8 @@ class Day3: XCTestCase {
     let input = try PuzzleInput(named: "input-3")
     
     /// the number of ones in each column
-    let mostCommon = (0..<12).map { input[column: $0].mostCommon()! }
-    let leastCommon = (0..<12).map { input[column: $0].leastCommon()! }
+    let mostCommon = (0..<12).map { input.lines[column: $0].mostCommon()! }
+    let leastCommon = (0..<12).map { input.lines[column: $0].leastCommon()! }
     
     let gammaRate = try XCTUnwrap(Int(String(mostCommon), radix: 2))
     let epsilonRate = try XCTUnwrap(Int(String(leastCommon), radix: 2))

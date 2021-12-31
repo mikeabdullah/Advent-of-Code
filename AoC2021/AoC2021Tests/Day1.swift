@@ -48,10 +48,13 @@ struct PuzzleInput {
   var integers: [Int] {
     lines.map { Int($0)! }
   }
+}
+
+extension Collection where Element : Collection {
   
-  /// Accesses the characters in a columnar layout, instead of by row.
-  subscript(column column: Int) -> LazyMapSequence<[Substring], Character> {
-    lines.lazy.map { row in
+  /// Accesses the elements in a columnar layout, instead of by row.
+  subscript(column column: Int) -> LazyMapSequence<Self, Element.Element> {
+    self.lazy.map { row in
       row[row.index(row.startIndex, offsetBy: column)]
     }
   }
