@@ -38,3 +38,26 @@ class Day3: XCTestCase {
   }
 
 }
+
+extension Sequence where Element : Hashable {
+  
+  /// Iterates the sequence, totalling the occurrences of each element.
+  func mostCommon() -> Element? {
+    elementCounts.max { lhs, rhs in
+      lhs.value < rhs.value
+    }?.key
+  }
+  
+  func leastCommon() -> Element? {
+    elementCounts.max { lhs, rhs in
+      lhs.value > rhs.value
+    }?.key
+  }
+  
+  /// Counts the number of occurrences of each element in the sequence.
+  var elementCounts: [Element: Int] {
+    self.reduce(into: [:]) { result, element in
+      result[element] = (result[element] ?? 0) + 1
+    }
+  }
+}
