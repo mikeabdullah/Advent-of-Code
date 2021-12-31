@@ -13,26 +13,11 @@ class Day3: XCTestCase {
     let input = try PuzzleInput(named: "input-3")
     
     /// the number of ones in each column
-    var oneCounts = Array(repeating: 0, count: 12)
-    for row in input.lines {
-      for (n, character) in row.enumerated() {
-        switch character {
-        case "1": oneCounts[n] += 1
-        case "0": break
-        default: throw CocoaError(.fileReadCorruptFile)
-        }
-      }
-    }
+    let mostCommon = (0..<12).map { input[column: $0].mostCommon()! }
+    let leastCommon = (0..<12).map { input[column: $0].leastCommon()! }
     
-    let gammaBits = oneCounts.map { count in
-      count > input.lines.count / 2 ? "1" : "0"
-    }
-    let gammaRate = try XCTUnwrap(Int(gammaBits.joined(), radix: 2))
-    
-    let epsilonBits = oneCounts.map { count in
-      count < input.lines.count / 2 ? "1" : "0"
-    }
-    let epsilonRate = try XCTUnwrap(Int(epsilonBits.joined(), radix: 2))
+    let gammaRate = try XCTUnwrap(Int(String(mostCommon), radix: 2))
+    let epsilonRate = try XCTUnwrap(Int(String(leastCommon), radix: 2))
     
     XCTAssertEqual(gammaRate * epsilonRate, 3309596)
   }
