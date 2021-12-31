@@ -48,6 +48,13 @@ struct PuzzleInput {
   var integers: [Int] {
     lines.map { Int($0)! }
   }
+  
+  /// Accesses the characters in a columnar layout, instead of by row.
+  subscript(column column: Int) -> LazyMapSequence<[Substring], Character> {
+    lines.lazy.map { row in
+      row[row.index(row.startIndex, offsetBy: column)]
+    }
+  }
 }
 
 struct SlidingWindow<Base> : Collection where Base : Collection {
