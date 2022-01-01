@@ -14,6 +14,8 @@
 		275BCF6C277E5FF100AC2F9C /* Day2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275BCF6B277E5FF100AC2F9C /* Day2.swift */; };
 		277A3493277F2285003EEDB6 /* Day3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277A3492277F2285003EEDB6 /* Day3.swift */; };
 		277A3495277F228D003EEDB6 /* input-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277A3494277F228D003EEDB6 /* input-3.txt */; };
+		277A3497278071C6003EEDB6 /* Day4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277A3496278071C6003EEDB6 /* Day4.swift */; };
+		277A3499278071CE003EEDB6 /* input-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277A3498278071CE003EEDB6 /* input-4.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		275BCF6B277E5FF100AC2F9C /* Day2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2.swift; sourceTree = "<group>"; };
 		277A3492277F2285003EEDB6 /* Day3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day3.swift; sourceTree = "<group>"; };
 		277A3494277F228D003EEDB6 /* input-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-3.txt"; sourceTree = "<group>"; };
+		277A3496278071C6003EEDB6 /* Day4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day4.swift; sourceTree = "<group>"; };
+		277A3498278071CE003EEDB6 /* input-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-4.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				275BCF69277E5FA500AC2F9C /* input-2.txt */,
 				277A3492277F2285003EEDB6 /* Day3.swift */,
 				277A3494277F228D003EEDB6 /* input-3.txt */,
+				277A3496278071C6003EEDB6 /* Day4.swift */,
+				277A3498278071CE003EEDB6 /* input-4.txt */,
 			);
 			path = AoC2021Tests;
 			sourceTree = "<group>";
@@ -170,6 +176,7 @@
 			files = (
 				275BCF6A277E5FA500AC2F9C /* input-2.txt in Resources */,
 				277A3495277F228D003EEDB6 /* input-3.txt in Resources */,
+				277A3499278071CE003EEDB6 /* input-4.txt in Resources */,
 				2740F1E6277C7C930073FD6C /* input-1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +198,7 @@
 				2740F1E1277C7B540073FD6C /* Day1.swift in Sources */,
 				277A3493277F2285003EEDB6 /* Day3.swift in Sources */,
 				275BCF6C277E5FF100AC2F9C /* Day2.swift in Sources */,
+				277A3497278071C6003EEDB6 /* Day4.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
