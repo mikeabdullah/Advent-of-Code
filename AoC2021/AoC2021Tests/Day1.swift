@@ -41,7 +41,7 @@ struct PuzzleInput {
     else { throw CocoaError(.fileNoSuchFile) }
     
     let string = try String(contentsOf: url)
-    self.lines = string.split(separator: "\n")
+    self.lines = string.split(separator: "\n", omittingEmptySubsequences: false).dropLast()
   }
   
   /// The puzzle input interpreted to be a list of integers.
