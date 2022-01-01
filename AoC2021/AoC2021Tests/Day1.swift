@@ -55,8 +55,17 @@ extension Collection where Element : Collection {
   /// Accesses the elements in a columnar layout, instead of by row.
   subscript(column column: Int) -> LazyMapSequence<Self, Element.Element> {
     self.lazy.map { row in
-      row[row.index(row.startIndex, offsetBy: column)]
+      row[offset: column]
     }
+  }
+}
+
+extension Collection {
+  
+  /// Convenience to access element by offset within the collection, rather than index.
+  /// - Complexity: O(n) where _n_ is the offset, unless collection is random access, then O(1).
+  subscript(offset offset: Int) -> Element {
+    self[index(startIndex, offsetBy: offset)]
   }
 }
 

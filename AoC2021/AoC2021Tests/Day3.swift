@@ -12,7 +12,6 @@ class Day3: XCTestCase {
   func testPart1() throws {
     let input = try PuzzleInput(named: "input-3")
     
-    /// the number of ones in each column
     let mostCommon = (0..<12).map { input.lines[column: $0].mostCommon()! }
     let leastCommon = (0..<12).map { input.lines[column: $0].leastCommon()! }
     
@@ -22,6 +21,32 @@ class Day3: XCTestCase {
     XCTAssertEqual(gammaRate * epsilonRate, 3309596)
   }
 
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input-3")
+    
+    var oxygenNumbers = input.lines
+    for index in 0..<12 {
+      let counts = oxygenNumbers[column: index].elementCounts
+      let count1 = counts["1"] ?? 0
+      let count0 = counts["0"] ?? 0
+      let mostCommon: Character = count1 >= count0 ? "1" : "0"
+      oxygenNumbers = oxygenNumbers.filter { $0[offset: index] == mostCommon }
+    }
+    
+    var co2Numbers = input.lines
+    for index in 0..<12 {
+      let counts = co2Numbers[column: index].elementCounts
+      let count1 = counts["1"] ?? 0
+      let count0 = counts["0"] ?? 0
+      let leastCommon: Character = count0 <= count1 ? "0" : "1"
+      co2Numbers = co2Numbers.filter { $0[offset: index] == leastCommon }
+      if co2Numbers.count == 1 { break }
+    }
+    
+    let oxygen = try XCTUnwrap(Int(String(oxygenNumbers[0]), radix: 2))
+    let co2 = try XCTUnwrap(Int(String(co2Numbers[0]), radix: 2))
+    XCTAssertEqual(oxygen * co2, 2981085)
+  }
 }
 
 extension Sequence where Element : Hashable {
