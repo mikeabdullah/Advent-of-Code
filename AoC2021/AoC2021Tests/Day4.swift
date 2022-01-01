@@ -19,10 +19,7 @@ class Day4: XCTestCase {
   
   func testPart1() throws {
     let input = try PuzzleInput(named: "input-4")
-    
-    // Build the boards
-    let boardLines = input.lines.dropFirst(2).split(separator: "")
-    let boards = boardLines.map(Board.init)
+    let boards = input.boards
     
     // Let's play!
     var drawnNumbers = Set<Int>()
@@ -75,5 +72,13 @@ class Day4: XCTestCase {
         || range.allSatisfy{ drawnNumbers.contains(self[$0,n]) }
       }
     }
+  }
+}
+
+fileprivate extension PuzzleInput {
+  
+  /// Interpets the input as a series of bingo boards.
+  var boards: [Day4.Board] {
+    lines.dropFirst(2).split(separator: "").map(Day4.Board.init)
   }
 }
