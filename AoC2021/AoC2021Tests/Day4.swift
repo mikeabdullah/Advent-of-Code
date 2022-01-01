@@ -38,7 +38,32 @@ class Day4: XCTestCase {
     }
   }
   
-  struct Board {
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input-4")
+    
+    // Play until all boards are complete
+    var boards = Set(input.boards)
+    var drawnNumbers = Set<Int>()
+    
+    for drawn in input.lines[0].split(separator: ",") {
+      let number = Int(drawn)!
+      XCTAssertTrue(drawnNumbers.insert(number).inserted, "Any one number should only be drawn once")
+      
+      // Stop processing any completed boards
+      for completed in boards.lazy.filter({ $0.isComplete(for: drawnNumbers) }) {
+        boards.remove(completed)
+        
+        // Have we found the last one?
+        if boards.isEmpty {
+          let unmarkedNumbers = completed.numbers.joined().lazy.filter { !drawnNumbers.contains($0) }
+          XCTAssertEqual(unmarkedNumbers.sum() * number, 7075)
+          return
+        }
+      }
+    }
+  }
+  
+  struct Board : Hashable {
     
     init(rows: ArraySlice<Substring>) {
       numbers = rows.map { row in
