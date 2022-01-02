@@ -17,7 +17,7 @@ class Day5: XCTestCase {
     var visitedPoints = Set<SIMD2<Int>>()
     var doubleVisited = Set<SIMD2<Int>>()
     
-    for segment in segments {
+    for segment in segments where segment.isAxisAligned {
       for point in segment.points {
         if visitedPoints.contains(point) {
           doubleVisited.insert(point)
@@ -89,6 +89,10 @@ class Day5: XCTestCase {
           SIMD2(x: x, y: y)
         }
       }
+    }
+    
+    var isAxisAligned: Bool {
+      start.x == end.x || start.y == end.y
     }
   }
 }
