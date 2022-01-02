@@ -31,6 +31,28 @@ class Day5: XCTestCase {
     XCTAssertEqual(doubleVisited.count, 8622)
   }
   
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input-5")
+    
+    let segments = input.lines.map(LineSegment.init)
+    
+    var visitedPoints = Set<SIMD2<Int>>()
+    var doubleVisited = Set<SIMD2<Int>>()
+    
+    for segment in segments {
+      for point in segment.points {
+        if visitedPoints.contains(point) {
+          doubleVisited.insert(point)
+        }
+        else {
+          visitedPoints.insert(point)
+        }
+      }
+    }
+    
+    XCTAssertEqual(doubleVisited.count, 22037)
+  }
+  
   struct LineSegment {
     
     init(start: SIMD2<Int>, end: SIMD2<Int>) {
@@ -47,7 +69,7 @@ class Day5: XCTestCase {
     var start: SIMD2<Int>
     var end: SIMD2<Int>
     
-    /// The points that a horizontal or vertical line passes through.
+    /// The points that a  line passes through.
     var points: [SIMD2<Int>] {
       
       if start.x == end.x {
@@ -61,7 +83,11 @@ class Day5: XCTestCase {
         }
       }
       else {
-        return []
+        let tuples = zip(stride(from: start.x, through: end.x, by: end.x > start.x ? 1 : -1),
+                         stride(from: start.y, through: end.y, by: end.y > start.y ? 1 : -1))
+        return tuples.map { x, y in
+          SIMD2(x: x, y: y)
+        }
       }
     }
   }
