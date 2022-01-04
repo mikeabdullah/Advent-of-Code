@@ -53,9 +53,8 @@ class Day6: XCTestCase {
     mutating func performSimulation() {
       
       // Each day the fish's timers tick down. Any 0's become 6, and add another 8 to the list
-      let spawners = timerValues.removeFirst()
-      timerValues[6] += spawners
-      timerValues.append(spawners)
+      timerValues.rotate(toStartAt: 1)  // the 0 timer fish have effectively become new fish with a value of 8
+      timerValues[6] += timerValues[8]
     }
   }
 }
