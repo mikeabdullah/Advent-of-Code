@@ -21,6 +21,18 @@ class Day6: XCTestCase {
     XCTAssertEqual(simulation.timerValues.count, 374994)
   }
   
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input-6")
+    
+    var simulation = FishSimulation(timerValues: input.lines[0].lazy.split(separator: ",").map { Int($0)! })
+    
+    for _ in 1...256 {
+      simulation.performSimulation()
+    }
+    
+    XCTAssertEqual(simulation.timerValues.count, 374994)
+  }
+  
   struct FishSimulation {
     
     /// The internal timers of each fish.
