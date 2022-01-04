@@ -18,6 +18,8 @@
 		277A3495277F228D003EEDB6 /* input-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277A3494277F228D003EEDB6 /* input-3.txt */; };
 		277A3497278071C6003EEDB6 /* Day4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277A3496278071C6003EEDB6 /* Day4.swift */; };
 		277A3499278071CE003EEDB6 /* input-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 277A3498278071CE003EEDB6 /* input-4.txt */; };
+		27B3162D2784BD2A002FE1FB /* Day6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B3162C2784BD2A002FE1FB /* Day6.swift */; };
+		27B3162F2784BDB5002FE1FB /* input-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27B3162E2784BDB5002FE1FB /* input-6.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		277A3494277F228D003EEDB6 /* input-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-3.txt"; sourceTree = "<group>"; };
 		277A3496278071C6003EEDB6 /* Day4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day4.swift; sourceTree = "<group>"; };
 		277A3498278071CE003EEDB6 /* input-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-4.txt"; sourceTree = "<group>"; };
+		27B3162C2784BD2A002FE1FB /* Day6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day6.swift; sourceTree = "<group>"; };
+		27B3162E2784BDB5002FE1FB /* input-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "input-6.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 				277A3498278071CE003EEDB6 /* input-4.txt */,
 				275AC0272782536800ABA7D4 /* Day5.swift */,
 				275AC0292782536F00ABA7D4 /* input-5.txt */,
+				27B3162C2784BD2A002FE1FB /* Day6.swift */,
+				27B3162E2784BDB5002FE1FB /* input-6.txt */,
 			);
 			path = AoC2021Tests;
 			sourceTree = "<group>";
@@ -184,6 +190,7 @@
 				277A3495277F228D003EEDB6 /* input-3.txt in Resources */,
 				277A3499278071CE003EEDB6 /* input-4.txt in Resources */,
 				275AC02A2782536F00ABA7D4 /* input-5.txt in Resources */,
+				27B3162F2784BDB5002FE1FB /* input-6.txt in Resources */,
 				2740F1E6277C7C930073FD6C /* input-1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2740F1E1277C7B540073FD6C /* Day1.swift in Sources */,
+				27B3162D2784BD2A002FE1FB /* Day6.swift in Sources */,
 				275AC0282782536800ABA7D4 /* Day5.swift in Sources */,
 				277A3493277F2285003EEDB6 /* Day3.swift in Sources */,
 				275BCF6C277E5FF100AC2F9C /* Day2.swift in Sources */,
