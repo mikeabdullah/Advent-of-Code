@@ -12,21 +12,32 @@ class Day6: XCTestCase {
   func testPart1() throws {
     let input = try PuzzleInput(named: "input-6")
     
-    var timers: [Int] = input.lines[0].lazy.split(separator: ",").map { Int($0)! }
+    var simulation = FishSimulation(timerValues: input.lines[0].lazy.split(separator: ",").map { Int($0)! })
     
     for _ in 1...80 {
+      simulation.performSimulation()
+    }
+    
+    XCTAssertEqual(simulation.timerValues.count, 374994)
+  }
+  
+  struct FishSimulation {
+    
+    /// The internal timers of each fish.
+    private(set) var timerValues: [Int]
+    
+    /// Simulates a single day's lifecycle
+    mutating func performSimulation() {
       // Each day the fish's timers tick down. Any 0's become 6, and add another 8 to the list
-      for index in timers.indices {
-        if timers[index] == 0 {
-          timers[index] = 6
-          timers.append(8)
+      for index in timerValues.indices {
+        if timerValues[index] == 0 {
+          timerValues[index] = 6
+          timerValues.append(8)
         }
         else {
-          timers[index] -= 1
+          timerValues[index] -= 1
         }
       }
     }
-    
-    XCTAssertEqual(timers.count, 374994)
   }
 }
