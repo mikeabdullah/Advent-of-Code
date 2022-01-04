@@ -30,32 +30,32 @@ class Day6: XCTestCase {
       simulation.performSimulation()
     }
     
-    XCTAssertEqual(simulation.numberOfFish, 374994)
+    XCTAssertEqual(simulation.numberOfFish, 1686252324092)
   }
   
   struct FishSimulation {
     
     init(input: PuzzleInput) {
-      self.timerValues = input.lines[0].lazy.split(separator: ",").map { Int($0)! }
+      let timerValues = input.lines[0].lazy.split(separator: ",").map { Int($0)! }
+      
+      self.timerValues = timerValues.reduce(into: Array(repeating: 0, count: 9)) { partialResult, value in
+        partialResult[value] += 1
+      }
+      XCTAssertEqual(self.numberOfFish, timerValues.count)
     }
     
-    /// The internal timers of each fish.
+    /// Each index in ths array corresponds to a timer value, and contains the number of fish that currently have that timer.
     private var timerValues: [Int]
     
-    var numberOfFish: Int { timerValues.count }
+    var numberOfFish: Int { timerValues.sum() }
     
     /// Simulates a single day's lifecycle
     mutating func performSimulation() {
+      
       // Each day the fish's timers tick down. Any 0's become 6, and add another 8 to the list
-      for index in timerValues.indices {
-        if timerValues[index] == 0 {
-          timerValues[index] = 6
-          timerValues.append(8)
-        }
-        else {
-          timerValues[index] -= 1
-        }
-      }
+      let spawners = timerValues.removeFirst()
+      timerValues[6] += spawners
+      timerValues.append(spawners)
     }
   }
 }
