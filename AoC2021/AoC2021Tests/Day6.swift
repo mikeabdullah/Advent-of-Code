@@ -13,11 +13,7 @@ class Day6: XCTestCase {
     let input = try PuzzleInput(named: "input-6")
     
     var simulation = FishSimulation(input: input)
-
-    for _ in 1...80 {
-      simulation.performSimulation()
-    }
-    
+    simulation.simulate(until: 80)
     XCTAssertEqual(simulation.numberOfFish, 374994)
   }
   
@@ -25,11 +21,7 @@ class Day6: XCTestCase {
     let input = try PuzzleInput(named: "input-6")
     
     var simulation = FishSimulation(input: input)
-    
-    for _ in 1...256 {
-      simulation.performSimulation()
-    }
-    
+    simulation.simulate(until: 256)
     XCTAssertEqual(simulation.numberOfFish, 1686252324092)
   }
   
@@ -59,6 +51,13 @@ class Day6: XCTestCase {
       timerValues.rotate(toStartAt: 1)  // the 0 timer fish have effectively become new fish with a value of 8
       timerValues[6] += timerValues[8]
       self.day += 1
+    }
+    
+    /// Performs a number of simulations until the desired day is reached.
+    mutating func simulate(until day: Int) {
+      while self.day < day {
+        self.performSimulation()
+      }
     }
   }
 }
