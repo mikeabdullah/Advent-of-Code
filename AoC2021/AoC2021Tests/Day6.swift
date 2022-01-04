@@ -49,12 +49,16 @@ class Day6: XCTestCase {
     
     var numberOfFish: Int { timerValues.sum() }
     
+    /// The day of the simulation we're currently on.
+    private(set) var day = 0
+    
     /// Simulates a single day's lifecycle
     mutating func performSimulation() {
       
       // Each day the fish's timers tick down. Any 0's become 6, and add another 8 to the list
       timerValues.rotate(toStartAt: 1)  // the 0 timer fish have effectively become new fish with a value of 8
       timerValues[6] += timerValues[8]
+      self.day += 1
     }
   }
 }
