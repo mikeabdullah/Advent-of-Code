@@ -18,6 +18,32 @@ class Day7: XCTestCase {
     XCTAssertEqual(positions.totalDistanceToAlign(to: positions.mode), 356922)
   }
   
+  func testPart2() throws {
+    let input = try PuzzleInput(named: "input-7")
+    let positions = SubPositions(input: input.lines[0])
+    
+    // Start at the middle
+    var position = positions.mode
+    var fuel = positions.totalFuelToAlign(to: position)
+    
+    // Search in either direction for a better solution
+    var lower = positions.totalFuelToAlign(to: position - 1)
+    while lower < fuel {
+      position -= 1
+      fuel = lower
+      lower = positions.totalFuelToAlign(to: position - 1)
+    }
+    
+    var higher = positions.totalFuelToAlign(to: position + 1)
+    while higher < fuel {
+      position += 1
+      fuel = higher
+      higher = positions.totalFuelToAlign(to: position + 1)
+    }
+    
+    XCTAssertEqual(fuel, 100347031)
+  }
+  
   struct SubPositions {
     
     init<S>(input: S) where S : StringProtocol {
@@ -37,6 +63,20 @@ class Day7: XCTestCase {
         abs($0.distance(to: position))
       }
       return adjustments.sum()
+    }
+    
+    func totalFuelToAlign(to position: Int) -> Int {
+      
+      let distances = positions.lazy.map {
+        abs($0.distance(to: position))
+      }
+      
+      // Fuel grows as a triangular number corresponding to distance
+      let fuel = distances.map { n in
+        n * (n + 1) / 2
+      }
+      
+      return fuel.sum()
     }
   }
 }
