@@ -9,19 +9,10 @@ import XCTest
 
 final class Day2: XCTestCase {
   
-  enum HandShape {
-    case rock
-    case paper
-    case scissors
-    
-    /// The points a choice of shape is intrisically worth apparently.
-    var score: Int {
-      switch self {
-      case .rock: return 1
-      case .paper: return 2
-      case .scissors: return 3
-      }
-    }
+  enum HandShape: Int {
+    case rock = 1
+    case paper = 2
+    case scissors = 3
     
     func outcome(against other: HandShape) -> Outcome {
       switch (self, other) {
@@ -73,7 +64,7 @@ final class Day2: XCTestCase {
     
     var score = 0
     for line in lines {
-      score += line.ownChoice.score
+      score += line.ownChoice.rawValue
       score += line.ownChoice.outcome(against: line.opponentChoice).rawValue
     }
     
