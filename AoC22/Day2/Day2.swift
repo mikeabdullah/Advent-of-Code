@@ -23,16 +23,22 @@ final class Day2: XCTestCase {
       }
     }
     
-    func score(against other: HandShape) -> Int {
+    func outcome(against other: HandShape) -> Outcome {
       switch (self, other) {
       case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
-        return 6  // rock beats scissors, paper beats rock, etc.
+        return .win  // rock beats scissors, paper beats rock, etc.
       case (.rock, .rock), (.paper, .paper), (.scissors, .scissors):
-        return 3  // draws
+        return .draw
       case (.rock, .paper), (.paper, .scissors), (.scissors, .rock):
-        return 0  // loss
+        return .lose
       }
     }
+  }
+  
+  enum Outcome: Int {
+    case win = 6
+    case draw = 3
+    case lose = 0
   }
   
   /// A single line from the guideline.
@@ -68,7 +74,7 @@ final class Day2: XCTestCase {
     var score = 0
     for line in lines {
       score += line.ownChoice.score
-      score += line.ownChoice.score(against: line.opponentChoice)
+      score += line.ownChoice.outcome(against: line.opponentChoice).rawValue
     }
     
     XCTAssertEqual(score, 11063)
