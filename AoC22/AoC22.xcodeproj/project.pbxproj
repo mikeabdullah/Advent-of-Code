@@ -38,7 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				27E42BD02959E2D9009D6B10 /* PuzzleInput.swift */,
-				27E42BC82959E1D1009D6B10 /* AoC */,
+				27E42BC82959E1D1009D6B10 /* Day1 */,
 				27E42BD32959E5CD009D6B10 /* Day2 */,
 				27E42BB22959E10A009D6B10 /* Products */,
 			);
@@ -52,13 +52,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		27E42BC82959E1D1009D6B10 /* AoC */ = {
+		27E42BC82959E1D1009D6B10 /* Day1 */ = {
 			isa = PBXGroup;
 			children = (
 				27E42BC92959E1D1009D6B10 /* Day1.swift */,
 				27E42BCE2959E29D009D6B10 /* input-1.txt */,
 			);
-			path = AoC;
+			path = Day1;
 			sourceTree = "<group>";
 		};
 		27E42BD32959E5CD009D6B10 /* Day2 */ = {
