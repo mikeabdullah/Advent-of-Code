@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Algorithms
 
 final class Day3: XCTestCase {
   
@@ -51,6 +52,24 @@ final class Day3: XCTestCase {
     }
     
     XCTAssertEqual(total, 8240)
+  }
+  
+  func testPart2() throws {
+    let input = try PuzzleInput(day: 3)
+        
+    var total = 0
+    for group in input.lines.chunks(ofCount: 3) {
+      // Find the items in common within the group
+      // Shouldn't need to make a temp set, but something's going wrong without
+      var commonItems = Set(group.first!.unicodeScalars)
+      for contentsString in group.dropFirst() {
+        commonItems.formIntersection(Set(contentsString.unicodeScalars))
+      }
+      assert(commonItems.count == 1, "There's only supposed to be one item on common")
+      total += commonItems.first!.priority
+    }
+    
+    XCTAssertEqual(total, 2587)
   }
 }
 
