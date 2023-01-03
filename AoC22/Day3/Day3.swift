@@ -12,12 +12,16 @@ final class Day3: XCTestCase {
   func testPart1() throws {
     let input = try PuzzleInput(day: 3)
     
-    let rucksacks = input.lines.map { contentsString in
-      Rucksack(contents: contentsString)
+    let world = World()
+    
+    // Create an entity for each rucksack
+    for contentsString in input.lines {
+      let entity = world.create()
+      world.set(Rucksack(contents: contentsString), for: entity)
     }
     
     var total = 0
-    for rucksack in rucksacks {
+    for (_, rucksack) in world.entities(thatHave: Rucksack.self) {
       let firstSet = Set(rucksack.firstCompartment)
       let secondSet = Set(rucksack.secondCompartment)
       for item in firstSet.intersection(secondSet) {
@@ -28,7 +32,7 @@ final class Day3: XCTestCase {
     XCTAssertEqual(total, 8240)
   }
   
-  struct Rucksack {
+  struct Rucksack: Component {
     
     init(contents: Substring) {
       self.contents = contents.utf8.map { itemType in
