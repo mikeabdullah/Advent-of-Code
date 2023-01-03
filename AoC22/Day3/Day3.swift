@@ -12,26 +12,20 @@ final class Day3: XCTestCase {
   struct Rucksack: Component {
     
     init(contents: Substring) {
-      self.contents = contents.utf8.map { itemType in
-        if itemType >= 97 {
-          return itemType - 97 + 1  // 97 = a in unicode
-        } else {
-          return itemType - 65 + 27 // 65 = A in unicode
-        }
-      }
+      self.contents = contents.unicodeScalars.map(\.priority)
     }
     
-    let contents: [UTF8Char]
+    let contents: [Int]
     
-    var firstCompartment: ArraySlice<UTF8Char> {
+    var firstCompartment: ArraySlice<Int> {
       contents.prefix(upTo: contents.count / 2)
     }
     
-    var secondCompartment: ArraySlice<UTF8Char> {
+    var secondCompartment: ArraySlice<Int> {
       contents.suffix(from: contents.count / 2)
     }
     
-    var compartments: (first: ArraySlice<UTF8Char>, second: ArraySlice<UTF8Char>) {
+    var compartments: (first: ArraySlice<Int>, second: ArraySlice<Int>) {
       (firstCompartment, secondCompartment)
     }
   }
@@ -52,10 +46,23 @@ final class Day3: XCTestCase {
       let firstSet = Set(rucksack.firstCompartment)
       let secondSet = Set(rucksack.secondCompartment)
       for item in firstSet.intersection(secondSet) {
-        total += Int(item)
+        total += item
       }
     }
     
     XCTAssertEqual(total, 8240)
+  }
+}
+
+private extension UnicodeScalar {
+  
+  var priority: Int {
+    if properties.isLowercase {
+      return Int(value) - 97 + 1  // 97 = a in unicode
+    } else if properties.isUppercase {
+      return Int(value) - 65 + 27 // 65 = A in unicode
+    } else {
+      preconditionFailure("Unsupported item type")
+    }
   }
 }
