@@ -40,7 +40,7 @@ final class Day3: XCTestCase {
     // Create an entity for each rucksack
     for contentsString in input.lines {
       let entity = world.create()
-      world.set(Rucksack(contents: contentsString), for: entity)
+      world.set(rucksackComponent, Rucksack(contents: contentsString), for: entity)
     }
     
     var total = 0

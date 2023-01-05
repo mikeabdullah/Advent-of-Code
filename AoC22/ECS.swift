@@ -64,8 +64,8 @@ final class World {
     return table.map[entity]
   }
   
-  func set<C>(_ component: C?, for entity: Entity) where C : Component {
-    let index = registerComponentIfNeeded(C.self).entity.rawValue
+  func set<C>(_ registration: RegisteredComponent<C>, _ component: C?, for entity: Entity) where C : Component {
+    let index = registration.entity.rawValue
     let table = componentTables[index] as! ComponentTable<C>
     table.map[entity] = component
   }
