@@ -35,6 +35,7 @@ final class Day3: XCTestCase {
     let input = try PuzzleInput(day: 3)
     
     let world = World()
+    let rucksackComponent = world.registerComponent(Rucksack.self)
     
     // Create an entity for each rucksack
     for contentsString in input.lines {
@@ -43,7 +44,7 @@ final class Day3: XCTestCase {
     }
     
     var total = 0
-    for (_, rucksack) in world.entities(thatHave: Rucksack.self) {
+    for (_, rucksack) in world.entities(thatHave: rucksackComponent) {
       let firstSet = Set(rucksack.firstCompartment)
       let secondSet = Set(rucksack.secondCompartment)
       for item in firstSet.intersection(secondSet) {

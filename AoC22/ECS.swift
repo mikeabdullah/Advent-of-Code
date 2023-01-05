@@ -18,8 +18,8 @@ final class World {
   }
   
   /// Queries for all entities that have a given component type.
-  func entities<C>(thatHave componentType: C.Type) -> [Entity: C] where C : Component {
-    let index = registerComponentIfNeeded(C.self).entity.rawValue
+  func entities<C>(thatHave component: RegisteredComponent<C>) -> [Entity: C] where C : Component {
+    let index = component.entity.rawValue
     let table = componentTables[index] as! ComponentTable<C>
     return table.map
   }
