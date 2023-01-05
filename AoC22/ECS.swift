@@ -59,9 +59,8 @@ final class World {
   
   private var componentTables: [AnyObject] = []
   
-  func get<C>(_ componentType: C.Type, for entity: Entity) -> C? where C : Component {
-    let index = registerComponentIfNeeded(componentType).entity.rawValue
-    let table = componentTables[index] as! ComponentTable<C>
+  func get<C>(_ component: RegisteredComponent<C>, for entity: Entity) -> C? where C : Component {
+    let table = componentTables[component.entity.rawValue] as! ComponentTable<C>
     return table.map[entity]
   }
   
