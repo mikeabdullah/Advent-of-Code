@@ -59,15 +59,16 @@ final class World {
   
   private var componentTables: [AnyObject] = []
   
-  func get<C>(_ component: RegisteredComponent<C>, for entity: Entity) -> C? where C : Component {
-    let table = componentTables[component.entity.rawValue] as! ComponentTable<C>
-    return table.map[entity]
-  }
-  
-  func set<C>(_ registration: RegisteredComponent<C>, _ component: C?, for entity: Entity) where C : Component {
-    let index = registration.entity.rawValue
-    let table = componentTables[index] as! ComponentTable<C>
-    table.map[entity] = component
+  subscript<C: Component>(component: RegisteredComponent<C>, for entity: Entity) -> C? {
+    get {
+      let table = componentTables[component.entity.rawValue] as! ComponentTable<C>
+      return table.map[entity]
+    }
+    set {
+      let index = component.entity.rawValue
+      let table = componentTables[index] as! ComponentTable<C>
+      table.map[entity] = newValue
+    }
   }
   
   /// Simple mapping of components stored per entity.
