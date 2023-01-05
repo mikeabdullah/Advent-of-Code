@@ -19,36 +19,39 @@ final class World {
   
   /// Queries for all entities that have a given component type.
   func entities<C>(thatHave componentType: C.Type) -> [Entity: C] where C : Component {
-    let index = registerComponentIfNeeded(C.self).rawValue
+    let index = registerComponentIfNeeded(C.self).entity.rawValue
     let table = componentTables[index] as! ComponentTable<C>
     return table.map
   }
   
   // MARK: Component Registration
   
-  typealias RegisteredComponent = Entity
+  struct RegisteredComponent<C> where C: Component {
+    
+    let entity: Entity
+  }
   
   private var registeredComponents = [Component.Type]()
   
   /// Explicitly register a component.
-  func registerComponent<C>(_ componentType: C.Type) -> RegisteredComponent where C : Component {
+  func registerComponent<C>(_ componentType: C.Type) -> RegisteredComponent<C> where C : Component {
     precondition(registeredComponents.endIndex <= 64, "Maximum components exceeded")
     let entity = Entity(rawValue: registeredComponents.endIndex)
     registeredComponents.append(componentType)
     componentTables.append(ComponentTable<C>())
-    return entity
+    return RegisteredComponent(entity: entity)
   }
   
   /// Looks up the index/entity a component type has been registered for.
   /// - Complexity: O(n) where _n_ is number of registered components.
-  func registration(for componentType: Component.Type) -> RegisteredComponent? {
+  func registration<C>(for componentType: C.Type) -> RegisteredComponent<C>? where C : Component {
     guard let index = registeredComponents.firstIndex(where: { $0 == componentType }) else {
       return nil
     }
-    return RegisteredComponent(rawValue: index)
+    return RegisteredComponent(entity: Entity(rawValue: index))
   }
   
-  func registerComponentIfNeeded(_ componentType: Component.Type) -> RegisteredComponent {
+  func registerComponentIfNeeded<C>(_ componentType: C.Type) -> RegisteredComponent<C> where C : Component {
     return registration(for: componentType) ?? registerComponent(componentType)
   }
   
@@ -57,13 +60,13 @@ final class World {
   private var componentTables: [AnyObject] = []
   
   func get<C>(_ componentType: C.Type, for entity: Entity) -> C? where C : Component {
-    let index = registerComponentIfNeeded(componentType).rawValue
+    let index = registerComponentIfNeeded(componentType).entity.rawValue
     let table = componentTables[index] as! ComponentTable<C>
     return table.map[entity]
   }
   
   func set<C>(_ component: C?, for entity: Entity) where C : Component {
-    let index = registerComponentIfNeeded(C.self).rawValue
+    let index = registerComponentIfNeeded(C.self).entity.rawValue
     let table = componentTables[index] as! ComponentTable<C>
     table.map[entity] = component
   }
