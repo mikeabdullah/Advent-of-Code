@@ -37,10 +37,10 @@ final class Day3: XCTestCase {
     let world = World()
     let rucksackComponent = world.registerComponent(Rucksack.self)
     
-    // Create an entity for each rucksack
+    // Create an entity for each elf and its rucksack
     for contentsString in input.lines {
-      let entity = world.create()
-      world[rucksackComponent, for: entity] = Rucksack(contents: contentsString)
+      let elf = world.create()
+      world[rucksackComponent, for: elf] = Rucksack(contents: contentsString)
     }
     
     var total = 0
