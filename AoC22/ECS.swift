@@ -42,19 +42,6 @@ final class World {
     return RegisteredComponent(entity: entity)
   }
   
-  /// Looks up the index/entity a component type has been registered for.
-  /// - Complexity: O(n) where _n_ is number of registered components.
-  func registration<C>(for componentType: C.Type) -> RegisteredComponent<C>? where C : Component {
-    guard let index = registeredComponents.firstIndex(where: { $0 == componentType }) else {
-      return nil
-    }
-    return RegisteredComponent(entity: Entity(rawValue: index))
-  }
-  
-  func registerComponentIfNeeded<C>(_ componentType: C.Type) -> RegisteredComponent<C> where C : Component {
-    return registration(for: componentType) ?? registerComponent(componentType)
-  }
-  
   // MARK: Accessing Components
   
   private var componentTables: [AnyObject] = []
