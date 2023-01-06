@@ -26,9 +26,13 @@ final class World {
   
   // MARK: Component Registration
   
-  struct ComponentRegistration<C> where C: Component {
+  class ComponentRegistration<C> where C: Component {
     
-    let entity: Entity
+    fileprivate init(entity: Entity) {
+      self.entity = entity
+    }
+    
+    fileprivate let entity: Entity
   }
   
   private var registeredComponents = [Component.Type]()
