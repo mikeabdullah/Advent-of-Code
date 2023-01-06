@@ -19,9 +19,7 @@ final class World {
   
   /// Queries for all entities that have a given component type.
   func entities<C>(thatHave component: ComponentRegistration<C>) -> [Entity: C] where C : Component {
-    let index = component.entity.rawValue
-    let table = componentTables[index] as! ComponentTable<C>
-    return table.map
+    return component.table
   }
   
   // MARK: Component Registration
@@ -33,39 +31,30 @@ final class World {
     }
     
     fileprivate let entity: Entity
+    
+    /// Simple mapping of components stored per entity.
+    fileprivate var table = [Entity: C]()
   }
-  
-  private var registeredComponents = [Component.Type]()
   
   /// Explicitly register a component.
   func registerComponent<C>(_ componentType: C.Type) -> ComponentRegistration<C> where C : Component {
     precondition(registeredComponents.endIndex <= 64, "Maximum components exceeded")
-    let entity = Entity(rawValue: registeredComponents.endIndex)
-    registeredComponents.append(componentType)
-    componentTables.append(ComponentTable<C>())
-    return ComponentRegistration(entity: entity)
+    let registration = ComponentRegistration<C>(entity: Entity(rawValue: registeredComponents.endIndex))
+    registeredComponents.append(registration)
+    return registration
   }
   
   // MARK: Accessing Components
   
-  private var componentTables: [AnyObject] = []
+  private var registeredComponents: [AnyObject] = []
   
   subscript<C: Component>(component: ComponentRegistration<C>, for entity: Entity) -> C? {
     get {
-      let table = componentTables[component.entity.rawValue] as! ComponentTable<C>
-      return table.map[entity]
+      return component.table[entity]
     }
     set {
-      let index = component.entity.rawValue
-      let table = componentTables[index] as! ComponentTable<C>
-      table.map[entity] = newValue
+      component.table[entity] = newValue
     }
-  }
-  
-  /// Simple mapping of components stored per entity.
-  private final class ComponentTable<C> where C: Component {
-    
-    var map = [Entity: C]()
   }
 }
 
