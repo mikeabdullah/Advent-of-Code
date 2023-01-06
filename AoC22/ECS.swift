@@ -18,7 +18,7 @@ final class World {
   }
   
   /// Queries for all entities that have a given component type.
-  func entities<C>(thatHave component: RegisteredComponent<C>) -> [Entity: C] where C : Component {
+  func entities<C>(thatHave component: ComponentRegistration<C>) -> [Entity: C] where C : Component {
     let index = component.entity.rawValue
     let table = componentTables[index] as! ComponentTable<C>
     return table.map
@@ -26,7 +26,7 @@ final class World {
   
   // MARK: Component Registration
   
-  struct RegisteredComponent<C> where C: Component {
+  struct ComponentRegistration<C> where C: Component {
     
     let entity: Entity
   }
@@ -34,19 +34,19 @@ final class World {
   private var registeredComponents = [Component.Type]()
   
   /// Explicitly register a component.
-  func registerComponent<C>(_ componentType: C.Type) -> RegisteredComponent<C> where C : Component {
+  func registerComponent<C>(_ componentType: C.Type) -> ComponentRegistration<C> where C : Component {
     precondition(registeredComponents.endIndex <= 64, "Maximum components exceeded")
     let entity = Entity(rawValue: registeredComponents.endIndex)
     registeredComponents.append(componentType)
     componentTables.append(ComponentTable<C>())
-    return RegisteredComponent(entity: entity)
+    return ComponentRegistration(entity: entity)
   }
   
   // MARK: Accessing Components
   
   private var componentTables: [AnyObject] = []
   
-  subscript<C: Component>(component: RegisteredComponent<C>, for entity: Entity) -> C? {
+  subscript<C: Component>(component: ComponentRegistration<C>, for entity: Entity) -> C? {
     get {
       let table = componentTables[component.entity.rawValue] as! ComponentTable<C>
       return table.map[entity]
