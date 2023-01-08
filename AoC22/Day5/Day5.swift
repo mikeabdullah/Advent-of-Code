@@ -38,6 +38,34 @@ final class Day5: XCTestCase {
     })
     XCTAssertEqual(top, "TWSGQHNHL")
   }
+  
+  func testPart2() throws {
+    // Load the start state from the input
+    let input = try PuzzleInput(day: 5)
+    let separatorLine = input.lines.firstIndex(of: "")!
+    var stacks = input.stacks(upTo: separatorLine)
+    
+    // Perform the moves
+    for line in input.lines.suffix(from: separatorLine + 1) {
+      let scanner = Scanner(string: String(line))
+      _ = scanner.scanString("move")
+      let numberToMove = scanner.scanInt()!
+      _ = scanner.scanString("from")
+      let fromStack = scanner.scanInt()! - 1
+      _ = scanner.scanString("to")
+      let toStack = scanner.scanInt()! - 1
+      
+      // Effectively move all crates while retaining order
+      stacks[toStack].append(contentsOf: stacks[fromStack].suffix(numberToMove))
+      stacks[fromStack].removeLast(numberToMove)
+    }
+    
+    // Get top of each stack
+    let top = String(stacks.lazy.map { stack in
+      stack.last!
+    })
+    XCTAssertEqual(top, "JNRSCDWPP")
+  }
 }
 
 private extension PuzzleInput {
