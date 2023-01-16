@@ -39,6 +39,11 @@ final class Day6: XCTestCase {
     let input = try PuzzleInput(day: 6).lines[0]
     XCTAssertEqual(input.offsetOfFirstStartOfPacketMarker(), 1100)
   }
+  
+  func testPart2() throws {
+    let input = try PuzzleInput(day: 6).lines[0]
+    XCTAssertEqual(input.offsetOfFirstStartOfMessageMarker(), 2421)
+  }
 }
 
 extension StringProtocol {
@@ -55,6 +60,24 @@ extension StringProtocol {
       
       if characterCounts.count == 4 {
         return n + 4
+      }
+    }
+    
+    return nil
+  }
+  
+  func offsetOfFirstStartOfMessageMarker() -> Int? {
+    let windows = self.windows(ofCount: 14)
+    var characterCounts = CountedSet<Character>(self.prefix(13))
+    
+    // Look for a range where all characters are unique
+    for (n, window) in windows.enumerated() {
+      // Include the new character, prepare to move on to the next window
+      characterCounts.insert(window.last!)
+      defer { characterCounts.remove(window.first!) }
+      
+      if characterCounts.count == 14 {
+        return n + 14
       }
     }
     
